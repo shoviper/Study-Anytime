@@ -13,7 +13,9 @@ async def get_video(video_filename: str):
     video_path = video_directory / video_filename
 
     if not video_path.is_file():
-        return {"error": "Video not found"}
+        files = [f for f in Path().iterdir() if f.is_file()]
+        # return {"error": "Video not found"}
+        return files
 
     # Serve the video file as a response
     return FileResponse(video_path)
