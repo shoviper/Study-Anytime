@@ -20,11 +20,23 @@ async def get_video(course: str, filename: str):
 
     return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
 
-@app.post("/upload/")
-async def upload_file(file: UploadFile):
-    
-    with open(f"{videos_directory}/{file.filename}", "wb") as f:
+@app.post("/videos/upload/{course}")
+async def upload_file(course: str, file: UploadFile):
+    course_directory = videos_directory / course
+
+    if not course_directory.is_dir():
+        course_directory.mkdir(parents=True)
+        
+    file_path = course_directory / file.filename
+
+    if file_path.is_file():
+        return {"error": "Video with the same filename already exists"}
+
+        
+    with open(file_path, "wb") as f:
         f.write(file.file.read())
+    
+    return {"message": "Video uploaded successfully"}
 
 #== USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
