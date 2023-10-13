@@ -10,7 +10,7 @@ app = FastAPI()
 #== VIDEO PLAYER =====================================================================
 videos_directory = Path("videos")
 
-@app.get("/videos/{course}/{filename}")
+@app.get("/video/{course}/{filename}")
 async def get_video(course: str, filename: str):
     
     video_path = videos_directory / course / filename
@@ -20,7 +20,7 @@ async def get_video(course: str, filename: str):
 
     return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
 
-@app.post("/videos/upload/{course}")
+@app.post("/video/upload/{course}")
 async def upload_file(course: str, file: UploadFile):
     course_directory = videos_directory / course
 
@@ -79,7 +79,7 @@ async def post_student_para(id: str, first_name: str, last_name: str, password):
     return {"message": "Instructor added successfully"}
 
 #== USER OTHERS ===========================================================================
-@app.get("/user/student/{username}")
+@app.get("/user/other/{username}")
 async def get_student(username: str):
     
     if username == "all": 
@@ -87,7 +87,7 @@ async def get_student(username: str):
     else:    
         return root.otherUser[int(id)] if int(id) in root.otherUser.keys() else {"error": "OtherUser not found"}
 
-@app.post("/user/student/new/{username}/{first_name}/{last_name}/{password}")
+@app.post("/user/other/new/{username}/{first_name}/{last_name}/{password}")
 async def post_student_para(username: str, first_name: str, last_name: str, password):
     
     if int(username) in root.otherUser.keys():
