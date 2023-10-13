@@ -32,9 +32,10 @@ class Student(User):
         self.enrolls.append(course)
 
 
-class Others(User):
-    def __init__(self, id, first_name, last_name, password) -> None:
-        super().__init__(id, first_name, last_name, password)
+class OtherUser(User):
+    def __init__(self, username, first_name, last_name, password) -> None:
+        super().__init__(first_name, last_name, password)
+        self.username = username
         self.enrolls = []
 
     def enrollCourse(self, course: Course):

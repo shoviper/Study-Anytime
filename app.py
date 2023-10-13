@@ -2,13 +2,18 @@ from fastapi import FastAPI, Request, UploadFile
 from fastapi.responses import FileResponse
 from pathlib import Path
 
-app = FastAPI()
-directory = Path("video_files")
+from database import *
+import transaction
 
-@app.get("/videos/{video_filename}")
-async def get_video(video_filename: str):
+app = FastAPI()
+
+#== VIDEO PLAYER =====================================================================
+videos_directory = Path("videos")
+
+@app.get("/videos/{course}/{filename}")
+async def get_video(course: str, filename: str):
     
-    video_path = directory / video_filename
+    video_path = videos_directory / course / filename
 
     if not video_path.is_file():
         return {"error": "Video not found"}
@@ -18,13 +23,10 @@ async def get_video(video_filename: str):
 @app.post("/upload/")
 async def upload_file(file: UploadFile):
     
-    with open(f"{directory}/{file.filename}", "wb") as f:
+    with open(f"{videos_directory}/{file.filename}", "wb") as f:
         f.write(file.file.read())
 
-
-from database import *
-import transaction
-
+#== USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
 async def get_student(id: str):
     
@@ -43,3 +45,43 @@ async def post_student_para(id: str, first_name: str, last_name: str, password):
     transaction.commit()
     
     return {"message": "Student added successfully"}
+
+#== USER INSTRUCTOR =====================================================================
+@app.get("/user/instructor/{id}")
+async def get_student(id: str):
+    
+    if id == "all": 
+        return root.instructor
+    else:    
+        return root.instructor[int(id)] if int(id) in root.instructor.keys() else {"error": "Instructor not found"}
+
+@app.post("/user/instructor/new/{id}/{first_name}/{last_name}/{password}")
+async def post_student_para(id: str, first_name: str, last_name: str, password):
+    
+    if int(id) in root.instructor.keys():
+        return {"error": "Instructor already exists"}
+    
+    root.instructor[int(id)] = Instructor(int(id), first_name, last_name, password)
+    transaction.commit()
+    
+    return {"message": "Instructor added successfully"}
+
+#== USER OTHERS ===========================================================================
+@app.get("/user/student/{username}")
+async def get_student(username: str):
+    
+    if username == "all": 
+        return root.otherUser
+    else:    
+        return root.otherUser[int(id)] if int(id) in root.otherUser.keys() else {"error": "OtherUser not found"}
+
+@app.post("/user/student/new/{username}/{first_name}/{last_name}/{password}")
+async def post_student_para(username: str, first_name: str, last_name: str, password):
+    
+    if int(username) in root.otherUser.keys():
+        return {"error": "OtherUser already exists"}
+    
+    root.otherUser[username] = OtherUser(username, first_name, last_name, password)
+    transaction.commit()
+    
+    return {"message": "OtherUser added successfully"}
