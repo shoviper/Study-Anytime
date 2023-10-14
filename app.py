@@ -13,48 +13,38 @@ videos_directory = Path("videos")
 @app.get("/video/{course_id}/{filename}")
 async def get_video(course_id: int, filename: str):
     video_path = videos_directory / str(course_id) / filename
-    connection = db.open()
-    root = connection.root
-    try:
-        if not course_id in root.course.keys():
-            raise HTTPException(404, detail="db_error: Course not found")
+    if not course_id in root.course.keys():
+        raise HTTPException(404, detail="db_error: Course not found")
 
-        if not root.course[course_id].isIn(Video(filename)):
-            raise HTTPException(404, detail="db_error: Video not found")
+    if not root.course[course_id].isIn(Video(filename)):
+        raise HTTPException(404, detail="db_error: Video not found")
 
-        if not video_path.is_file():
-            raise HTTPException(404, detail="fs_error: Video not found")
+    if not video_path.is_file():
+        raise HTTPException(404, detail="fs_error: Video not found")
 
-        return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
-    finally:
-        connection.close()
+    return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
 
 @app.post("/video/upload/{course_id}/{instructor_id}")
 async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     course_directory = videos_directory / str(course_id)
-    connection = db.open()
-    root = connection.root
-    try:
-        if not instructor_id in root.instructor.keys():
-            raise HTTPException(404, detail="db_error: Instructor not found")
+    if not instructor_id in root.instructor.keys():
+        raise HTTPException(404, detail="db_error: Instructor not found")
 
-        file_path = course_directory / file.filename
+    file_path = course_directory / file.filename
 
-        if root.course[course_id].isIn(Video(file.filename)):
-            raise HTTPException(404, detail="db_error: Video with the same filename already exists")
+    if root.course[course_id].isIn(Video(file.filename)):
+        raise HTTPException(404, detail="db_error: Video with the same filename already exists")
 
-        if file_path.is_file():
-            raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
+    if file_path.is_file():
+        raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
 
-        with open(file_path, "wb") as f:
-            f.write(file.file.read())
+    with open(file_path, "wb") as f:
+        f.write(file.file.read())
 
-        root.course[course_id].addVideo(file.filename)
-        transaction.commit()
+    root.course[course_id].addVideo(file.filename)
+    transaction.commit()
 
-        return {"message": "Video uploaded successfully"}
-    finally:
-        connection.close()
+    return {"message": "Video uploaded successfully"}
 
 
 # == USER STUDENT =======================================================================
