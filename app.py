@@ -41,7 +41,12 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     with open(file_path, "wb") as f:
         f.write(file.file.read())
 
-    root.course[course_id].addVideo(file.filename)
+    temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+    for c in root.course[course_id].videos:
+        temp_course.addVideo(c)
+    temp_course.addVideo(file.filename)
+    root.course[course_id] = temp_course
+    
     transaction.commit()
 
     return {"message": "Video uploaded successfully"}
@@ -125,7 +130,13 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
     course_directory.mkdir(parents=True)
     
     root.course[int(course_id)] = Course(int(course_id), name, instructor_id, public)
-    root.instructor[int(instructor_id)].addCourse(int(course_id))
+    
+    temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].password)
+    for c in root.instructor[int(instructor_id)].courses:
+        temp_instructor.addCourse(c)
+    temp_instructor.addCourse(int(course_id))
+    root.instructor[int(instructor_id)] = temp_instructor
+    
     transaction.commit()
 
     return {"message": "Course added successfully"}
