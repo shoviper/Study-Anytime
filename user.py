@@ -13,6 +13,9 @@ class Instructor(User):
         super().__init__(first_name, last_name, password)
         self.id = id
         self.courses = []
+        
+    def __str__(self):
+        return f" ID: {self.id}, {self.first_name} {self.last_name}, Number of courses: {len(self.courses)}"
 
     def addCourse(self, course: Course):
         self.courses.append(course)
@@ -22,6 +25,9 @@ class Student(User):
         super().__init__(first_name, last_name, password)
         self.id = id
         self.enrolls = []
+        
+    def __str__(self):
+        return f"ID: {self.id}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.enrolls)}"
 
     def enrollCourse(self, course: Course):
         self.enrolls.append(course)
@@ -31,6 +37,9 @@ class OtherUser(User):
         super().__init__(first_name, last_name, password)
         self.username = username
         self.enrolls = []
+        
+    def __str__(self):
+        return f"Username: {self.username}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.enrolls)}"
 
     def enrollCourse(self, course: Course):
         if not course.public:

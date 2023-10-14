@@ -61,14 +61,11 @@ async def get_student(id: str):
     if id == "all":
         return root.student
     else:
-        return (
-            root.student[int(id)]
-            if int(id) in root.student.keys()
-            else {"error": "Student not found"}
-        )
+        return root.student[int(id)] if int(id) in root.student.keys() else {"error": "Student not found"}
+        
 
 @app.post("/user/student/new/{id}/{first_name}/{last_name}/{password}")
-async def post_student_para(id: str, first_name: str, last_name: str, password):
+async def post_student(id: str, first_name: str, last_name: str, password):
     if int(id) in root.student.keys():
         raise HTTPException(404, detail="db_error: Student already exists")
 
@@ -80,15 +77,21 @@ async def post_student_para(id: str, first_name: str, last_name: str, password):
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
-async def get_student(id: str):
+async def get_instructor(id: str):
     if id == "all":
         return root.instructor
     else:
-        return (
-            root.instructor[int(id)]
-            if int(id) in root.instructor.keys()
-            else {"error": "Instructor not found"}
-        )
+        return root.instructor[int(id)] if int(id) in root.instructor.keys() else {"error": "Instructor not found"}
+
+@app.post("/user/instructor/new/{id}/{first_name}/{last_name}/{password}")
+async def post_instructor(id: str, first_name: str, last_name: str, password):
+    if int(id) in root.instructor.keys():
+        raise HTTPException(404, detail="db_error: Instructor already exists")
+
+    root.instructor[int(id)] = Instructor(int(id), first_name, last_name, password)
+    transaction.commit()
+
+    return {"message": "Instructor added successfully"}
 
 @app.post("/user/instructor/new/{id}/{first_name}/{last_name}/{password}")
 async def post_student_para(id: str, first_name: str, last_name: str, password):
@@ -100,10 +103,9 @@ async def post_student_para(id: str, first_name: str, last_name: str, password):
 
     return {"message": "Instructor added successfully"}
 
-
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
-async def get_student(username: str):
+async def get_other(username: str):
     if username == "all":
         return root.otherUser
     else:
@@ -114,7 +116,7 @@ async def get_student(username: str):
         )
 
 @app.post("/user/other/new/{username}/{first_name}/{last_name}/{password}")
-async def post_student_para(username: str, first_name: str, last_name: str, password):
+async def post_other(username: str, first_name: str, last_name: str, password):
     if int(username) in root.otherUser.keys():
         raise HTTPException(404, detail="OtherUser: Instructor already exists")
 
