@@ -13,40 +13,48 @@ videos_directory = Path("videos")
 @app.get("/video/{course_id}/{filename}")
 async def get_video(course_id: int, filename: str):
     video_path = videos_directory / str(course_id) / filename
+    connection = db.open()
+    root = connection.root
+    try:
+        if not course_id in root.course.keys():
+            raise HTTPException(404, detail="db_error: Course not found")
 
-    if not course_id in root.course.keys():
-        raise HTTPException(404, detail="db_error: Course not found")
+        if not root.course[course_id].isIn(Video(filename)):
+            raise HTTPException(404, detail="db_error: Video not found")
 
-    if not root.course[course_id].isIn(Video(filename)):
-        raise HTTPException(404, detail="db_error: Video not found")
+        if not video_path.is_file():
+            raise HTTPException(404, detail="fs_error: Video not found")
 
-    if not video_path.is_file():
-        raise HTTPException(404, detail="fs_error: Video not found")
-
-    return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
+        return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
+    finally:
+        connection.close()
 
 @app.post("/video/upload/{course_id}/{instructor_id}")
 async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     course_directory = videos_directory / str(course_id)
+    connection = db.open()
+    root = connection.root
+    try:
+        if not instructor_id in root.instructor.keys():
+            raise HTTPException(404, detail="db_error: Instructor not found")
 
-    if not instructor_id in root.instructor.keys():
-        raise HTTPException(404, detail="db_error: Instructor not found")
+        file_path = course_directory / file.filename
 
-    file_path = course_directory / file.filename
+        if root.course[course_id].isIn(Video(file.filename)):
+            raise HTTPException(404, detail="db_error: Video with the same filename already exists")
 
-    if root.course[course_id].isIn(Video(file.filename)):
-        raise HTTPException(404, detail="db_error: Video with the same filename already exists")
+        if file_path.is_file():
+            raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
 
-    if file_path.is_file():
-        raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
+        with open(file_path, "wb") as f:
+            f.write(file.file.read())
 
-    with open(file_path, "wb") as f:
-        f.write(file.file.read())
+        root.course[course_id].addVideo(file.filename)
+        transaction.commit()
 
-    root.course[course_id].addVideo(file.filename)
-    transaction.commit()
-
-    return {"message": "Video uploaded successfully"}
+        return {"message": "Video uploaded successfully"}
+    finally:
+        connection.close()
 
 
 # == USER STUDENT =======================================================================
@@ -68,7 +76,6 @@ async def post_student(id: int, first_name: str, last_name: str, password):
 
     return {"message": "Student added successfully"}
 
-
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
 async def get_instructor(id: str):
@@ -87,18 +94,14 @@ async def post_instructor(id: int, first_name: str, last_name: str, password: st
     transaction.commit()
 
     return {"message": "Instructor added successfully"}
-
+        
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
 async def get_other(username: str):
     if username == "all":
         return root.otherUser
     else:
-        return (
-            root.otherUser[username]
-            if username in root.otherUser.keys()
-            else {"error": "OtherUser not found"}
-        )
+        return root.otherUser[username] if username in root.otherUser.keys() else {"error": "OtherUser not found"}
 
 @app.post("/user/other/new/{username}/{first_name}/{last_name}/{password}")
 async def post_other(username: str, first_name: str, last_name: str, password: str):
@@ -136,5 +139,3 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
     transaction.commit()
 
     return {"message": "Course added successfully"}
-
-transaction.commit()
