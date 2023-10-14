@@ -45,6 +45,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
 
     root.course[course_id].addVideo(file.filename)
     transaction.commit()
+
     return {"message": "Video uploaded successfully"}
 
 
@@ -56,7 +57,6 @@ async def get_student(id: int):
     else:
         id = int(id)
         return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
-        
 
 @app.post("/user/student/new/{id}/{first_name}/{last_name}/{password}")
 async def post_student(id: int, first_name: str, last_name: str, password):
@@ -126,7 +126,7 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
         raise HTTPException(404, detail="db_error: Course already exists")
 
     if not int(instructor_id) in root.instructor.keys():
-        raise HTTPException(404, detail="db_error: Course not found")
+        raise HTTPException(404, detail="db_error: Instructor not found")
     
     course_directory = videos_directory / course_id
     course_directory.mkdir(parents=True)
@@ -136,3 +136,5 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
     transaction.commit()
 
     return {"message": "Course added successfully"}
+
+transaction.commit()
