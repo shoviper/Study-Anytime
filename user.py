@@ -8,7 +8,6 @@ class User(persistent.Persistent):
         self.password = password
         self.auth = False
 
-
 class Instructor(User):
     def __init__(self, id, first_name, last_name, password) -> None:
         super().__init__(first_name, last_name, password)
@@ -18,19 +17,14 @@ class Instructor(User):
     def addCourse(self, course: Course):
         self.courses.append(course)
 
-
 class Student(User):
     def __init__(self, id, first_name, last_name, password) -> None:
         super().__init__(first_name, last_name, password)
         self.id = id
         self.enrolls = []
 
-    def __str__(self) -> str:
-        return self.id + ", " + self.first_name + ", " + self.last_name + ", " + self.password
-    
     def enrollCourse(self, course: Course):
         self.enrolls.append(course)
-
 
 class OtherUser(User):
     def __init__(self, username, first_name, last_name, password) -> None:
