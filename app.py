@@ -10,13 +10,22 @@ app = FastAPI()
 #== VIDEO PLAYER =====================================================================
 videos_directory = Path("videos")
 
-@app.get("/video/{course}/{filename}")
-async def get_video(course: str, filename: str):
+@app.get("/video/{id}/{filename}")
+async def get_video(id: str, filename: str):
     
-    video_path = videos_directory / course / filename
+    video_path = videos_directory / id / filename
+
+    if not int(id) in root.course.keys():
+        print({"db_error": "Course not found"})
+        return {"db_error": "Course not found"}
+
+    if not root.course[int(id)].isIn(Video(filename)):
+        print({"db_error": "Video not found"})
+        return {"db_error": "Video not found"}
 
     if not video_path.is_file():
-        return {"error": "Video not found"}
+        print({"fs_error": "Video not found"})
+        return {"fs_error": "Video not found"}
 
     return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
 
@@ -27,17 +36,23 @@ async def upload_file(id: str, file: UploadFile):
     if not course_directory.is_dir():
         course_directory.mkdir(parents=True)
         
+    if not int(id) in root.course.keys():
+        root.course[int(id)] = Course(int(id), "aaa", "bbb", True)
+        
     file_path = course_directory / file.filename
 
+    if root.course[int(id)].isIn(Video(file.filename)):
+        return {"db_error": "Video with the same filename already exists"}
+    
     if file_path.is_file():
-        return {"error": "Video with the same filename already exists"}
+        return {"fs_error": "Video with the same filename already exists"}
 
     with open(file_path, "wb") as f:
         f.write(file.file.read())
-    
-    # root.course[int(id)].videos.append(Video(file.filename))
-    
-    return {"message": "Video uploaded successfully"}
+
+    root.course[int(id)].addVideo(Video(file.filename))
+    transaction.commit()
+    return {"message": "Video uploaded successfully"} 
 
 #== USER STUDENT =======================================================================
 @app.get("/user/student/{id}")

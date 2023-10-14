@@ -11,9 +11,11 @@ class Course(persistent.Persistent):
         self.instructor = instructor
         self.public = public
         self.videos = []
+    
+    def isIn(self, video: Video):
+        if any(video.title == v.title for v in self.videos):
+            return True
+        return False
         
     def addVideo(self, video: Video):
-        if any(video.title == v.title for v in self.videos):
-            return print("Video already existed")
-        
-        self.videos.append(video)
+        self.videos.append(video) if not self.isIn(video) else None
