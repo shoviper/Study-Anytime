@@ -1,6 +1,6 @@
 import persistent
 
-class Video:
+class Video(persistent.Persistent):
     def __init__(self, title) -> None:
         self.title = title
         
@@ -18,10 +18,10 @@ class Course(persistent.Persistent):
     def __str__(self):
         return f"Course ID: {self.id}, Course Name: {self.name}, Instructor: {self.instructor}, Is Public: {self.public}, Number of Videos: {len(self.videos)}"
 
-    def isIn(self, video: Video):
+    def isIn(self, video):
         if any(video.title == v.title for v in self.videos):
             return True
         return False
 
-    def addVideo(self, video: Video):
-        self.videos.append(video) if not self.isIn(video) else None
+    def addVideo(self, video):
+        self.videos.append(Video(video))
