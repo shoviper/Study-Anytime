@@ -1,5 +1,4 @@
 import persistent
-from course import *
 
 class User(persistent.Persistent):
     def __init__(self, first_name, last_name, password) -> None:
@@ -17,7 +16,7 @@ class Instructor(User):
     def __str__(self):
         return f" ID: {self.id}, {self.first_name} {self.last_name}, Number of courses: {len(self.courses)}"
 
-    def addCourse(self, course: Course):
+    def addCourse(self, course):
         self.courses.append(course)
 
 class Student(User):
@@ -29,7 +28,7 @@ class Student(User):
     def __str__(self):
         return f"ID: {self.id}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.enrolls)}"
 
-    def enrollCourse(self, course: Course):
+    def enrollCourse(self, course):
         self.enrolls.append(course)
 
 class OtherUser(User):
@@ -41,8 +40,5 @@ class OtherUser(User):
     def __str__(self):
         return f"Username: {self.username}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.enrolls)}"
 
-    def enrollCourse(self, course: Course):
-        if not course.public:
-            return "this course is not public"
-
+    def enrollCourse(self, course):
         self.enrolls.append(course)
