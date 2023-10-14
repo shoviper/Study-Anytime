@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, UploadFile
+from fastapi import FastAPI, Request, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from pathlib import Path
 
@@ -16,16 +16,13 @@ async def get_video(id: str, filename: str):
     video_path = videos_directory / id / filename
 
     if not int(id) in root.course.keys():
-        print({"db_error": "Course not found"})
-        return {"db_error": "Course not found"}
+        raise HTTPException(404, detail="db_error: Course not found")
 
     if not root.course[int(id)].isIn(Video(filename)):
-        print({"db_error": "Video not found"})
-        return {"db_error": "Video not found"}
+        raise HTTPException(404, detail="db_error: Video not found")
 
     if not video_path.is_file():
-        print({"fs_error": "Video not found"})
-        return {"fs_error": "Video not found"}
+        raise HTTPException(404, detail="fs_error: Video not found")
 
     return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
 
@@ -42,10 +39,10 @@ async def upload_file(id: str, file: UploadFile):
     file_path = course_directory / file.filename
 
     if root.course[int(id)].isIn(Video(file.filename)):
-        return {"db_error": "Video with the same filename already exists"}
+        raise HTTPException(404, detail="db_error: Video with the same filename already exists")
     
     if file_path.is_file():
-        return {"fs_error": "Video with the same filename already exists"}
+        raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
 
     with open(file_path, "wb") as f:
         f.write(file.file.read())
@@ -67,7 +64,7 @@ async def get_student(id: str):
 async def post_student_para(id: str, first_name: str, last_name: str, password):
     
     if int(id) in root.student.keys():
-        return {"error": "Student already exists"}
+        raise HTTPException(404, detail="db_error: Student already exists")
     
     root.student[int(id)] = Student(int(id), first_name, last_name, password)
     transaction.commit()
@@ -87,7 +84,7 @@ async def get_student(id: str):
 async def post_student_para(id: str, first_name: str, last_name: str, password):
     
     if int(id) in root.instructor.keys():
-        return {"error": "Instructor already exists"}
+        raise HTTPException(404, detail="db_error: Instructor already exists")
     
     root.instructor[int(id)] = Instructor(int(id), first_name, last_name, password)
     transaction.commit()
@@ -107,7 +104,7 @@ async def get_student(username: str):
 async def post_student_para(username: str, first_name: str, last_name: str, password):
     
     if int(username) in root.otherUser.keys():
-        return {"error": "OtherUser already exists"}
+        raise HTTPException(404, detail="OtherUser: Instructor already exists")
     
     root.otherUser[username] = OtherUser(username, first_name, last_name, password)
     transaction.commit()
