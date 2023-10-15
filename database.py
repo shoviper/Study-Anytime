@@ -17,5 +17,3 @@ if not hasattr(root, "student"):
     root.student = BTrees.OOBTree.BTree()
 if not hasattr(root, "otherUser"):
     root.otherUser = BTrees.OOBTree.BTree()
-    
-# connection.close()
