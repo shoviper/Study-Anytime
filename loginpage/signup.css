@@ -41,23 +41,12 @@ body {
     color: rgb(33, 33, 33);
 }
 
-.contentheadsubone {
-    font-size: 17px;
-    opacity: 50%;
-    color: rgb(0, 0, 0)
-}
-
-.contentheadsub span {
+input {
+    width: 600px;
+    height: 50px;
     font-size: 25px;
-}
-
-.contentheadsub a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-}
-
-.contentheadsub a:hover {
-    color: rgb(255, 0, 102);
+    background-color: #ffffff;
+    margin: 15px;
 }
 
 button {
@@ -76,14 +65,6 @@ button {
 
 button:hover {
     background-color: #1b3ba4;
-}
-
-input {
-    width: 600px;
-    height: 50px;
-    font-size: 25px;
-    background-color: #ffffff;
-    margin: 15px;
 }
 
 .contentbuttonsubone {
