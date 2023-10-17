@@ -4,8 +4,10 @@ from pathlib import Path
 
 from database import *
 import transaction
+import logging
 
 app = FastAPI()
+logging.basicConfig(level=logging.DEBUG)
 
 # == VIDEO PLAYER =====================================================================
 videos_directory = Path("videos")
@@ -140,3 +142,9 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
     transaction.commit()
 
     return {"message": "Course added successfully"}
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    transaction.commit()
+    db.close()
