@@ -16,7 +16,7 @@ async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 # == VIDEO PLAYER =====================================================================
-videos_directory = Path("videos")
+videos_directory = Path("db/course_videos")
 
 @app.get("/video/{course_id}/{filename}")
 async def get_video(course_id: int, filename: str):
@@ -62,15 +62,21 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
-async def get_student(id: int):
+async def signIn_student(id: int):
     if id == "all":
         return root.student
     else:
         id = int(id)
         return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
 
-@app.post("/user/student/new/{id}/{first_name}/{last_name}/{password}")
-async def post_student(id: int, first_name: str, last_name: str, password):
+@app.get("/user/signIn/student/{id}/{password}")
+async def signIn_student(id: int, password: str):
+    if root.student[id].password == password:
+        return True
+    return False
+    
+@app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
+async def signUp_student(id: int, first_name: str, last_name: str, password):
     if int(id) in root.student.keys():
         raise HTTPException(404, detail="db_error: Student already exists")
 
@@ -81,15 +87,21 @@ async def post_student(id: int, first_name: str, last_name: str, password):
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
-async def get_instructor(id: str):
+async def signIn_instructor(id: str):
     if id == "all":
         return root.instructor
     else:
         id = int(id)
         return root.instructor[id] if id in root.instructor.keys() else {"error": "Instructor not found"}
 
-@app.post("/user/instructor/new/{id}/{first_name}/{last_name}/{password}")
-async def post_instructor(id: int, first_name: str, last_name: str, password: str):
+@app.get("/user/signIn/instructor/{id}/{password}")
+async def signIn_instructor(id: int, password: str):
+    if root.instructor[id].password == password:
+        return True
+    return False
+
+@app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
+async def signUp_instructor(id: int, first_name: str, last_name: str, password: str):
     if int(id) in root.instructor.keys():
         raise HTTPException(404, detail="db_error: Instructor already exists")
 
@@ -106,8 +118,14 @@ async def get_other(username: str):
     else:
         return root.otherUser[username] if username in root.otherUser.keys() else {"error": "OtherUser not found"}
 
-@app.post("/user/other/new/{username}/{first_name}/{last_name}/{password}")
-async def post_other(username: str, first_name: str, last_name: str, password: str):
+@app.get("/user/signIn/other/{id}/{password}")
+async def signIn_other(id: int, password: str):
+    if root.otherUser[id].password == password:
+        return True
+    return False
+
+@app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
+async def signUp_other(username: str, first_name: str, last_name: str, password: str):
     if username in root.otherUser.keys():
         raise HTTPException(404, detail="OtherUser: Instructor already exists")
 
@@ -124,7 +142,6 @@ async def get_course(course_id: str):
         return root.course
     else:
         return root.course[int(course_id)] if int(course_id) in root.course.keys() else {"error": "Course not found"}
-        
 
 @app.post("/course/new/{course_id}/{name}/{instructor_id}/{public}")
 async def post_course(course_id: str, name: str, instructor_id: str, public: bool):
