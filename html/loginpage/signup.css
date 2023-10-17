@@ -41,23 +41,13 @@ body {
     color: rgb(33, 33, 33);
 }
 
-.contentheadsubone {
-    font-size: 17px;
-    opacity: 50%;
-    color: rgb(0, 0, 0)
-}
-
-.contentheadsub span {
+input {
+    width: 600px;
+    height: 50px;
     font-size: 25px;
-}
-
-.contentheadsub a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-}
-
-.contentheadsub a:hover {
-    color: rgb(255, 0, 102);
+    background-color: #ffffff;
+    margin: 15px;
+    border-radius: 10px;
 }
 
 button {
@@ -72,23 +62,16 @@ button {
     width: 600px;
     cursor: pointer;
     margin-bottom: 50px;
+    border-radius: 10px;
 }
 
 button:hover {
     background-color: #1b3ba4;
 }
 
-input {
-    width: 600px;
-    height: 50px;
-    font-size: 25px;
-    background-color: #ffffff;
-    margin: 15px;
-}
-
 .contentbuttonsubone {
     font-size: 17px;
-    opacity: 50%;
+    opacity: 65%;
     color: rgb(0, 0, 0)
 }
 

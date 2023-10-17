@@ -17,14 +17,14 @@ body {
     width: 100%;
 }
 
-.headertransition {
-    margin-left: 300px;
-    margin-top: 25px;
-}
-
 .header b {
     color: white;
     font-size: 37px;
+}
+
+.headertransition {
+    margin-left: 300px;
+    margin-top: 25px;
 }
 
 .content {
@@ -42,8 +42,7 @@ body {
 }
 
 .contentheadsubone {
-    font-size: 17px;
-    opacity: 50%;
+    opacity: 65%;
     color: rgb(0, 0, 0)
 }
 
@@ -60,6 +59,15 @@ body {
     color: rgb(255, 0, 102);
 }
 
+input {
+    width: 600px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 10px;
+}
+
 button {
     background-color: #003af7;
     color: #e8cc16;
@@ -72,23 +80,16 @@ button {
     width: 300px;
     cursor: pointer;
     margin-bottom: 50px;
+    border-radius: 10px;
 }
 
 button:hover {
     background-color: #1b3ba4;
 }
 
-input {
-    width: 600px;
-    height: 50px;
-    font-size: 25px;
-    background-color: #ffffff;
-    margin-top: 50px;
-}
-
 .contentbuttonsubone {
     font-size: 17px;
-    opacity: 50%;
+    opacity: 65%;
     color: rgb(0, 0, 0)
 }
 
