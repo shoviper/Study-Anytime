@@ -47,6 +47,7 @@ input {
     font-size: 25px;
     background-color: #ffffff;
     margin: 15px;
+    border-radius: 10px;
 }
 
 button {
@@ -61,6 +62,7 @@ button {
     width: 600px;
     cursor: pointer;
     margin-bottom: 50px;
+    border-radius: 10px;
 }
 
 button:hover {
@@ -69,7 +71,7 @@ button:hover {
 
 .contentbuttonsubone {
     font-size: 17px;
-    opacity: 50%;
+    opacity: 65%;
     color: rgb(0, 0, 0)
 }
 
