@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request, UploadFile, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
 from pathlib import Path
 
 from database import *
@@ -8,6 +9,11 @@ import logging
 
 app = FastAPI()
 logging.basicConfig(level=logging.DEBUG)
+
+templates = Jinja2Templates(directory="templates")
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 # == VIDEO PLAYER =====================================================================
 videos_directory = Path("videos")
@@ -148,3 +154,7 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
 async def shutdown():
     transaction.commit()
     db.close()
+    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
