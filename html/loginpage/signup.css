@@ -12,7 +12,7 @@ body {
 }
 
 .header {
-    background-color: rgb(24, 64, 113);
+    background-color: #04364A;
     height: 10vh;
     width: 100%;
 }
@@ -23,7 +23,7 @@ body {
 }
 
 .header b {
-    color: white;
+    color: #DAFFFB;
     font-size: 37px;
 }
 
@@ -32,27 +32,27 @@ body {
     height: 90vh;
     width: 100%;
     text-align: center;
-    background-color: aquamarine;
+    background-color: #176B87;
 }
 
 .content h2 {
     margin-top: 60px;
     font-size: 70px;
-    color: rgb(33, 33, 33);
+    color: #272829;
 }
 
 input {
     width: 600px;
     height: 50px;
     font-size: 25px;
-    background-color: #ffffff;
+    background-color: #DAFFFB;
     margin: 15px;
     border-radius: 10px;
 }
 
 button {
-    background-color: #003af7;
-    color: #e8cc16;
+    background-color: #64CCC5;
+    color: #272829;
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -66,13 +66,13 @@ button {
 }
 
 button:hover {
-    background-color: #1b3ba4;
+    background-color: #DAFFFB;
 }
 
 .contentbuttonsubone {
     font-size: 17px;
-    opacity: 65%;
-    color: rgb(0, 0, 0)
+    opacity: 80%;
+    color: #272829;
 }
 
 .contentbuttonsub span {
@@ -80,10 +80,10 @@ button:hover {
 }
 
 .contentbuttonsub a {
-    color: rgb(0, 0, 0);
+    color: #000000;
     text-decoration: none;
 }
 
 .contentbuttonsub a:hover {
-    color: rgb(255, 0, 102);
+    color: #DAFFFB;
 }
