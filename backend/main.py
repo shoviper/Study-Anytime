@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, UploadFile, HTTPException
+from fastapi import FastAPI, Request, Depends, UploadFile, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -6,6 +6,7 @@ from pathlib import Path
 
 from database import *
 from auth.auth_handler import *
+from auth.auth_bearer import JWTBearer
 
 import transaction
 import logging
@@ -173,7 +174,7 @@ async def get_course(course_id: str):
     else:
         return root.course[int(course_id)] if int(course_id) in root.course.keys() else {"error": "Course not found"}
 
-@app.post("/course/new/{course_id}/{name}/{instructor_id}/{public}")
+@app.post("/course/new/{course_id}/{name}/{instructor_id}/{public}", dependencies=[Depends(JWTBearer())])
 async def post_course(course_id: str, name: str, instructor_id: str, public: bool):
     if int(course_id) in root.course.keys():
         raise HTTPException(404, detail="db_error: Course already exists")
