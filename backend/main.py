@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 from database import *
+from auth.auth_handler import *
+
 import transaction
 import logging
 
