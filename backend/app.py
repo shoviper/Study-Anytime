@@ -72,7 +72,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
-async def signIn_student(id: int):
+async def get_student(id: int):
     if id == "all":
         return root.student
     else:
@@ -97,7 +97,7 @@ async def signUp_student(id: int, first_name: str, last_name: str, password):
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
-async def signIn_instructor(id: str):
+async def get_instructor(id: str):
     if id == "all":
         return root.instructor
     else:
@@ -186,4 +186,8 @@ async def shutdown():
     
 if __name__ == "__main__":
     import uvicorn
+<<<<<<< HEAD
     uvicorn.run(app, host="127.0.7.61", port=8000)
+=======
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+>>>>>>> 2554000a261dc6f34c87dc93107278d04aa74057
