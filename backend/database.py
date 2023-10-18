@@ -17,3 +17,30 @@ if not hasattr(root, "student"):
     root.student = BTrees.OOBTree.BTree()
 if not hasattr(root, "otherUser"):
     root.otherUser = BTrees.OOBTree.BTree()
+
+# import os
+# import ZODB.FileStorage
+# import BTrees.OOBTree
+
+# from course import *
+# from user import *
+
+# db_directory = "db"
+
+# # Ensure that the directory exists
+# if not os.path.exists(db_directory):
+#     os.makedirs(db_directory)
+
+# storage = ZODB.FileStorage.FileStorage(os.path.join(db_directory, "data.fs"))
+# db = ZODB.DB(storage)
+# connection = db.open()
+# root = connection.root
+
+# if not hasattr(root, "course"):
+#     root.course = BTrees.OOBTree.BTree()
+# if not hasattr(root, "instructor"):
+#     root.instructor = BTrees.OOBTree.BTree()
+# if not hasattr(root, "student"):
+#     root.student = BTrees.OOBTree.BTree()
+# if not hasattr(root, "otherUser"):
+#     root.otherUser = BTrees.OOBTree.BTree()
