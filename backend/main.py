@@ -30,17 +30,17 @@ async def shutdown():
     transaction.commit()
     db.close()
 
-# == connect to login page =====================================================================
+# == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-# == connect to sign up page =====================================================================
+# == connect to sign up page ==========================================================
 @app.get("/signup", response_class=HTMLResponse)
 async def signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
 
-# == connect to resetpassword page =====================================================================
+# == connect to resetpassword page ====================================================
 @app.get("/resetpassword", response_class=HTMLResponse)
 async def resetpassword(request: Request):
     return templates.TemplateResponse("resetpassword.html", {"request": request})
