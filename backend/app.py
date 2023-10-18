@@ -19,10 +19,21 @@ app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
+# == connect to login page =====================================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+# == connect to sign up page =====================================================================
+@app.get("/signup", response_class=HTMLResponse)
+async def signup(request: Request):
+    return templates.TemplateResponse("signup.html", {"request": request})
+
+# == connect to resetpassword page =====================================================================
+@app.get("/resetpassword", response_class=HTMLResponse)
+async def resetpassword(request: Request):
+    return templates.TemplateResponse("resetpassword.html", {"request": request})
 
 
 # == VIDEO PLAYER =====================================================================
@@ -186,8 +197,4 @@ async def shutdown():
     
 if __name__ == "__main__":
     import uvicorn
-<<<<<<< HEAD
-    uvicorn.run(app, host="127.0.7.61", port=8000)
-=======
     uvicorn.run(app, host="127.0.0.1", port=8000)
->>>>>>> 2554000a261dc6f34c87dc93107278d04aa74057
