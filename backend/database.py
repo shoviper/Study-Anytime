@@ -18,6 +18,12 @@ if not hasattr(root, "student"):
 if not hasattr(root, "otherUser"):
     root.otherUser = BTrees.OOBTree.BTree()
 
+# == CHECK USER ========================================================================
+def check_user(root_class, id, pwd):
+    if root_class[id].password == pwd:
+        return True
+    return False
+
 # import os
 # import ZODB.FileStorage
 # import BTrees.OOBTree

@@ -11,7 +11,7 @@ import transaction
 import logging
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="backend/templates")
 logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
@@ -101,9 +101,9 @@ async def get_student(id: int):
 
 @app.get("/user/signIn/student/{id}/{password}")
 async def signIn_student(id: int, password: str):
-    if root.student[id].password == password:
-        return True
-    return False
+    if check_user(root.student, id, password):
+        return signJWT(id)
+    return {"error": "Wrong login details!"}
     
 @app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
 async def signUp_student(id: int, first_name: str, last_name: str, password):
@@ -113,7 +113,7 @@ async def signUp_student(id: int, first_name: str, last_name: str, password):
     root.student[id] = Student(id, first_name, last_name, password)
     transaction.commit()
 
-    return {"message": "Student added successfully"}
+    return signJWT(id)
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
@@ -126,10 +126,10 @@ async def get_instructor(id: str):
 
 @app.get("/user/signIn/instructor/{id}/{password}")
 async def signIn_instructor(id: int, password: str):
-    if root.instructor[id].password == password:
-        return True
-    return False
-
+    if check_user(root.instructor, id, password):
+        return signJWT(id)
+    return {"error": "Wrong login details!"}
+    
 @app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
 async def signUp_instructor(id: int, first_name: str, last_name: str, password: str):
     if int(id) in root.instructor.keys():
@@ -138,7 +138,7 @@ async def signUp_instructor(id: int, first_name: str, last_name: str, password: 
     root.instructor[id] = Instructor(id, first_name, last_name, password)
     transaction.commit()
 
-    return {"message": "Instructor added successfully"}
+    return signJWT(id)
         
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
@@ -150,9 +150,9 @@ async def get_other(username: str):
 
 @app.get("/user/signIn/other/{id}/{password}")
 async def signIn_other(id: int, password: str):
-    if root.otherUser[id].password == password:
-        return True
-    return False
+    if check_user(root.otherUser, id, password):      
+        return signJWT(id)
+    return {"error": "Wrong login details!"}
 
 @app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
 async def signUp_other(username: str, first_name: str, last_name: str, password: str):
@@ -162,7 +162,7 @@ async def signUp_other(username: str, first_name: str, last_name: str, password:
     root.otherUser[username] = OtherUser(username, first_name, last_name, password)
     transaction.commit()
 
-    return {"message": "OtherUser added successfully"}
+    return signJWT(id)
 
 
 # == COURSE ===========================================================================
