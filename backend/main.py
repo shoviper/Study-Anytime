@@ -9,9 +9,12 @@ import transaction
 import logging
 
 app = FastAPI()
+templates = Jinja2Templates(directory="backend/templates")
 logging.basicConfig(level=logging.DEBUG)
 
-templates = Jinja2Templates(directory="backend/templates")
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
@@ -19,6 +22,10 @@ app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.on_event("shutdown")
+async def shutdown():
+    transaction.commit()
+    db.close()
 
 # == connect to login page =====================================================================
 @app.get("/login", response_class=HTMLResponse)
@@ -186,15 +193,3 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
     transaction.commit()
 
     return {"message": "Course added successfully"}
-
-
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    transaction.commit()
-    db.close()
-    
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
