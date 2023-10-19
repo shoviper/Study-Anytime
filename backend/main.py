@@ -12,7 +12,7 @@ import transaction
 import logging
 
 app = FastAPI()
-templates = Jinja2Templates(directory="backend/templates")
+templates = Jinja2Templates(directory="templates")
 logging.basicConfig(level=logging.DEBUG)
 
 # if __name__ == "__main__":
