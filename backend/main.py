@@ -15,9 +15,9 @@ app = FastAPI()
 templates = Jinja2Templates(directory="backend/templates")
 logging.basicConfig(level=logging.DEBUG)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="127.0.0.1", port=8000)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
