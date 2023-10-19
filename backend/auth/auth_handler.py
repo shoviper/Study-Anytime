@@ -6,17 +6,17 @@ ALGORITHM = "HS256"
 
 def token_response(token: str):
     return{
-        "access token" : token
+        "access_token" : token
     }
     
 def signJWT(userID: str):
     payload = {
         "userID" : userID,
-        "expiry" : time.time() + 600
+        "expiry" : time.time() + 6000
     }
     
     token = jwt.encode(payload, SECRET_KEY, ALGORITHM)
-    return token_response(token)
+    return token
 
 def decodeJWT(token: str):
     try:
