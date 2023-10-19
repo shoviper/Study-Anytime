@@ -24,6 +24,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+    
 
 @app.on_event("shutdown")
 async def shutdown():
@@ -39,6 +40,10 @@ async def login(request: Request):
 @app.get("/signup", response_class=HTMLResponse)
 async def signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
+
+@app.post("/signup")
+async def signupp(data: dict):
+    return data
 
 # == connect to resetpassword page ====================================================
 @app.get("/resetpassword", response_class=HTMLResponse)

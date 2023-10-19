@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up Page</title>
-    <!-- <link rel="stylesheet" type = "text/css" href = "signup.css">  -->
     <link href="{{ url_for('static', path='signup.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -19,7 +18,13 @@
             <div class="contentboxfield">
                 <form>
                     <p>
-                        <input name="username" id="username" type="text" placeholder="Username *" required>
+                        <input name="id" id="id" type="text" placeholder="ID (If you are student or lecturer of KMITL)">
+                    </p>
+                    <p>
+                        <input name="firstname" id="firstname" type="text" placeholder="Firstname *" required>
+                    </p>
+                    <p>
+                        <input name="lastname" id="lastname" type="text" placeholder="Lastname *" required>
                     </p>
                     <p>
                         <input name="email" id="email" type="text" placeholder="E-mail *" required>
@@ -28,7 +33,14 @@
                         <input name="password" id="password" type="password" placeholder="Password *" required>
                     </p>
                     <p>
-                        <input name="confirmpassword" id="confirmpassword" type="password" placeholder="Confirm Password *" required>
+                        <input type="radio" name="role" id="student" value="student" required>
+                        <label for="student" class="radio-label">Student</label>
+                    
+                        <input type="radio" name="role" id="lecturer" value="lecturer" required>
+                        <label for="lecturer" class="radio-label">Lecturer</label>
+                    
+                        <input type="radio" name="role" id="others" value="others" required>
+                        <label for="others" class="radio-label">Others</label>
                     </p>
                 </form>
             </div>
@@ -45,5 +57,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', path='function.js') }}" type="text/Javascript"></script>
 </body>
 </html>

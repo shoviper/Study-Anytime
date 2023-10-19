@@ -8,56 +8,38 @@
 // }
 
 //signup page
-function signup(){
-    var username = document.getElementById("username");
-    var email = document.getElementById("email");
-    var password = document.getElementById("password");
-    var confirmpassword = document.getElementById("confirmpassword");
+function signup() {
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirmpassword = document.getElementById("confirmpassword").value;
 
-    if(password != confirmpassword){
+    if (password !== confirmpassword) {
         alert("Error, please fill the password correctly.");
         return;
     }
-    
+
+    var data = {
+        username: username,
+        email: email,
+        password: password
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/signup', true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            alert('Sign up successful');
+        } else {
+            alert('Sign up failed');
+        }
+    };
+    xhr.send(JSON.stringify(data));
 }
+
 
 // //resetpassword page
 // function resetpassword(){
     
 // }
-
-
-//test
-function studentlogin() {
-    if (isStudentSignedUp()) {
-        alert("Login as a student successful!");
-    } else {
-        alert("You need to sign up as a student first!");
-    }
-}
-
-function lecturerlogin() {
-    if (isLecturerSignedUp()) {
-        alert("Login as a lecturer successful!");
-    } else {
-        alert("You need to sign up as a lecturer first!");
-    }
-}
-
-function isStudentSignedUp() {
-    // Implement your logic to check if the user is signed up as a student
-    // For example, you can check if the user's email exists in a student database
-    var studentemail = document.getElementById("email").value; // Get the entered email
-    // Add your logic to check if the email exists in the student database
-    // For now, let's assume a simple check that the email contains "student"
-    return studentemail.includes("student");
-}
-
-function isLecturerSignedUp() {
-    // Implement your logic to check if the user is signed up as a lecturer
-    // Similar to the isStudentSignedUp function
-    var lectureremail = document.getElementById("email").value; // Get the entered email
-    // Add your logic to check if the email exists in the lecturer database
-    // For now, let's assume a simple check that the email contains "lecturer"
-    return lectureremail.includes("lecturer");
-}
