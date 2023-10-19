@@ -18,7 +18,7 @@
             <div class="contentboxfield">
                 <form>
                     <p>
-                        <input name="id" id="id" type="text" placeholder="ID">
+                        <input name="id" id="id" type="text" placeholder="ID (If you are student or lecturer of KMITL)">
                     </p>
                     <p>
                         <input name="firstname" id="firstname" type="text" placeholder="Firstname *" required>
@@ -33,12 +33,14 @@
                         <input name="password" id="password" type="password" placeholder="Password *" required>
                     </p>
                     <p>
-                        <input name="confirmpassword" id="confirmpassword" type="password" placeholder="Confirm Password *" required>
-                    </p>
-                    <p>
-                        <label><input name="student" id="student" type="radio"> Student</label>
-                        <label><input name="Lecturer" id="Lecturer" type="radio"> Lecturer</label>
-                        <label><input name="Others" id="Others" type="radio"> Others</label>
+                        <input type="radio" name="role" id="student" value="student" required>
+                        <label for="student" class="radio-label">Student</label>
+                    
+                        <input type="radio" name="role" id="lecturer" value="lecturer" required>
+                        <label for="lecturer" class="radio-label">Lecturer</label>
+                    
+                        <input type="radio" name="role" id="others" value="others" required>
+                        <label for="others" class="radio-label">Others</label>
                     </p>
                 </form>
             </div>
