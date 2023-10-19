@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Depends, UploadFile, HTTPException
+from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -12,12 +12,12 @@ import transaction
 import logging
 
 app = FastAPI()
-templates = Jinja2Templates(directory="backend/templates")
+templates = Jinja2Templates(directory="templates")
 logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -93,7 +93,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
-async def get_student(id: int):
+async def get_student(id: str):
     if id == "all":
         return root.student
     else:
@@ -101,20 +101,28 @@ async def get_student(id: int):
         return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
 
 @app.get("/user/signIn/student/{id}/{password}")
-async def signIn_student(id: int, password: str):
+async def signIn_student(response: Response, id: int, password: str):
     if check_user(root.student, id, password):
-        return signJWT(id)
+        access_token = signJWT(id)
+        response.status_code = 200
+        response.set_cookie(key="access_token", value=access_token)
+        
+        return token_response(access_token) 
     return {"error": "Wrong login details!"}
     
 @app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
-async def signUp_student(id: int, first_name: str, last_name: str, password):
+async def signUp_student(response: Response, id: int, first_name: str, last_name: str, password):
     if int(id) in root.student.keys():
         raise HTTPException(404, detail="db_error: Student already exists")
 
     root.student[id] = Student(id, first_name, last_name, password)
     transaction.commit()
-
-    return signJWT(id)
+    
+    access_token = signJWT(id)
+    response.status_code = 200
+    response.set_cookie(key="access_token", value=access_token)
+    
+    return token_response(access_token) 
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
@@ -126,20 +134,28 @@ async def get_instructor(id: str):
         return root.instructor[id] if id in root.instructor.keys() else {"error": "Instructor not found"}
 
 @app.get("/user/signIn/instructor/{id}/{password}")
-async def signIn_instructor(id: int, password: str):
+async def signIn_instructor(response: Response, id: int, password: str):
     if check_user(root.instructor, id, password):
-        return signJWT(id)
+        access_token = signJWT(id)
+        response.status_code = 200
+        response.set_cookie(key="access_token", value=access_token)
+        
+        return token_response(access_token) 
     return {"error": "Wrong login details!"}
     
 @app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
-async def signUp_instructor(id: int, first_name: str, last_name: str, password: str):
+async def signUp_instructor(response: Response, id: int, first_name: str, last_name: str, password: str):
     if int(id) in root.instructor.keys():
         raise HTTPException(404, detail="db_error: Instructor already exists")
 
     root.instructor[id] = Instructor(id, first_name, last_name, password)
     transaction.commit()
-
-    return signJWT(id)
+    
+    access_token = signJWT(id)
+    response.status_code = 200
+    response.set_cookie(key="access_token", value=access_token)
+    
+    return token_response(access_token) 
         
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
@@ -150,21 +166,28 @@ async def get_other(username: str):
         return root.otherUser[username] if username in root.otherUser.keys() else {"error": "OtherUser not found"}
 
 @app.get("/user/signIn/other/{id}/{password}")
-async def signIn_other(id: int, password: str):
-    if check_user(root.otherUser, id, password):      
-        return signJWT(id)
+async def signIn_other(response: Response, id: int, password: str):
+    if check_user(root.otherUser, id, password):     
+        access_token = signJWT(id)
+        response.status_code = 200
+        response.set_cookie(key="access_token", value=access_token)
+        
+        return token_response(access_token) 
     return {"error": "Wrong login details!"}
 
 @app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
-async def signUp_other(username: str, first_name: str, last_name: str, password: str):
+async def signUp_other(response: Response, username: str, first_name: str, last_name: str, password: str):
     if username in root.otherUser.keys():
         raise HTTPException(404, detail="OtherUser: Instructor already exists")
 
     root.otherUser[username] = OtherUser(username, first_name, last_name, password)
     transaction.commit()
 
-    return signJWT(id)
-
+    access_token = signJWT(id)
+    response.status_code = 200
+    response.set_cookie(key="access_token", value=access_token)
+    
+    return token_response(access_token) 
 
 # == COURSE ===========================================================================
 @app.get("/course/{course_id}")
