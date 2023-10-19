@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up Page</title>
-    <!-- <link rel="stylesheet" type = "text/css" href = "signup.css">  -->
     <link href="{{ url_for('static', path='signup.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -19,7 +18,13 @@
             <div class="contentboxfield">
                 <form>
                     <p>
-                        <input name="username" id="username" type="text" placeholder="Username *" required>
+                        <input name="id" id="id" type="text" placeholder="ID">
+                    </p>
+                    <p>
+                        <input name="firstname" id="firstname" type="text" placeholder="Firstname *" required>
+                    </p>
+                    <p>
+                        <input name="lastname" id="lastname" type="text" placeholder="Lastname *" required>
                     </p>
                     <p>
                         <input name="email" id="email" type="text" placeholder="E-mail *" required>
@@ -29,6 +34,11 @@
                     </p>
                     <p>
                         <input name="confirmpassword" id="confirmpassword" type="password" placeholder="Confirm Password *" required>
+                    </p>
+                    <p>
+                        <label><input name="student" id="student" type="radio"> Student</label>
+                        <label><input name="Lecturer" id="Lecturer" type="radio"> Lecturer</label>
+                        <label><input name="Others" id="Others" type="radio"> Others</label>
                     </p>
                 </form>
             </div>
@@ -45,5 +55,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', path='function.js') }}" type="text/Javascript"></script>
 </body>
 </html>

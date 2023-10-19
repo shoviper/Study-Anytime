@@ -50,6 +50,10 @@ input {
     border-radius: 10px;
 }
 
+label {
+    display: inline-block;
+}
+
 button {
     background-color: #64CCC5;
     color: #272829;
