@@ -52,44 +52,49 @@ videos_directory = Path("db/course_videos")
 @app.get("/video/{course_id}/{filename}")
 async def get_video(course_id: int, filename: str):
     video_path = videos_directory / str(course_id) / filename
-    if not course_id in root.course.keys():
-        raise HTTPException(404, detail="db_error: Course not found")
+    try:
+        if not course_id in root.course.keys():
+            raise HTTPException(404, detail="db_error: Course not found")
 
-    if not root.course[course_id].isIn(Video(filename)):
-        raise HTTPException(404, detail="db_error: Video not found")
+        if not root.course[course_id].isIn(Video(filename)):
+            raise HTTPException(404, detail="db_error: Video not found")
 
-    if not video_path.is_file():
-        raise HTTPException(404, detail="fs_error: Video not found")
+        if not video_path.is_file():
+            raise HTTPException(404, detail="fs_error: Video not found")
 
-    return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
+        return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
+    except Exception as e:
+        raise e
 
 @app.post("/video/upload/{course_id}/{instructor_id}")
 async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     course_directory = videos_directory / str(course_id)
-    if not instructor_id in root.instructor.keys():
-        raise HTTPException(404, detail="db_error: Instructor not found")
+    try:
+        if not instructor_id in root.instructor.keys():
+            raise HTTPException(404, detail="db_error: Instructor not found")
 
-    file_path = course_directory / file.filename
+        file_path = course_directory / file.filename
 
-    if root.course[course_id].isIn(Video(file.filename)):
-        raise HTTPException(404, detail="db_error: Video with the same filename already exists")
+        if root.course[course_id].isIn(Video(file.filename)):
+            raise HTTPException(404, detail="db_error: Video with the same filename already exists")
 
-    if file_path.is_file():
-        raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
+        if file_path.is_file():
+            raise HTTPException(404, detail="fs_error: Video with the same filename already exists")
 
-    with open(file_path, "wb") as f:
-        f.write(file.file.read())
+        with open(file_path, "wb") as f:
+            f.write(file.file.read())
 
-    temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
-    for c in root.course[course_id].videos:
-        temp_course.addVideo(c)
-    temp_course.addVideo(file.filename)
-    root.course[course_id] = temp_course
-    
-    transaction.commit()
+        temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+        for c in root.course[course_id].videos:
+            temp_course.addVideo(c)
+        temp_course.addVideo(file.filename)
+        root.course[course_id] = temp_course
+        
+        transaction.commit()
 
-    return {"message": "Video uploaded successfully"}
-
+        return {"message": "Video uploaded successfully"}
+    except Exception as e:
+        raise e
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
@@ -102,27 +107,33 @@ async def get_student(id: str):
 
 @app.get("/user/signIn/student/{id}/{password}")
 async def signIn_student(response: Response, id: int, password: str):
-    if check_user(root.student, id, password):
+    try:
+        if check_user(root.student, id, password):
+            access_token = signJWT(id)
+            response.status_code = 200
+            response.set_cookie(key="access_token", value=access_token)
+            
+            return token_response(access_token) 
+        return {"error": "Invalid login details"}
+    except Exception as e:
+        raise e 
+    
+@app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
+async def signUp_student(response: Response, id: int, first_name: str, last_name: str, password):
+    try:
+        if int(id) in root.student.keys():
+            raise HTTPException(404, detail="db_error: Student already exists")
+
+        root.student[id] = Student(id, first_name, last_name, password)
+        transaction.commit()
+        
         access_token = signJWT(id)
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
-        return token_response(access_token) 
-    return {"error": "Wrong login details!"}
-    
-@app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
-async def signUp_student(response: Response, id: int, first_name: str, last_name: str, password):
-    if int(id) in root.student.keys():
-        raise HTTPException(404, detail="db_error: Student already exists")
-
-    root.student[id] = Student(id, first_name, last_name, password)
-    transaction.commit()
-    
-    access_token = signJWT(id)
-    response.status_code = 200
-    response.set_cookie(key="access_token", value=access_token)
-    
-    return token_response(access_token) 
+        return token_response(access_token)
+    except Exception as e:
+        raise e 
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
@@ -135,27 +146,33 @@ async def get_instructor(id: str):
 
 @app.get("/user/signIn/instructor/{id}/{password}")
 async def signIn_instructor(response: Response, id: int, password: str):
-    if check_user(root.instructor, id, password):
+    try:
+        if check_user(root.instructor, id, password):
+            access_token = signJWT(id)
+            response.status_code = 200
+            response.set_cookie(key="access_token", value=access_token)
+            
+            return token_response(access_token) 
+        return {"error": "Wrong login details!"}
+    except Exception as e:
+        raise e 
+    
+@app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
+async def signUp_instructor(response: Response, id: int, first_name: str, last_name: str, password: str):
+    try:
+        if int(id) in root.instructor.keys():
+            raise HTTPException(404, detail="db_error: Instructor already exists")
+
+        root.instructor[id] = Instructor(id, first_name, last_name, password)
+        transaction.commit()
+        
         access_token = signJWT(id)
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
         return token_response(access_token) 
-    return {"error": "Wrong login details!"}
-    
-@app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
-async def signUp_instructor(response: Response, id: int, first_name: str, last_name: str, password: str):
-    if int(id) in root.instructor.keys():
-        raise HTTPException(404, detail="db_error: Instructor already exists")
-
-    root.instructor[id] = Instructor(id, first_name, last_name, password)
-    transaction.commit()
-    
-    access_token = signJWT(id)
-    response.status_code = 200
-    response.set_cookie(key="access_token", value=access_token)
-    
-    return token_response(access_token) 
+    except Exception as e:
+        raise e 
         
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
@@ -167,28 +184,34 @@ async def get_other(username: str):
 
 @app.get("/user/signIn/other/{id}/{password}")
 async def signIn_other(response: Response, id: int, password: str):
-    if check_user(root.otherUser, id, password):     
+    try:
+        if check_user(root.otherUser, id, password):     
+            access_token = signJWT(id)
+            response.status_code = 200
+            response.set_cookie(key="access_token", value=access_token)
+            
+            return token_response(access_token) 
+        return {"error": "Wrong login details!"}
+    except Exception as e:
+        raise e 
+
+@app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
+async def signUp_other(response: Response, username: str, first_name: str, last_name: str, password: str):
+    try:
+        if username in root.otherUser.keys():
+            raise HTTPException(404, detail="OtherUser: Instructor already exists")
+
+        root.otherUser[username] = OtherUser(username, first_name, last_name, password)
+        transaction.commit()
+
         access_token = signJWT(id)
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
         return token_response(access_token) 
-    return {"error": "Wrong login details!"}
-
-@app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
-async def signUp_other(response: Response, username: str, first_name: str, last_name: str, password: str):
-    if username in root.otherUser.keys():
-        raise HTTPException(404, detail="OtherUser: Instructor already exists")
-
-    root.otherUser[username] = OtherUser(username, first_name, last_name, password)
-    transaction.commit()
-
-    access_token = signJWT(id)
-    response.status_code = 200
-    response.set_cookie(key="access_token", value=access_token)
+    except Exception as e:
+        raise e 
     
-    return token_response(access_token) 
-
 # == COURSE ===========================================================================
 @app.get("/course/{course_id}")
 async def get_course(course_id: str):
@@ -199,23 +222,40 @@ async def get_course(course_id: str):
 
 @app.post("/course/new/{course_id}/{name}/{instructor_id}/{public}", dependencies=[Depends(JWTBearer())])
 async def post_course(course_id: str, name: str, instructor_id: str, public: bool):
-    if int(course_id) in root.course.keys():
-        raise HTTPException(404, detail="db_error: Course already exists")
+    try:
+        if int(course_id) in root.course.keys():
+            raise HTTPException(404, detail="db_error: Course already exists")
 
-    if not int(instructor_id) in root.instructor.keys():
-        raise HTTPException(404, detail="db_error: Instructor not found")
-    
-    course_directory = videos_directory / course_id
-    course_directory.mkdir(parents=True)
-    
-    root.course[int(course_id)] = Course(int(course_id), name, instructor_id, public)
-    
-    temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].password)
-    for c in root.instructor[int(instructor_id)].courses:
-        temp_instructor.addCourse(c)
-    temp_instructor.addCourse(int(course_id))
-    root.instructor[int(instructor_id)] = temp_instructor
-    
-    transaction.commit()
+        if not int(instructor_id) in root.instructor.keys():
+            raise HTTPException(404, detail="db_error: Instructor not found")
+        
+        course_directory = videos_directory / course_id
+        course_directory.mkdir(parents=True)
+        
+        root.course[int(course_id)] = Course(int(course_id), name, instructor_id, public)
+        
+        temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].password)
+        for c in root.instructor[int(instructor_id)].courses:
+            temp_instructor.addCourse(c)
+        temp_instructor.addCourse(int(course_id))
+        root.instructor[int(instructor_id)] = temp_instructor
+        
+        transaction.commit()
 
-    return {"message": "Course added successfully"}
+        return {"message": "Course added successfully"}
+    except Exception as e:
+        raise e
+    
+# == CHECK TOKEN =========================================================================
+@app.get("/is_token_valid")
+async def is_token_valid(request: Request):
+    try:
+        access_token = request.cookies.get("access_token")
+        if decodeJWT(access_token) != None:
+            return token_response(access_token)
+        raise HTTPException(status_code=401, detail="Token is invalid or expired")
+    except KeyError:
+        raise HTTPException(status_code=401, detail="Token not found in cookies")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
