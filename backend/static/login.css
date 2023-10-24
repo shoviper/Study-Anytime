@@ -79,7 +79,7 @@ body {
 
 input {
     width: 400px;
-    height: 50px;
+    height: 40px;
     font-size: 20px;
     background-color: #DAFFFB;
     margin: 10px;
@@ -87,12 +87,12 @@ input {
 }
 
 button {
-    background-color: #64CCC5;
+    background-color: #e5de00;
     color: #272829;
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 30px;
+    font-size: 20px;
     width: 400px;
     cursor: pointer;
     margin-bottom: 20px;

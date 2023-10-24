@@ -40,6 +40,18 @@ body {
     color: #272829;
 }
 
+.containertransition {
+    margin-top: 50px;
+}
+
+.container {
+    background-color: #1c1c1c;
+    width: 500px;
+    height: 670px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
 input {
     width: 700px;
     height: 40px;
