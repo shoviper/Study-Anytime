@@ -17,18 +17,17 @@ body {
     width: 100%;
 }
 
-.headertransition {
-    margin-left: 300px;
-    margin-top: 25px;
-}
-
 .header b {
     color: #DAFFFB;
-    font-size: 37px;
+    font-size: 55px;
+}
+
+.headertransition {
+    margin-left: 300px;
+    margin-top: 20px;
 }
 
 .content {
-    background-color: rgb(255, 255, 255);
     height: 90vh;
     width: 100%;
     text-align: center;
@@ -36,15 +35,15 @@ body {
 }
 
 .content h2 {
-    margin-top: 20px;
-    font-size: 70px;
+    margin-top: 40px;
+    font-size: 80px;
     color: #272829;
 }
 
 input {
-    width: 600px;
+    width: 700px;
     height: 40px;
-    font-size: 25px;
+    font-size: 27px;
     background-color: #DAFFFB;
     margin: 10px;
     border-radius: 10px;
@@ -59,7 +58,7 @@ label.radio-label {
     margin: 25px;
     position: relative;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 27px;
     color: #DAFFFB;
     left: 15px;
 }
@@ -88,12 +87,10 @@ button {
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    font-size: 25px;
-    width: 600px;
+    font-size: 27px;
+    width: 700px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 10px;
 }
 
@@ -108,7 +105,7 @@ button:hover {
 }
 
 .contentbuttonsub span {
-    font-size: 25px;
+    font-size: 27px;
 }
 
 .contentbuttonsub a {

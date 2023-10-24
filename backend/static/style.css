@@ -1,0 +1,104 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.header {
+    background-color: #04364A;
+    height: 10vh;
+    width: 100%;
+}
+
+.header b {
+    color: #DAFFFB;
+    font-size: 55px;
+}
+
+.headertransition {
+    margin-left: 300px;
+    margin-top: 20px;
+}
+
+.content {
+    height: 90vh;
+    width: 100%;
+    text-align: center;
+    background-color: #176B87;
+}
+
+.content h2 {
+    margin-top: 120px;
+    font-size: 100px;
+    color: #272829;
+}
+
+.contentheadsubone {
+    opacity: 80%;
+    color: #272829;
+}
+
+.contentheadsub span {
+    font-size: 30px;
+}
+
+.contentheadsub a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.contentheadsub a:hover {
+    color: #DAFFFB;
+}
+
+input {
+    width: 700px;
+    height: 50px;
+    font-size: 30px;
+    background-color: #DAFFFB;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+button {
+    background-color: #64CCC5;
+    color: #272829;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    width: 700px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #DAFFFB;;
+}
+
+.contentbuttonsubone {
+    font-size: 17px;
+    opacity: 80%;
+    color: #272829;
+}
+
+.contentbuttonsub span {
+    font-size: 30px;
+}
+
+.contentbuttonsub a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.contentbuttonsub a:hover {
+    color: #DAFFFB;
+}

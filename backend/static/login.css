@@ -19,12 +19,12 @@ body {
 
 .header b {
     color: #DAFFFB;
-    font-size: 37px;
+    font-size: 55px;
 }
 
 .headertransition {
     margin-left: 300px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .content {
@@ -36,7 +36,7 @@ body {
 
 .content h2 {
     margin-top: 120px;
-    font-size: 70px;
+    font-size: 80px;
     color: #272829;
 }
 
@@ -46,7 +46,7 @@ body {
 }
 
 .contentheadsub span {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .contentheadsub a {
@@ -59,9 +59,9 @@ body {
 }
 
 input {
-    width: 600px;
-    height: 40px;
-    font-size: 25px;
+    width: 700px;
+    height: 50px;
+    font-size: 30px;
     background-color: #DAFFFB;
     margin: 10px;
     border-radius: 10px;
@@ -73,10 +73,8 @@ button {
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    font-size: 25px;
-    width: 600px;
+    font-size: 30px;
+    width: 700px;
     cursor: pointer;
     margin-bottom: 50px;
     border-radius: 10px;
@@ -93,7 +91,7 @@ button:hover {
 }
 
 .contentbuttonsub span {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .contentbuttonsub a {
