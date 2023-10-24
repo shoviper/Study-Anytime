@@ -34,23 +34,42 @@ body {
     background-color: #176B87;
 }
 
+.container img {
+    margin-top: 50px;
+    width: 100px;
+    height: 100px;
+    background-color: #DAFFFB
+}
+
 .content h2 {
-    margin-top: 120px;
-    font-size: 80px;
-    color: #272829;
+    font-size: 75px;
+    /* color: #272829; */
+    color: whitesmoke;
+}
+
+.containertransition {
+    margin-top: 50px;
+}
+
+.container {
+    background-color: #1c1c1c;
+    width: 500px;
+    height: 670px;
+    margin: 0 auto;
+    border-radius: 20px;
 }
 
 .contentheadsubone {
-    opacity: 80%;
-    color: #272829;
+    opacity: 60%;
+    color: #e8e9eb;
 }
 
 .contentheadsub span {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .contentheadsub a {
-    color: #000000;
+    color: #e8e9eb;
     text-decoration: none;
 }
 
@@ -59,9 +78,9 @@ body {
 }
 
 input {
-    width: 700px;
+    width: 400px;
     height: 50px;
-    font-size: 30px;
+    font-size: 20px;
     background-color: #DAFFFB;
     margin: 10px;
     border-radius: 10px;
@@ -74,9 +93,9 @@ button {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 30px;
-    width: 700px;
+    width: 400px;
     cursor: pointer;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     border-radius: 10px;
 }
 
@@ -85,17 +104,17 @@ button:hover {
 }
 
 .contentbuttonsubone {
-    font-size: 17px;
-    opacity: 80%;
-    color: #272829;
+    font-size: 20px;
+    opacity: 60%;
+    color: #e8e9eb;
 }
 
 .contentbuttonsub span {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .contentbuttonsub a {
-    color: #000000;
+    color: #e8e9eb;
     text-decoration: none;
 }
 
