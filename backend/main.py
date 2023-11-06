@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie
+
+from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -25,7 +26,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
     
-
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()
@@ -123,10 +123,10 @@ async def signIn_student(response: Response, id: int, password: str):
     except Exception as e:
         raise e 
     
-@app.post("/user/signUp/student/{id}/{first_name}/{last_name}/{password}")
-async def signUp_student(response: Response, id: int, first_name: str, last_name: str, password):
+@app.post("/user/signUp/student")
+async def signUp_student(response: Response, id: int = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...)):
     try:
-        if int(id) in root.student.keys():
+        if id in root.student.keys():
             raise HTTPException(404, detail="db_error: Student already exists")
 
         root.student[id] = Student(id, first_name, last_name, password)
