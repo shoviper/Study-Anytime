@@ -122,14 +122,34 @@ async def signIn_student(response: Response, id: int, password: str):
         return {"error": "Invalid login details"}
     except Exception as e:
         raise e 
-    
+  
 @app.post("/user/signUp/student")
-async def signUp_student(response: Response, id: int = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...)):
+async def signUp_student(response: Response, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
-        if id in root.student.keys():
-            raise HTTPException(404, detail="db_error: Student already exists")
+        match role:
+            case "student":
+                root_db = root.student
+                id = int(id)
+            case "lecturer":
+                root_db = root.instructor
+                id = int(id)
+            case "others":
+                root_db = root.otherUser
+            case _:
+                raise HTTPException(404, detail="value_error: Invalid role")
+            
+        if id in root_db.keys():
+            raise HTTPException(404, detail="db_error: User already exists")
 
-        root.student[id] = Student(id, first_name, last_name, password)
+        match role:
+            case "student":
+                root_db[id] = Student(id, first_name, last_name, password)
+            case "lecturer":
+                root_db[id] = Instructor(id, first_name, last_name, password)
+            case "others":
+                root_db[id] = OtherUser(id, first_name, last_name, password)
+            case _:
+                raise HTTPException(404, detail="value_error: Invalid role")
         transaction.commit()
         
         access_token = signJWT(id)
