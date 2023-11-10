@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -34,7 +34,7 @@ async def shutdown():
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request, "invalid": False})
 
 # == connect to sign up page ==========================================================
 @app.get("/signup", response_class=HTMLResponse)
@@ -110,21 +110,38 @@ async def get_student(id: str):
         id = int(id)
         return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
 
-@app.get("/user/signIn/student/{id}/{password}")
-async def signIn_student(response: Response, id: int, password: str):
+@app.post("/user/signIn/")
+async def signIn_student(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
-        if check_user(root.student, id, password):
+        root_db = None
+        match role:
+            case "student":
+                root_db = root.student
+                id = int(id)
+            case "lecturer":
+                root_db = root.instructor
+                id = int(id)
+            case "others":
+                root_db = root.otherUser
+            case _:
+                raise HTTPException(404, detail="value_error: Invalid role")
+
+        if check_user(root_db, id, password):
             access_token = signJWT(id)
-            response.status_code = 200
-            response.set_cookie(key="access_token", value=access_token)
             
-            return token_response(access_token) 
-        return {"error": "Invalid login details"}
+            response.status_code = 200
+            response.set_cookie(key="access_token", value=access_token, httponly=True, samesite="Lax", secure=False)
+            response = RedirectResponse(url="/", status_code=302)
+            
+            return response
+        
+        return templates.TemplateResponse("login.html", {"request": request, "invalid": True})
+        
     except Exception as e:
-        raise e 
+        raise HTTPException(500, detail=str(e))
   
-@app.post("/user/signUp/student")
-async def signUp_student(response: Response, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
+@app.post("/user/signUp/")
+async def signUp_student(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
         match role:
             case "student":
@@ -156,7 +173,7 @@ async def signUp_student(response: Response, id: str = Form(...), first_name: st
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
-        return token_response(access_token)
+        return templates.TemplateResponse("index.html", {"request": request})
     except Exception as e:
         raise e 
 

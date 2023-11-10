@@ -17,7 +17,7 @@ function signup() {
     const formData = new FormData(form);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/user/signUp/student", true);
+    xhr.open("POST", "/user/signUp/", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -35,9 +35,8 @@ function signup() {
 }
 
 function login() {
-    alert("Hello");
+   
 }
-
 
 // //resetpassword page
 // function resetpassword(){
