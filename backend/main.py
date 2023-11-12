@@ -50,13 +50,33 @@ async def login(response: Response, request: Request):
 async def login(request: Request):
     return templates.TemplateResponse("about.html", {"request": request, "invalid": False})
 
+# == connect to about page ============================================================
+@app.get("/admission", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("admission.html", {"request": request, "invalid": False})
+
+# == connect to about page ============================================================
+@app.get("/news", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("news.html", {"request": request, "invalid": False})
+
+# == connect to about page ============================================================
+@app.get("/contact", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request, "invalid": False})
+
+# == connect to about page ============================================================
+@app.get("/studyanytime", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("studyanytime.html", {"request": request, "invalid": False})
+
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "invalid": False})
 
 # == connect to mainpage page ============================================================
-@app.get("/mainpage", response_class=HTMLResponse)
+@app.get("/main", response_class=HTMLResponse)
 async def mainpage(request: Request):
     return templates.TemplateResponse("mainpage.html", {"request": request, "invalid": False})
 
