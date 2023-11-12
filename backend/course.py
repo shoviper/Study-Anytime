@@ -1,9 +1,23 @@
 import persistent
 
+class Forum(persistent.Persistent):
+    def __init__(self, user, content) -> None:
+        self.user = user
+        self.content = content
+
+class Heading(Forum):
+    def __init__(self, user, content) -> None:
+        super().__init__(user, content)
+        self.reply = []
+
 class Video(persistent.Persistent):
     def __init__(self, title) -> None:
         self.title = title
-        
+        self.heading = []
+    
+    def addForum(self, forum):
+        self.heading.append(forum)
+    
     def __str__(self):
         return f"Video Title: {self.title}"
 
@@ -24,4 +38,4 @@ class Course(persistent.Persistent):
         return False
 
     def addVideo(self, video):
-        self.videos.append(Video(video))
+        self.videos.append(video)

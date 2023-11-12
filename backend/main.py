@@ -26,9 +26,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request, access_token: str = Cookie(None)):
     try:
-        id = decodeJWT(access_token)["id"]
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
-        return templates.TemplateResponse("index.html", {"request": request, "username": username})
+        return templates.TemplateResponse("index.html", {"request": request, "username": username, "role": role})
     except:
         return templates.TemplateResponse("index.html", {"request": request})
         
