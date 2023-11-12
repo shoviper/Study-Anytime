@@ -116,7 +116,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
 
 # == USER HANDLER=======================================================================
 @app.post("/user/signIn/")
-async def signIn_student(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):
+async def signIn(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
         root_db = None
         match role:
@@ -142,9 +142,9 @@ async def signIn_student(response: Response, request: Request, id: str = Form(..
         return templates.TemplateResponse("login.html", {"request": request, "invalid": True})
   
 @app.post("/user/signUp/")
-async def signUp_student(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
+async def signUp(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
-        if ((id in root.student.keys()) or (id in root.instructor.keys()) or (id in root.otherUser.keys())):
+        if ((int(id) in root.student.keys()) or (int(id) in root.instructor.keys()) or (id in root.otherUser.keys())):
             raise HTTPException(404, detail="db_error: User already exists")
         
         match role:

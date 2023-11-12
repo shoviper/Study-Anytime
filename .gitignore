@@ -4,4 +4,3 @@ backend/db/data.fs
 backend/db/data.fs.index
 backend/db/data.fs.lock
 backend/db/data.fs.tmp
-backend/db/data.fs.lock
