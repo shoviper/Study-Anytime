@@ -45,6 +45,11 @@ async def shutdown():
 async def login(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "invalid": False})
 
+# == connect to about page ============================================================
+@app.get("/about", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request, "invalid": False})
+
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
