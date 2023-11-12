@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <div class="container">
-    <label>
-        <input type="checkbox" >
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
-        <div class="sidebar">
-            <h1>Profile</h1>
-            {% if alreadylogin %}
+        <label>
+            <input type="checkbox">
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
                 <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
                 <li><a href="/logout">logout</a></li>
-            {% else %}
+                {% else %}
                 <ul>
                     <li><a href="/login">login</a></li>
                     <li><a href="/signup">signup</a></li>
                 </ul>
-            {% endif %}
-        </div>
-    </label>
+                {% endif %}
+            </div>
+        </label>
         <div class="topnav">
-            <a class="active" href="/main">Home</a>
+            <a class="active" href="/">Home</a>
             <a href="/about">About</a>
             <a href="/admission">Admissions</a>
             <a href="/news">News</a>
             <a href="/contact">Contact</a>
-            <a href="/studyanytime">Study Anytime</a>
+            <a href="/studyanytime" id="studyAnytimeLink">Study Anytime</a>
             <div class="sepic">
                 <img src="sepic.png" alt="sepic" style="width: 75px; height: 45px;">
             </div>
@@ -54,6 +56,28 @@
             </div>
         </section>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <p></p><br>
+                <h2>Invalid Access</h2>
+                <br><p></p>
+            </div>
+            <div class="modal-body">
+                <br><br>
+                <p>Your session has expired or the access token is not valid.</p>
+                <br>
+                <p>Please log in again.</p>
+                <br><br>
+            </div>
+            <div class="modal-footer">
+                <h3><br><br><p></p></h3>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
 </body>
+
 </html>
