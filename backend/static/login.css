@@ -19,12 +19,12 @@ body {
 
 .header b {
     color: #DAFFFB;
-    font-size: 55px;
+    font-size: 50px;
 }
 
 .headertransition {
     margin-left: 300px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .content {
@@ -35,26 +35,25 @@ body {
 }
 
 .container img {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 100px;
     height: 100px;
     background-color: #DAFFFB
 }
 
 .content h2 {
-    font-size: 75px;
-    /* color: #272829; */
+    font-size: 55px;
     color: whitesmoke;
 }
 
 .containertransition {
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .container {
     background-color: #1c1c1c;
     width: 500px;
-    height: 670px;
+    height: 600px;
     margin: 0 auto;
     border-radius: 20px;
 }
@@ -84,6 +83,31 @@ input {
     background-color: #DAFFFB;
     margin: 10px;
     border-radius: 10px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.radio-label {
+    display: inline-block;
+    background-color: #DAFFFB;
+    color: #272829;
+    font-size: 18px;
+    width: 100px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + .radio-label {
+    background-color: #e5de00;
+    color: #272829;
+}
+
+.contentboxfield p {
+    margin: 10px 0;
 }
 
 button {
