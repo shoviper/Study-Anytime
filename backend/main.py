@@ -1,4 +1,5 @@
 
+from math import exp
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -101,15 +102,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     except Exception as e:
         raise e
 
-# == USER STUDENT =======================================================================
-@app.get("/user/student/{id}")
-async def get_student(id: str):
-    if id == "all":
-        return root.student
-    else:
-        id = int(id)
-        return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
-
+# == USER SIGNIN/SIGNUP=======================================================================
 @app.post("/user/signIn/")
 async def signIn_student(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
@@ -128,17 +121,13 @@ async def signIn_student(response: Response, request: Request, id: str = Form(..
 
         if check_user(root_db, id, password):
             access_token = signJWT(id)
+            response.set_cookie(key="access_token", value=access_token)
             
-            response.status_code = 200
-            response.set_cookie(key="access_token", value=access_token, httponly=True, samesite="Lax", secure=False)
-            response = RedirectResponse(url="/", status_code=302)
-            
-            return response
+            return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
         
+        raise Exception 
+    except Exception:
         return templates.TemplateResponse("login.html", {"request": request, "invalid": True})
-        
-    except Exception as e:
-        raise HTTPException(500, detail=str(e))
   
 @app.post("/user/signUp/")
 async def signUp_student(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
@@ -173,9 +162,18 @@ async def signUp_student(response: Response, request: Request, id: str = Form(..
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
-        return templates.TemplateResponse("index.html", {"request": request})
+        return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         raise e 
+
+# == USER STUDENT =======================================================================
+@app.get("/user/student/{id}")
+async def get_student(id: str):
+    if id == "all":
+        return root.student
+    else:
+        id = int(id)
+        return root.student[id] if id in root.student.keys() else {"error": "Student not found"}
 
 # == USER INSTRUCTOR =====================================================================
 @app.get("/user/instructor/{id}")
@@ -186,36 +184,6 @@ async def get_instructor(id: str):
         id = int(id)
         return root.instructor[id] if id in root.instructor.keys() else {"error": "Instructor not found"}
 
-@app.get("/user/signIn/instructor/{id}/{password}")
-async def signIn_instructor(response: Response, id: int, password: str):
-    try:
-        if check_user(root.instructor, id, password):
-            access_token = signJWT(id)
-            response.status_code = 200
-            response.set_cookie(key="access_token", value=access_token)
-            
-            return token_response(access_token) 
-        return {"error": "Wrong login details!"}
-    except Exception as e:
-        raise e 
-    
-@app.post("/user/signUp/instructor/{id}/{first_name}/{last_name}/{password}")
-async def signUp_instructor(response: Response, id: int, first_name: str, last_name: str, password: str):
-    try:
-        if int(id) in root.instructor.keys():
-            raise HTTPException(404, detail="db_error: Instructor already exists")
-
-        root.instructor[id] = Instructor(id, first_name, last_name, password)
-        transaction.commit()
-        
-        access_token = signJWT(id)
-        response.status_code = 200
-        response.set_cookie(key="access_token", value=access_token)
-        
-        return token_response(access_token) 
-    except Exception as e:
-        raise e 
-        
 # == USER OTHERS ===========================================================================
 @app.get("/user/other/{username}")
 async def get_other(username: str):
@@ -224,36 +192,6 @@ async def get_other(username: str):
     else:
         return root.otherUser[username] if username in root.otherUser.keys() else {"error": "OtherUser not found"}
 
-@app.get("/user/signIn/other/{id}/{password}")
-async def signIn_other(response: Response, id: int, password: str):
-    try:
-        if check_user(root.otherUser, id, password):     
-            access_token = signJWT(id)
-            response.status_code = 200
-            response.set_cookie(key="access_token", value=access_token)
-            
-            return token_response(access_token) 
-        return {"error": "Wrong login details!"}
-    except Exception as e:
-        raise e 
-
-@app.post("/user/signUp/other/{username}/{first_name}/{last_name}/{password}")
-async def signUp_other(response: Response, username: str, first_name: str, last_name: str, password: str):
-    try:
-        if username in root.otherUser.keys():
-            raise HTTPException(404, detail="OtherUser: Instructor already exists")
-
-        root.otherUser[username] = OtherUser(username, first_name, last_name, password)
-        transaction.commit()
-
-        access_token = signJWT(id)
-        response.status_code = 200
-        response.set_cookie(key="access_token", value=access_token)
-        
-        return token_response(access_token) 
-    except Exception as e:
-        raise e 
-    
 # == COURSE ===========================================================================
 @app.get("/course/{course_id}")
 async def get_course(course_id: str):
