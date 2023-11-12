@@ -24,6 +24,16 @@ def check_user(root_class, id, pwd):
         return True
     return False
 
+def get_user(id):
+    if id in root.student.keys():
+        return root.student[id]
+    elif id in root.instructor.keys():
+        return root.instructor[id]
+    elif id in root.otherUser.keys():
+        return root.otherUser[id]
+    
+    return Exception
+
 # import os
 # import ZODB.FileStorage
 # import BTrees.OOBTree

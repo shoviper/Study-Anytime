@@ -12,7 +12,7 @@ def token_response(token: str):
 def signJWT(id: str):
     payload = {
         "id" : id,
-        "exp" : time.time() + 15
+        "exp" : time.time() + 600
     }
     
     token = jwt.encode(payload, SECRET_KEY, ALGORITHM)

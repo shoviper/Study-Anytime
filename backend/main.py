@@ -24,8 +24,14 @@ if __name__ == "__main__":
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+async def read_root(request: Request, access_token: str = Cookie(None)):
+    try:
+        id = decodeJWT(access_token)["id"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("index.html", {"request": request, "username": username})
+    except:
+        return templates.TemplateResponse("index.html", {"request": request})
+        
     
 @app.on_event("shutdown")
 async def shutdown():
@@ -51,7 +57,13 @@ async def signupp(data: dict):
 async def resetpassword(request: Request):
     return templates.TemplateResponse("resetpassword.html", {"request": request})
 
-
+# == CLEAR DB ====================================================
+@app.delete("/clear_user_db")
+async def clear_user_db():
+    root.instructor = BTrees.OOBTree.BTree()
+    root.student = BTrees.OOBTree.BTree()
+    root.otherUser = BTrees.OOBTree.BTree()
+    
 # == VIDEO PLAYER =====================================================================
 videos_directory = Path("db/course_videos")
 
@@ -102,7 +114,7 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
     except Exception as e:
         raise e
 
-# == USER SIGNIN/SIGNUP=======================================================================
+# == USER HANDLER=======================================================================
 @app.post("/user/signIn/")
 async def signIn_student(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
@@ -132,30 +144,24 @@ async def signIn_student(response: Response, request: Request, id: str = Form(..
 @app.post("/user/signUp/")
 async def signUp_student(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
+        if ((id in root.student.keys()) or (id in root.instructor.keys()) or (id in root.otherUser.keys())):
+            raise HTTPException(404, detail="db_error: User already exists")
+        
         match role:
             case "student":
                 root_db = root.student
                 id = int(id)
+                root_db[id] = Student(id, first_name, last_name, password)
             case "lecturer":
                 root_db = root.instructor
                 id = int(id)
-            case "others":
-                root_db = root.otherUser
-            case _:
-                raise HTTPException(404, detail="value_error: Invalid role")
-            
-        if id in root_db.keys():
-            raise HTTPException(404, detail="db_error: User already exists")
-
-        match role:
-            case "student":
-                root_db[id] = Student(id, first_name, last_name, password)
-            case "lecturer":
                 root_db[id] = Instructor(id, first_name, last_name, password)
             case "others":
+                root_db = root.otherUser
                 root_db[id] = OtherUser(id, first_name, last_name, password)
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
+            
         transaction.commit()
         
         access_token = signJWT(id)
