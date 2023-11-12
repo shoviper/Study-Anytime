@@ -75,11 +75,6 @@ async def login(request: Request):
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "invalid": False})
 
-# == connect to mainpage page ============================================================
-@app.get("/main", response_class=HTMLResponse)
-async def mainpage(request: Request):
-    return templates.TemplateResponse("mainpage.html", {"request": request, "invalid": False})
-
 # == connect to sign up page ==========================================================
 @app.get("/signup", response_class=HTMLResponse)
 async def signup(request: Request):
