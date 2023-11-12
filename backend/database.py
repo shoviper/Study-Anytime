@@ -18,7 +18,7 @@ if not hasattr(root, "student"):
 if not hasattr(root, "otherUser"):
     root.otherUser = BTrees.OOBTree.BTree()
 
-# == CHECK USER ========================================================================
+# == USER ========================================================================
 def check_user(root_class, id, pwd):
     if root_class[id].password == pwd:
         return True
@@ -33,3 +33,24 @@ def get_user(id):
         return root.otherUser[id]
     
     return Exception
+
+# == COURSE ========================================================================
+def get_course_names(user_id, rootdb):
+    course_list = []
+    for course in rootdb[user_id].courses:
+        course_list[course.id] = course.name
+    
+    return course_list
+
+def get_video_names(course):
+    names = []
+    for video in course.videos:
+        names.append(video.title)
+        
+    return names
+
+def isCourseValid(user_id, course_id):
+    if root.course[course_id].public:
+        return True
+    
+    return True if course_id in get_user(user_id).courses else False
