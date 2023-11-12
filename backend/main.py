@@ -91,7 +91,15 @@ async def clear_user_db():
     root.instructor = BTrees.OOBTree.BTree()
     root.student = BTrees.OOBTree.BTree()
     root.otherUser = BTrees.OOBTree.BTree()
-    
+
+# == VERIFY JWT ====================================================
+@app.get("/verify_token")
+async def verify_token(request: Request, access_token: str = Cookie(None)):
+    if decodeJWT(access_token) == None:
+        return False
+    else:
+        return True
+
 # == VIDEO PLAYER =====================================================================
 videos_directory = Path("db/course_videos")
 

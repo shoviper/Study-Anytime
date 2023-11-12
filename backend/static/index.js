@@ -23,3 +23,50 @@ const updateClick = (e) => {
 buttons.forEach((button) => button.addEventListener("click", updateClick));
 wrapper.addEventListener("mouseover", () => clearInterval(intervalId));
 wrapper.addEventListener("mouseleave", autoSlide);
+
+// MODAL
+// Function to display the modal
+function displayModal() {
+  var modal = document.getElementById("myModal");
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  var modal = document.getElementById("myModal");
+  modal.style.display = "none";
+}
+
+// Function to check access token validity
+async function checkAccessTokenValidity() {
+  try {
+    const response = await fetch("/verify_token", {
+      method: "GET",
+      credentials: "include", // Include cookies in the request
+    });
+
+    const isValid = await response.json();
+
+    if (!isValid) {
+      displayModal();
+    } else {
+      // If token is valid, redirect to the next page
+      window.location.href = "/studyanytime";
+    }
+  } catch (error) {
+    console.error("Error checking access token validity:", error);
+  }
+}
+
+// Add click event listener to Study Anytime link
+const studyAnytimeLink = document.getElementById("studyAnytimeLink");
+studyAnytimeLink.addEventListener("click", function (event) {
+  // Prevent default link behavior
+  event.preventDefault();
+  // Check access token validity before navigating to the next page
+  checkAccessTokenValidity();
+});
+
+// Add click event listener to close button
+const closeButton = document.querySelector(".modal-header .close");
+closeButton.addEventListener("click", closeModal);
