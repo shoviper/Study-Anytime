@@ -137,7 +137,7 @@ async def signIn(response: Response, request: Request, id: str = Form(...), pass
                 raise HTTPException(404, detail="value_error: Invalid role")
 
         if check_user(root_db, id, password):
-            access_token = signJWT(id)
+            access_token = signJWT(id, role)
             response.set_cookie(key="access_token", value=access_token)
             
             return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
@@ -169,7 +169,7 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
             
         transaction.commit()
         
-        access_token = signJWT(id)
+        access_token = signJWT(id, role)
         response.status_code = 200
         response.set_cookie(key="access_token", value=access_token)
         
