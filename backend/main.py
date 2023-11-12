@@ -170,7 +170,10 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
         
         return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        raise e 
+        db_error = "db_error" in str(e.detail)
+        response.status_code = e.status_code
+        response.set_cookie(key="access_token", value="")
+        return templates.TemplateResponse("signup.html", {"request": request, "db_error": db_error})
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")

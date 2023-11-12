@@ -19,6 +19,9 @@
                 <div class="container">
                     <img src="" alt="SE PICTURE">
                     <h2>Sign up</h2>
+                    {% if db_error %}
+                        <p style="color: red;">Already exist</p>
+                    {% endif %}
                     <div class="contentboxfield">
                         <form id="signup-form" action="/user/signUp/" method="POST">
                             <p>
@@ -47,7 +50,7 @@
                                 <label for="others" class="radio-label">Others</label>
                             </p>
                             <div class="contentbutton">
-                                <button onclick="signup()">Sign up</button>
+                                <button type = "submit">Sign up</button>
                             </div>
                         </form>
                     </div>
