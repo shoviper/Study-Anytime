@@ -3,9 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Main Page</title>
+    <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Welcome, {{ username }}</h1>
+    <div class="container">
+    <label>
+        <input type="checkbox" >
+        <div class="toggle">
+            <span class="top_line common"></span>
+            <span class="middle_line common"></span>
+            <span class="bottom_line common"></span>
+        </div>
+        <div class="sidebar">
+            <h1>Profile</h1>
+            {% if alreadylogin %}
+                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+            {% endif %}
+            <ul>
+                <li><a href="/login">login</a></li>
+                <li><a href="/signup">signup</a></li>
+            </ul>
+        </div>
+    </label>
+        <div class="topnav">
+            <a class="active" href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#admission">Admissions</a>
+            <a href="#news">News</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact">Study Anytime</a>
+            <div class="sepic">
+                <img src="sepic.png" alt="sepic" style="width: 75px; height: 45px;">
+            </div>
+        </div>
+    </div>
+    <div class="slideshow">
+        <section class="wrapper">
+            <i class="fa-solid fa-arrow-left button" id="prev"></i>
+            <div class="image-container">
+            <div class="carousel">
+                <img src="images/image1.jpg" alt="" />
+                <img src="images/image2.jpg" alt="" />
+                <img src="images/image3.jpg" alt="" />
+                <img src="images/image4.jpg" alt="" />
+            </div>
+            <i class="fa-solid fa-arrow-right button" id="next"></i>
+            </div>
+        </section>
+    </div>
+    <div class="program">
+        <h1>program</h1>
+        <p></p>
+    </div>
+    <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
 </body>
 </html>
