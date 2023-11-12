@@ -9,9 +9,10 @@ def token_response(token: str):
         "access_token" : token
     }
     
-def signJWT(id: str):
+def signJWT(id: str, role: str):
     payload = {
         "id" : id,
+        "role" : role,
         "exp" : time.time() + 600
     }
     
