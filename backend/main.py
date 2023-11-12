@@ -30,20 +30,20 @@ async def read_root(request: Request, access_token: str = Cookie(None)):
         id = token["id"]
         role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
-        return templates.TemplateResponse("index.html", {"request": request, "username": username, "role": role})
+        return templates.TemplateResponse("index.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
     except:
-        return templates.TemplateResponse("index.html", {"request": request})
-        
+        return templates.TemplateResponse("index.html", {"request": request, "alreadylogin": False})
     
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()
     db.close()
 
-# == connect to main page ============================================================
-@app.get("/main", response_class=HTMLResponse)
-async def login(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "invalid": False})
+# == connect to login page ============================================================
+@app.get("/logout", response_class=HTMLResponse)
+async def login(response: Response, request: Request):
+    response.delete_cookie("access_token")
+    return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={None}; Path=/"})
 
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
@@ -59,10 +59,6 @@ async def mainpage(request: Request):
 @app.get("/signup", response_class=HTMLResponse)
 async def signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
-
-@app.post("/signup")
-async def signupp(data: dict):
-    return data
 
 # == connect to resetpassword page ====================================================
 @app.get("/resetpassword", response_class=HTMLResponse)
