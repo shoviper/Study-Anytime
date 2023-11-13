@@ -34,6 +34,12 @@ def get_user(id):
     
     return Exception
 
+def get_course(id):
+    if id in root.course.keys():
+        return root.course[id]
+    
+    return Exception
+
 # == COURSE ========================================================================
 def get_course_names(user_id, rootdb):
     course_list = []
