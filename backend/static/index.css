@@ -420,6 +420,62 @@ body {
   margin-top: 5px;
   margin-right: 10px;
 }
+/* contact */
 
 
+/* news */
 
+/* Add styles for the news section */
+.content {
+  margin-top: 120px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.contentheader h2{
+  font-size: 30px;
+  margin-bottom: 35px;
+  margin-left: 80px;
+}
+
+.allnews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-left: 80px;
+  max-width: 90%;
+}
+
+.newsblock img {
+  width: 600px;
+  height: 300px;
+  margin-left: 50px;
+}
+
+.newsblock p {
+  font-size: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.newsblock {
+  flex: 1 1 calc(50% - 20px);
+  border: 1px solid #ccc;
+  padding: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsblock:hover {
+  background-color: #f5f5f5;
+}
+
+/* Styles for individual news page */
+.news-details {
+  display: none;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+/* news */

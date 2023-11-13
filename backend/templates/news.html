@@ -8,24 +8,24 @@
 </head>
 <body>
     <div class="container">
-    <label>
-        <input type="checkbox" >
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
-        <div class="sidebar">
-            <h1>Profile</h1>
-            {% if alreadylogin %}
-                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
-            <ul>
-                <li><a href="/login">login</a></li>
-                <li><a href="/signup">signup</a></li>
-            </ul>
-        </div>
-    </label>
+        <label>
+            <input type="checkbox" >
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
+                    <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+                {% endif %}
+                <ul>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/signup">signup</a></li>
+                </ul>
+            </div>
+        </label>
         <div class="topnav">
             <a class="active" href="/">Home</a>
             <a href="/about">About</a>
@@ -35,6 +35,44 @@
             <a href="/studyanytime">Study Anytime</a>
             <div class="sepic">
                 <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+            </div>
+        </div>
+        <div class="content">
+            <div class="contentheader">
+                <h2>Lastest News</h2>
+            </div>
+            <div class="allnews">
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic1">
+                    <p>Content 1</p>
+                </div>
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic2">
+                    <p>Content 2</p>
+                </div>
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic3">
+                    <p>Content 3</p>
+                </div>
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic4">
+                    <p>Content 4</p>
+                </div>
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic5">
+                    <p>Content 5</p>
+                </div>
+                <div class="newsblock">
+                    <img src="static/picture/kmitl-overview.jpg" alt="pic6">
+                    <p>Content 6</p>
+                </div>
+
+                <!-- Individual News Page (hidden by default) -->
+                <div class="news-details" id="newsDetails">
+                    <h2 id="newsTitle">News Title</h2>
+                    <p id="newsContent">News content goes here...</p>
+                    <a href="#" onclick="goBackToNews()">Go back to News</a>
+                </div>
             </div>
         </div>
     </div>
