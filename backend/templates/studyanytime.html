@@ -76,43 +76,45 @@
         </div>
     </div>
     <div>
+        {% if role == "lecturer" %}
         <br><br><br><br><br><br>
         <h1>Add course:</h1>
-        <form id="add-form" action="/studyanytime/addcourse/" method="POST">
-            <p>
+        <form id="add-form" action="/course/new/" method="POST">
+            <!-- <p>
                 <label for="name">Video name</label>
                 <input name="name" id="videoName" type="text" placeholder="video name" required>
+            </p> -->
+            <p>
+                <label for="course_name" id="course_name">Course name</label>
+                <input name="course_name" id="course_name" type="text" placeholder="couse name" required>
             </p>
             <p>
-                <label for="course" id="course">Course name</label>
-                <input name="course" id="course" type="text" placeholder="couse name" required>
+                <label for="course_id" id="course_id">Course id</label>
+                <input name="course_id" id="course_id" type="text" placeholder="couse id" required>
             </p>
-            <p>
-                <label for="id" id="id">Course id</label>
-                <input name="id" id="id" type="text" placeholder="couse id" required>
-            </p>
-            <p>
-                <label for="lecturer" id="lecturer">Lecturer name</label>
-                <input name="lecturer" id="lecturer" type="text" placeholder="lecturer name" required>
-            </p>
-            <div>
+            <!-- <div>
                 <input type="file" name="file">
-            </div>
+            </div> -->
+            <p>
+                <label for="course_public" id="course_public">public</label>
+                <input name="course_public" id="course_public" type="checkbox" value="true">
+            </p>
             <div>
                 <input type="submit" value="add">
             </div>
         </form>
+        {% endif %}
     </div>
     <div>
         <br><br><br><br><br><br>
         <h1>Enrolled Courses:</h1>
         {% for course in enrolled_courses %}
-            <p><b>{{course[0]}}</b> {{course[1]}}</p>
+        <p><b>{{course[0]}}</b> {{course[1]}}</p>
         {% endfor %}
         <br>
         <h1>Available Courses:</h1>
         {% for course in available_courses %}
-            <p><b>{{course[0]}}</b> {{course[1]}}</p>
+        <p><b>{{course[0]}}</b> {{course[1]}}</p>
         {% endfor %}
     </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
