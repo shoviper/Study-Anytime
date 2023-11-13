@@ -97,8 +97,8 @@ body {
  }
 
  input{
-    display: none;
-    visibility: hidden;
+  /* display: none; */
+  /* visibility: hidden; */
     -webkit-appearance: none;
  }
  .toggle{
@@ -446,6 +446,10 @@ body {
   max-width: 90%;
 }
 
+.newsblock a {
+  text-decoration: none;
+}
+
 .newsblock img {
   width: 600px;
   height: 300px;
@@ -479,3 +483,14 @@ body {
 }
 
 /* news */
+
+
+/* study */
+input {
+  width: 400px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #DAFFFB;
+  margin: 10px;
+  border-radius: 10px;
+}

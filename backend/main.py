@@ -58,6 +58,20 @@ async def admission(request: Request):
 @app.get("/news", response_class=HTMLResponse)
 async def news(request: Request):
     return templates.TemplateResponse("news.html", {"request": request, "invalid": False})
+@app.get("/news1", response_class=HTMLResponse)
+async def news(request: Request):
+    return templates.TemplateResponse("news1.html", {"request": request, "invalid": False})
+@app.get("/news2", response_class=HTMLResponse)
+async def news(request: Request):
+    return templates.TemplateResponse("news2.html", {"request": request, "invalid": False})
+@app.get("/news3", response_class=HTMLResponse)
+async def news(request: Request):
+    return templates.TemplateResponse("news3.html", {"request": request, "invalid": False})
+@app.get("/news4", response_class=HTMLResponse)
+async def news(request: Request):
+    return templates.TemplateResponse("news4.html", {"request": request, "invalid": False})
+
+
 
 # == connect to program page ============================================================
 @app.get("/program", response_class=HTMLResponse)
