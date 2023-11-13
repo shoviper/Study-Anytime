@@ -78,6 +78,25 @@ async def news(request: Request):
 async def program(request: Request):
     return templates.TemplateResponse("program.html", {"request": request, "invalid": False})
 
+@app.get("/se2022", response_class=HTMLResponse)
+async def se2022(request: Request):
+    return templates.TemplateResponse("se2022.html", {"request": request, "invalid": False})
+
+@app.get("/se2024", response_class=HTMLResponse)
+async def se2024(request: Request):
+    return templates.TemplateResponse("se2024.html", {"request": request, "invalid": False})
+
+@app.get("/glasgow", response_class=HTMLResponse)
+async def glasgow(request: Request):
+    return templates.TemplateResponse("glasgow.html", {"request": request, "invalid": False})
+
+@app.get("/queensland", response_class=HTMLResponse)
+async def queensland(request: Request):
+    return templates.TemplateResponse("queensland.html", {"request": request, "invalid": False})
+
+
+
+
 # == connect to studyanytime page ============================================================
 @app.get("/studyanytime", response_class=HTMLResponse)
 async def studyanytime(request: Request, access_token: str = Cookie(None)):

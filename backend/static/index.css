@@ -26,11 +26,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-
 }
 
- 
+.topnav li{
+  list-style: none  ;
+}
+
+
   /* Style the links inside the navigation bar */
   .topnav a {
     color: #f2f2f2;
@@ -57,15 +59,38 @@ body {
     background-color: #616161;
     color: white;
   }
+
+
   /* Style the sepic container */
   .sepic {
     display: flex;
     align-items: center;
   }
   
+  /* .program */
+/* dropdownprogram */
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 
-  
+.dropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
 
+.dropdown a:hover {background-color: #f1f1f1;}
+
+.programbttn:hover .dropdown {
+  display: flex;
+}
 
  .sidebar{
     height: 100%;
@@ -420,7 +445,6 @@ body {
   margin-top: 5px;
   margin-right: 10px;
 }
-/* contact */
 
 
 /* news */
@@ -493,4 +517,24 @@ input {
   background-color: #DAFFFB;
   margin: 10px;
   border-radius: 10px;
+}
+
+.se2022{
+  margin-top: 90px;
+  margin-left: 10px;
+  margin-right: 10px;
+  
+}
+
+.se2024{
+  margin-top: 90px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+.queensland{
+  margin-top: 85px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

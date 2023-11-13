@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+    <label>
+        <input type="checkbox" >
+        <div class="toggle">
+            <span class="top_line common"></span>
+            <span class="middle_line common"></span>
+            <span class="bottom_line common"></span>
+        </div>
+        <div class="sidebar">
+            <h1>Profile</h1>
+            {% if alreadylogin %}
+                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+            {% endif %}
+            <ul>
+                <li><a href="/login">login</a></li>
+                <li><a href="/signup">signup</a></li>
+            </ul>
+        </div>
+    </label>
+        <div class="topnav">
+            <li><a class="active" href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/admission">Admissions</a></li>
+            <li><a href="/news">News</a></li>    
+            <div class="programbttn" >
+            <li><a href="/program">Program</a>
+                <div class="dropdown">   
+                    <ul>
+                    <li><a href="/se2022">Software-Engineering 2022</a></li>
+                    <li><a href="/se2024">Software-Engineering 2024</a></li>
+                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                    <li><a href="/queensland">KMITL-Queensland</a></li>
+                   
+                    </ul>
+                </div>
+            </li>
+            </div>
+           
+            <li><a href="/studyanytime">Study Anytime</a></li>
+            <div class="sepic">
+                <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+            </div>
+        </div>
+
+    <section class="section jss171" style="padding: 36px 64px">
+      <div style="white-space: normal; overflow-wrap: break-word">
+        <h2>KMITL-Glasgow Double-Degree Program in Software Engineering</h2>
+
+        <p>&nbsp;</p>
+
+        <p>
+          The
+          <strong
+            >KMITL-Glasgow Double-Degree Program in Software Engineering</strong
+          >
+          is a collaboration between KMITL and the University of Glasgow, UK.
+          The program enables qualified students who have completed Year 2 in
+          the SE program at the International College to enter Years 3 and 4 of
+          the Software Engineering program at the University of Glasgow's School
+          of Computing Science. At Glasgow, the student will have an opportunity
+          to study with world-renowned academics, as well as working on team
+          projects with multi-national talents. This is an excellent opportunity
+          for the students who wish to gain studying and living experience in
+          the UK.
+        </p>
+
+        <p>&nbsp;</p>
+
+        <hr />
+        <p>&nbsp;</p>
+
+        <p>&nbsp;</p>
+
+        <div>
+          <h2>About University of Glasgow</h2>
+
+          <div>
+            <img
+              alt="logo glasgow university"
+              src="http://se.kmitl.ac.th/assets/logoglasgowuniversitysmall.png"
+              style="height: 100%; width: 295px"
+            />
+          </div>
+          &nbsp;
+
+          <div>
+            <p>
+              Founded in 1451, the<a
+                href="http://www.gla.ac.uk/"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >University of Glasgow</a
+              >(Glasgow, United Kingdom) is one of the oldest universities in
+              the world, and has been ranked as<a
+                href="https://www.topuniversities.com/universities/university-glasgow"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >one of the world's top 100 universities</a
+              >. With its long history in advanced research, the University of
+              Glasgow has been home to<a
+                href="http://www.gla.ac.uk/about/history/fame/"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >six Nobel-prize winners</a
+              >. The University's<a
+                href="http://www.gla.ac.uk/schools/computing/"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >School of Computing Science</a
+              >has consistently been ranked in the<a
+                href="https://www.topuniversities.com/university-rankings/university-subject-rankings/2016/computer-science-information-systems"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >UK's top 10 in computing</a
+              >. Glasgow's<a
+                href="http://www.gla.ac.uk/undergraduate/degrees/softwareengineering/"
+                rel="alternate noopener noreferrer"
+                target="_blank"
+                >Software Engineering program</a
+              >is one of the first programs in the world that specialize in
+              software engineering and is highly respected by software industry.
+            </p>
+
+            <p>&nbsp;</p>
+
+            <hr />
+            <p>&nbsp;</p>
+
+            <h2>Admission</h2>
+
+            <p>&nbsp;</p>
+
+            <p>
+              Requirements for the students who wish to join this
+              double-degree&nbsp;program:
+            </p>
+
+            <ul>
+              <li>
+                Completed Year 2 of the B.Eng. in Software Engineering program
+                with GPA of 3.2 or more
+              </li>
+              <li>IELTS score of 6.5 or more, with no subtest below 6.0</li>
+            </ul>
+
+            <p>&nbsp;</p>
+
+            <p>&nbsp;</p>
+
+            <hr />
+            <p>&nbsp;</p>
+
+            <h2>Degrees</h2>
+
+            <p>&nbsp;</p>
+
+            <p>
+              Students who have completed Year 4 of this
+              double-degree&nbsp;program will be awarded a&nbsp;
+            </p>
+
+            <p>
+              <strong
+                >BSc Honours degree in Software Engineering from the University
+                of Glasgow</strong
+              >
+              and a<strong
+                >B.Eng. degree in Software Engineering from KMITL</strong
+              >.
+            </p>
+
+            <p>
+              Students who maintain good academic records during their studies
+              at the University of Glasgow will be eligible to transfer to a
+              one-year Master program in Software Engineering at the end of Year
+              4 and graduate with the Master of Science degree in Software
+              Engineering awarded by University of Glasgow at the end of Year 5.
+            </p>
+
+            <p>&nbsp;</p>
+
+            <hr />
+            <p>&nbsp;</p>
+
+            <h2>Tuition Fees</h2>
+
+            <p>&nbsp;</p>
+
+            <p>The tuition fee rates are as follows*:</p>
+
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    <p>2 years at KMITL, Tuition fee : THB 180,000 per year</p>
+                  </li>
+                  <li>
+                    <p>
+                      2 years at Glasgow, Tuition fee with scholarship :
+                      GBP&nbsp;17,536 per year
+                    </p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <p>
+              * Rates as of Academic Year 2020. Every student joining the
+              double-degree program&nbsp;is entitled to the<strong
+                >KMITL - Glasgow Undergraduate Scholarship</strong
+              >
+              which provides 20% reduction from the full tuition-fee rate for
+              international students&nbsp;at Glasgow University.
+            </p>
+
+            <p>&nbsp;</p>
+
+            <hr />
+            <p>&nbsp;</p>
+
+            <h2>Application Procedure</h2>
+
+            <p>&nbsp;</p>
+
+            <p>
+              Applications for&nbsp;KMITL-Glasgow Double-Degree Program in
+              Software Engineering are made when students finish the second
+              semester of Year 2 of their study in the SE program. Second-year
+              SE students who meet the requirements above and wish to apply need
+              to inform the&nbsp;SE program director&nbsp;before the end of Year
+              2 Semester 2 and submit their applications on the UCAS
+              system<strong>no later than 30 June</strong> (of the year they are
+              planning to enter UoG) at&nbsp;<a
+                href="https://www.ucas.com/students"
+                rel="noopener noreferrer"
+                target="_blank"
+                >https://www.ucas.com/students</a
+              >.
+            </p>
+
+            <p>&nbsp;</p>
+
+            <h2>Application Guidance</h2>
+
+            <p>&nbsp;</p>
+
+            <ol>
+              <li>
+                On the UCAS website above, choose Undergraduate 20xx entry,
+                where 20xx is the year you are planning to enter UoG, and then
+                select "Apply". This should lead you to the application system.
+                You first need to<strong>register</strong>. Make sure you
+                provide an email address that you check regularly (could be
+                @kmitl.ac.th address or your personal email address). Your given
+                names and your last name that you enter when registering should
+                be spelled exactly as written in your passport. If there is any
+                field in the registration form that is unclear, click on ? or
+                "Help" to see an explanation. After you have registered, you
+                will receive an email from UCAS asking you to verify your email
+                address. You should follow the instruction in the email.
+              </li>
+              <li>
+                After you have registered, you can then login to start filling
+                in your application.&nbsp;When asked how you are applying, you
+                should specify that you apply as "<strong>individual</strong>"
+                (thus a "buzzword" is not required).
+              </li>
+              <li>
+                When asked which program to apply, choose
+                <strong>BSc (Hons) Software Engineering</strong> program at the
+                University of Glasgow (UCAS&nbsp;<strong>G430</strong>) for
+                entry into<strong>&nbsp;Year 3</strong>&nbsp;of the program.
+              </li>
+              <li>
+                You must include a short <strong>personal statement</strong>.
+                The statement should include your reason for choosing software
+                engineering as your program of study, your reason for choosing
+                the KMITL-Glasgow Double-Degree Program in Software Engineering,
+                and your future plan after your graduate.
+              </li>
+              <li>Reference letters are <strong>not</strong> needed.</li>
+              <li>
+                When you submit your application, you will be asked to pay
+                the<strong>application fee</strong> using a credit card. You can
+                ask someone else to pay for you using their credit card.&nbsp;
+                If the credit card you use does not work, try another one.
+              </li>
+              <li>
+                After you have submitted your UCAS application, notify
+                the&nbsp;SE program director&nbsp;that your have done so
+                <strong>within 30 June</strong>. Also send a copy of your IELTS
+                score report to the program director. The program director will
+                forward your IELTS score report together with your transcript to
+                the admissions office at UoG. There is no need to send us your
+                transcript as we can obtain it by ourselves.
+              </li>
+              <li>
+                If you satisfy all the requirements, UoG will notify you with
+                an<strong>unconditional offer</strong> via email. If not, UoG
+                will send you a<strong>conditional offer</strong> via email,
+                detailing the conditions that you need to satisfy and the
+                deadline (e.g. IELTS score or final GPA for Year 2 at KMITL).
+                You must accept the offer within the deadline stated in your
+                offer.
+              </li>
+              <li>
+                Once you have been given and accepted an unconditional offer,
+                UoG will start preparing a<strong>CAS statement</strong> for
+                you. UoG will send you a<strong>draft</strong> of your CAS
+                statement for you to check for correctness. Your CAS statement
+                is a summary of your personal information, educational records,
+                and your program of study in the UK. The CAS statement will be
+                stored in an online server accessible by UK universities and the
+                UK immigration department (called the Home Office). Your CAS
+                statement will be read by the visa staff when you apply for a
+                visa.&nbsp;You should check that all the information is correct
+                and, in particular, the<strong>tuition fee</strong> listed in
+                the statement is the 20%-discounted rate. Inform UoG if any
+                correction is needed.
+              </li>
+              <li>
+                Once you have confirmed that the draft of your CAS statement is
+                correct, UoG will email you a copy of your final CAS statement.
+                You should print it out and later include it with your visa
+                application.
+              </li>
+              <li>
+                During the same time after you accepted the unconditional
+                offer,&nbsp;you will receive some information from UoG's student
+                services regarding the registration, student accommodation,
+                internet account, etc via email. You can just response to their
+                request. When you are asked to register for courses in the
+                upcoming semester, you can ignore that. You are to do the<strong
+                  >course registration</strong
+                >
+                when you are in the UK. Your advisor at UoG will help you with
+                the course registration when you arrive at UoG.
+              </li>
+              <li>
+                Regarding the <strong>accommodation</strong>, UoG will send you
+                an application form for applying for a<a
+                  href="https://www.gla.ac.uk/undergraduate/accommodation/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >university accommodation</a
+                >. There is a wide range of options. You can also apply for a
+                private student accommodation. For the latter, you can do so by
+                yourself on the web any time (even before you receive an offer).
+                You can consult the SE students currently studying at Glasgow
+                for advice accommodations. For a private accommodation, you
+                could apply even before you receive an offer from UoG.&nbsp;
+              </li>
+              <li>
+                After your have received a copy of your final CAS statement in
+                Step 10 above, you can start applying for your
+                <strong>UK&nbsp;visa</strong>. See below for the visa
+                application guidance.
+              </li>
+              <li>
+                You should plan to arrive at Glasgow at the beginning of the
+                <strong>orientation week</strong>, which is typically on the
+                Monday in the middle of September, or before that.
+              </li>
+            </ol>
+
+            <p>
+              If you have any question or problem on the KMITL-Glasgow
+              Double-Degree Program in Software Engineering, please contact the
+              <strong>SE program director</strong>, Asst.Prof.Dr. Visit
+              Hirankitti (visit.hi@kmitl.ac.th).
+            </p>
+
+            <p>&nbsp;</p>
+
+            <h2>UK Visa Guidance</h2>
+
+            <p>&nbsp;</p>
+
+            <p>
+              The type of the visa that you should apply is called
+              <strong>"General student visa (Tier 4)"</strong>. You can apply
+              for the visa only after you have received your final CAS statement
+              from UoG. But there are some necessities that you should prepare
+              even before starting your visa application process.
+            </p>
+
+            <ol>
+              <li>
+                Make sure you have your passport that is valid for
+                <strong>3 more years or longer</strong>.
+              </li>
+              <li>
+                Prepare a <strong>sufficient amount of money</strong> in your
+                parents' bank account. The money must be in the account for at
+                least 28 days when you apply for a visa. Bank accounts belonging
+                to someone else other than yourself or your parents are
+                unacceptable. Only a bank account where the money can be readily
+                withdrawn at any time can be used to support your application.
+                The minimum amount of money required in the bank account
+                is<strong
+                  >"Annual tuition fee listed on CAS statement in GBP" +
+                  ("Monthly living cost of 1,015 GBP/month" x 9 months)</strong
+                >.
+              </li>
+              <li>
+                Have a <strong>Tuberculosis test</strong> at an approved testing
+                center to obtain a medical certificate. See&nbsp;<a
+                  href="https://www.gov.uk/government/publications/tuberculosis-test-for-a-uk-visa-clinics-in-thailand/tuberculosis-testing-in-thailand"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >https://www.gov.uk/government/publications/tuberculosis-test-for-a-uk-visa-clinics-in-thailand/tuberculosis-testing-in-thailand</a
+                >&nbsp;
+              </li>
+              <li>
+                Obtain the address of <strong>your accommodation</strong> in the
+                UK.
+              </li>
+            </ol>
+
+            <p>
+              Note that you need <strong>not</strong> purchase your flight
+              ticket before applying for your visa, but you should have a travel
+              plan, i.e. which day your plan to arrive in the UK.
+            </p>
+
+            <p>
+              Guidance on how to apply for this type of visa can be found
+              at&nbsp;<a
+                href="https://www.gov.uk/tier-4-general-visa"
+                rel="noopener noreferrer"
+                target="_blank"
+                >https://www.gov.uk/tier-4-general-visa</a
+              >. Below is an overview of the UK visa application
+              procedure.&nbsp;
+            </p>
+
+            <ol>
+              <li>Fill in and submit the online application form.</li>
+              <li>
+                Upload all the required supporting documents. Upload the
+                original copies. Translations are not needed.
+              </li>
+              <li>Pay the visa application fee.</li>
+              <li>Print out the completed application form.</li>
+              <li>
+                Make a reservation for a visit to the UK visa application
+                center.
+              </li>
+              <li>
+                Bring your application form, your current passport and all the
+                old ones, your medical certificate, and the original version of
+                all your supporting documents and go to the visa application
+                center.
+              </li>
+              <li>
+                At the UK visa application center, have your documents checked
+                and your fingerprints recorded.
+              </li>
+              <li>
+                Obtain the visa collection slip and the expected visa collection
+                date.
+              </li>
+            </ol>
+
+            <p>
+              If there is no problem with your application, the processing time
+              for&nbsp;<strong>General student visa (Tier 4)</strong> is
+              normally 2-3 weeks after your visit to the UK visa application
+              center.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
