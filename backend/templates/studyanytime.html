@@ -16,18 +16,20 @@
             <span class="bottom_line common"></span>
         </div>
         <div class="sidebar">
-            <h1>Profile</h1>
+            <h1>Profile</h1>    
             {% if alreadylogin %}
                 <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
+                <li><a href="/logout">logout</a></li>
+            {% else %}
             <ul>
                 <li><a href="/login">login</a></li>
                 <li><a href="/signup">signup</a></li>
             </ul>
+            {% endif %}
         </div>
     </label>
         <div class="topnav">
-            <li><a class="active" href="/">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/admission">Admissions</a></li>
             <li><a href="/news">News</a></li>    
@@ -45,7 +47,7 @@
             </li>
             </div>
            
-            <li><a href="/studyanytime">Study Anytime</a></li>
+            <li><a class="active" href="/studyanytime">Study Anytime</a></li>
             <div class="sepic">
                 <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
             </div>
