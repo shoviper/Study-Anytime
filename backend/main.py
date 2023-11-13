@@ -49,22 +49,22 @@ async def logout(response: Response, request: Request):
 async def about(request: Request):
     return templates.TemplateResponse("about.html", {"request": request, "invalid": False})
 
-# == connect to about page ============================================================
+# == connect to admission page ============================================================
 @app.get("/admission", response_class=HTMLResponse)
 async def admission(request: Request):
     return templates.TemplateResponse("admission.html", {"request": request, "invalid": False})
 
-# == connect to about page ============================================================
+# == connect to news page ============================================================
 @app.get("/news", response_class=HTMLResponse)
 async def news(request: Request):
     return templates.TemplateResponse("news.html", {"request": request, "invalid": False})
 
-# == connect to about page ============================================================
-@app.get("/contact", response_class=HTMLResponse)
-async def contact(request: Request):
-    return templates.TemplateResponse("contact.html", {"request": request, "invalid": False})
+# == connect to program page ============================================================
+@app.get("/program", response_class=HTMLResponse)
+async def program(request: Request):
+    return templates.TemplateResponse("program.html", {"request": request, "invalid": False})
 
-# == connect to about page ============================================================
+# == connect to studyanytime page ============================================================
 @app.get("/studyanytime", response_class=HTMLResponse)
 async def studyanytime(request: Request, access_token: str = Cookie(None)):
     try:
