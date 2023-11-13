@@ -19,7 +19,7 @@ class Video(persistent.Persistent):
         self.heading.append(forum)
     
     def __str__(self):
-        return f"Video Title: {self.title}"
+        return self.title
 
 class Course(persistent.Persistent):
     def __init__(self, id, name, instructor, public) -> None:
@@ -28,6 +28,7 @@ class Course(persistent.Persistent):
         self.instructor = instructor
         self.public = public
         self.videos = []
+        self.student_list = []
 
     def __str__(self):
         return f"Course ID: {self.id}, Course Name: {self.name}, Instructor: {self.instructor}, Is Public: {self.public}, Number of Videos: {len(self.videos)}"
@@ -39,3 +40,6 @@ class Course(persistent.Persistent):
 
     def addVideo(self, video):
         self.videos.append(video)
+        
+    def enrollStudent(self, student_id):
+        self.student_list.append(student_id)

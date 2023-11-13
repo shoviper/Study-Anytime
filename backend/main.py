@@ -71,8 +71,6 @@ async def news(request: Request):
 async def news(request: Request):
     return templates.TemplateResponse("news4.html", {"request": request, "invalid": False})
 
-
-
 # == connect to program page ============================================================
 @app.get("/program", response_class=HTMLResponse)
 async def program(request: Request):
@@ -108,11 +106,53 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
             if course not in enrolled_id:
                 available_courses.append([course, root.course[course].name])
         
-        print(role)
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled_courses" : enrolled_courses, "available_courses": available_courses})
     except Exception as e:
-        print("error" + str(e))
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
+
+@app.get("/studyanytime/course/{course_id}", response_class=HTMLResponse)
+async def studyanytime(request: Request, course_id : str, access_token : str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        course = await get_course(int(course_id))
+        videos = get_video_names(course)
+        
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "videos" : videos})
+    except Exception as e:
+        print(e)
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
+
+@app.get("/studyanytime/course/video/{course_id}/{video_name}", response_class=HTMLResponse)
+async def studyanytime(request: Request, course_id : str, video_name : str, access_token : str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name})
+    except Exception as e:
+        print(e)
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": False})
+
+@app.get("/studyanytime/course/{course_id}", response_class=HTMLResponse)
+async def studyanytime(request: Request, course_id : str, access_token : str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        course = await get_course(int(course_id))
+        videos = get_video_names(course)
+        
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "videos" : videos})
+    except Exception as e:
+        print(e)
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
+
 
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
@@ -151,14 +191,14 @@ async def verify_token(request: Request, access_token: str = Cookie(None)):
 # == VIDEO PLAYER =====================================================================
 videos_directory = Path("db/course_videos")
 
-@app.get("/video/{course_id}/{filename}")
-async def get_video(course_id: int, filename: str):
-    video_path = videos_directory / str(course_id) / filename
+@app.get("/video/{course_id}/{video_name}")
+async def get_video(course_id: int, video_name: str):
+    video_path = videos_directory / str(course_id) / video_name
     try:
         if not course_id in root.course.keys():
             raise HTTPException(404, detail="db_error: Course not found")
 
-        if not root.course[course_id].isIn(Video(filename)):
+        if not root.course[course_id].isIn(Video(video_name)):
             raise HTTPException(404, detail="db_error: Video not found")
 
         if not video_path.is_file():
@@ -166,12 +206,20 @@ async def get_video(course_id: int, filename: str):
 
         return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
     except Exception as e:
+        print(e)
         raise e
 
-@app.post("/video/upload/{course_id}/{instructor_id}")
-async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
+@app.post("/video/upload/{course_id}")
+async def upload_file(request: Request, course_id: int, file: UploadFile, access_token : str = Cookie(None)):
     course_directory = videos_directory / str(course_id)
     try:
+        token = decodeJWT(access_token)
+        instructor_id = token["id"]
+        role = token["role"]
+        username = f"{get_user(instructor_id).first_name} {get_user(instructor_id).last_name}"
+        course = await get_course(int(course_id))
+        videos = get_video_names(course)
+        
         if not instructor_id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
 
@@ -189,15 +237,15 @@ async def upload_file(course_id: int, instructor_id: int, file: UploadFile):
         temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
         for c in root.course[course_id].videos:
             temp_course.addVideo(c)
-        temp_course.addVideo(file.filename)
+        temp_course.addVideo(Video(file.filename))
         root.course[course_id] = temp_course
         
         transaction.commit()
-
-        return {"message": "Video uploaded successfully"}
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        raise e
-
+        print(e)
+        return {"message" : "failed"}
+        
 # == USER HANDLER=======================================================================
 @app.post("/user/signIn/")
 async def signIn(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):

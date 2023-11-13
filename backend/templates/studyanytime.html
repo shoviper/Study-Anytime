@@ -36,7 +36,7 @@
             <a href="/admission">Admissions</a>
             <a href="/news">News</a>
             <a href="/contact">Contact</a>
-            <a class="active" href="/studyanytime/{{role}}/{{id}}" id="studyAnytimeLink">Study Anytime</a>
+            <a class="active" href="/studyanytime" id="studyAnytimeLink">Study Anytime</a>
             <div class="sepic">
                 <img src="se.png" alt="sepic" style="width: 75px; height: 45px;">
             </div>
@@ -71,10 +71,6 @@
         <br><br><br><br><br><br>
         <h1>Add course:</h1>
         <form id="add-form" action="/course/new/" method="POST">
-            <!-- <p>
-                <label for="name">Video name</label>
-                <input name="name" id="videoName" type="text" placeholder="video name" required>
-            </p> -->
             <p>
                 <label for="course_name" id="course_name">Course name</label>
                 <input name="course_name" id="course_name" type="text" placeholder="couse name" required>
@@ -83,9 +79,6 @@
                 <label for="course_id" id="course_id">Course id</label>
                 <input name="course_id" id="course_id" type="text" placeholder="couse id" required>
             </p>
-            <!-- <div>
-                <input type="file" name="file">
-            </div> -->
             <p>
                 <label for="course_public" id="course_public">public</label>
                 <input name="course_public" id="course_public" type="checkbox" value="true">
@@ -100,12 +93,12 @@
         <br><br><br><br><br><br>
         <h1>Enrolled Courses:</h1>
         {% for course in enrolled_courses %}
-        <p><b>{{course[0]}}</b> {{course[1]}}</p>
+        <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
         {% endfor %}
         <br>
         <h1>Available Courses:</h1>
         {% for course in available_courses %}
-        <p><b>{{course[0]}}</b> {{course[1]}}</p>
+        <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
         {% endfor %}
     </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>

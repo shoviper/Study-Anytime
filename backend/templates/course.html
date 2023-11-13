@@ -67,12 +67,26 @@
         </div>
     </div>
     <div>
+        {% if role == "lecturer" %}
         <br><br><br><br><br><br>
-        <h1>Video Playback</h1>
-        <h2>{{course_id}}: {{video_name}}</h2>
-        <video width="640" height="360" controls>
-            <source src="http://127.0.0.1:8000/video/{{course_id}}/{{video_name}}" type="video/mp4">
-        </video>
+        <h1>Upload Video:</h1>
+        <form id="add-form" action="/video/upload/{{course_id}}" method="POST" enctype="multipart/form-data">
+            <div>
+                <input type="file" name="file">
+            </div>
+            <div>
+                <input type="submit" value="Upload">
+            </div>
+        </form>
+        {% endif %}
+    </div>
+    <div>
+        <br><br><br><br><br><br>
+        <h1>Videos:</h1>
+        {% for video in videos %}
+        <div><a href="/studyanytime/course/video/{{course_id}}/{{video}}"><b>{{video}}</b></a></div>
+        {% endfor %}
+        <br>
     </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
 </body>

@@ -34,11 +34,6 @@ def get_user(id):
     
     return Exception
 
-def get_course(id):
-    if id in root.course.keys():
-        return root.course[id]
-    
-    return Exception("Course Does not Exist")
 
 # == COURSE ========================================================================
 def get_course_names(user_id, rootdb):
@@ -48,10 +43,16 @@ def get_course_names(user_id, rootdb):
     
     return course_list
 
+def get_course(id):
+    if id in root.course.keys():
+        return root.course[id]
+    
+    return Exception("Course Does not Exist")
+
 def get_video_names(course):
     names = []
     for video in course.videos:
-        names.append(video.title)
+        names.append(str(video.title))
         
     return names
 
