@@ -38,13 +38,16 @@ def get_course(id):
     if id in root.course.keys():
         return root.course[id]
     
-    return Exception
+    return Exception("Course Does not Exist")
 
 # == COURSE ========================================================================
 def get_course_names(user_id, rootdb):
     course_list = []
     for course in rootdb[user_id].courses:
-        course_list[course.id] = course.name
+        c = []
+        c.append(course)
+        c.append(root.course[course].name)
+        course_list.append(c)
     
     return course_list
 

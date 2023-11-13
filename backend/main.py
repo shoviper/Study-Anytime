@@ -85,10 +85,13 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
                 root_db = root.otherUser
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
-        courses = get_course_names(int(id), root_db)
+            
+        enrolled_courses = get_course_names(int(id), root_db)
+        available_courses = []
         
-        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "courses" : courses})
-    except:
+        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled_courses" : enrolled_courses, "available_courses": available_courses})
+    except Exception as e:
+        print("error" + str(e))
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
 
 # == connect to login page ============================================================
@@ -112,6 +115,10 @@ async def clear_user_db():
     root.instructor = BTrees.OOBTree.BTree()
     root.student = BTrees.OOBTree.BTree()
     root.otherUser = BTrees.OOBTree.BTree()
+    
+@app.delete("/clear_course_db")
+async def clear_course_db():
+    root.course = BTrees.OOBTree.BTree()
 
 # == VERIFY JWT ====================================================
 @app.get("/verify_token")
@@ -230,15 +237,35 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
         return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
 
 @app.get("/enroll/{role}/{user_id}/{course_id}")
-async def get_student(role: str, user_id: str, course_id: str):
+async def enroll(role: str, user_id: str, course_id: int):
     try:
+        
         user = get_user(int(user_id))
-        course = get_course(int(course_id))
-        user.enrollCourse(course.id)
+        if course_id in user.courses:
+            raise HTTPException(404, detail="Already Enrolled")
+        
+        course = await get_course(course_id)
+        
+        match role:
+            case "student":
+                user_id = int(user_id)
+                temp_user = Student(root.student[user_id].id, root.student[user_id].first_name, root.student[user_id].last_name, root.student[user_id].email, root.student[user_id].password)
+                for c in root.student[user_id].courses:
+                    temp_user.enrollCourse(c)
+                temp_user.enrollCourse(course.id)
+                root.student[user_id] = temp_user
+            case "others":
+                temp_user = OtherUser(root.otherUser[user_id].id, root.otherUser[user_id].first_name, root.otherUser[user_id].last_name, root.otherUser[user_id].email, root.otherUser[user_id].password)
+                for c in root.otherUser[user_id].courses:
+                    temp_user.enrollCourse(c)
+                temp_user.enrollCourse(course.id)
+                root.otherUser[user_id] = temp_user
+            case _:
+                raise HTTPException(404, detail="value_error: Invalid role")
         
         transaction.commit()
-    except:
-        raise HTTPException(404, detail="Failed to enroll")  
+    except Exception as e:
+        raise e
         
 
 # == USER STUDENT =======================================================================
@@ -289,10 +316,10 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
         
         root.course[int(course_id)] = Course(int(course_id), name, instructor_id, public)
         
-        temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].password)
+        temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].email, root.instructor[int(instructor_id)].password)
         for c in root.instructor[int(instructor_id)].courses:
-            temp_instructor.addCourse(c)
-        temp_instructor.addCourse(int(course_id))
+            temp_instructor.enrollCourse(c)
+        temp_instructor.enrollCourse(int(course_id))
         root.instructor[int(instructor_id)] = temp_instructor
         
         transaction.commit()
