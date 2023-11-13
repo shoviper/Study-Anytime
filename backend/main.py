@@ -1,5 +1,4 @@
 
-from math import exp
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -41,34 +40,41 @@ async def shutdown():
 
 # == connect to login page ============================================================
 @app.get("/logout", response_class=HTMLResponse)
-async def login(response: Response, request: Request):
+async def logout(response: Response, request: Request):
     response.delete_cookie("access_token")
     return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={None}; Path=/"})
 
 # == connect to about page ============================================================
 @app.get("/about", response_class=HTMLResponse)
-async def login(request: Request):
+async def about(request: Request):
     return templates.TemplateResponse("about.html", {"request": request, "invalid": False})
 
 # == connect to about page ============================================================
 @app.get("/admission", response_class=HTMLResponse)
-async def login(request: Request):
+async def admission(request: Request):
     return templates.TemplateResponse("admission.html", {"request": request, "invalid": False})
 
 # == connect to about page ============================================================
 @app.get("/news", response_class=HTMLResponse)
-async def login(request: Request):
+async def news(request: Request):
     return templates.TemplateResponse("news.html", {"request": request, "invalid": False})
 
 # == connect to about page ============================================================
 @app.get("/contact", response_class=HTMLResponse)
-async def login(request: Request):
+async def contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request, "invalid": False})
 
 # == connect to about page ============================================================
 @app.get("/studyanytime", response_class=HTMLResponse)
-async def login(request: Request):
-    return templates.TemplateResponse("studyanytime.html", {"request": request, "invalid": False})
+async def studyanytime(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
 
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
@@ -78,7 +84,7 @@ async def login(request: Request):
 # == connect to sign up page ==========================================================
 @app.get("/signup", response_class=HTMLResponse)
 async def signup(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request})
+    return templates.TemplateResponse("signup.html", {"request": request, "invalid": False})
 
 # == connect to resetpassword page ====================================================
 @app.get("/resetpassword", response_class=HTMLResponse)
@@ -178,7 +184,7 @@ async def signIn(response: Response, request: Request, id: str = Form(...), pass
         return templates.TemplateResponse("login.html", {"request": request, "invalid": True})
   
 @app.post("/user/signUp/")
-async def signUp(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), password: str = Form(...), role: str = Form(...)):
+async def signUp(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), email: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
         if ((int(id) in root.student.keys()) or (int(id) in root.instructor.keys()) or (id in root.otherUser.keys())):
             raise HTTPException(404, detail="db_error: User already exists")
@@ -187,17 +193,17 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
             case "student":
                 root_db = root.student
                 id = int(id)
-                root_db[id] = Student(id, first_name, last_name, password)
+                root_db[id] = Student(id, first_name, last_name, email, password)
             case "lecturer":
                 root_db = root.instructor
                 id = int(id)
-                root_db[id] = Instructor(id, first_name, last_name, password)
+                root_db[id] = Instructor(id, first_name, last_name, email, password)
             case "others":
                 root_db = root.otherUser
-                root_db[id] = OtherUser(id, first_name, last_name, password)
+                root_db[id] = OtherUser(id, first_name, last_name, email, password)
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
-            
+        
         transaction.commit()
         
         access_token = signJWT(id, role)
@@ -206,10 +212,11 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
         
         return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        db_error = "db_error" in str(e.detail)
-        response.status_code = e.status_code
-        response.set_cookie(key="access_token", value="")
-        return templates.TemplateResponse("signup.html", {"request": request, "db_error": db_error})
+        # db_error = "db_error" in str(e.detail)
+        # response.status_code = e.status_code
+        # response.set_cookie(key="access_token", value="")
+        print(e)
+        return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")

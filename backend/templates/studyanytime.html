@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Study Anytime</title>
     <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
 
@@ -31,53 +31,42 @@
             </div>
         </label>
         <div class="topnav">
-            <a class="active" href="/">Home</a>
+            <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/admission">Admissions</a>
             <a href="/news">News</a>
             <a href="/contact">Contact</a>
-            <a href="/studyanytime/{{role}}/{{id}}" id="studyAnytimeLink">Study Anytime</a>
+            <a class="active" href="/studyanytime/{{role}}/{{id}}" id="studyAnytimeLink">Study Anytime</a>
             <div class="sepic">
                 <img src="sepic.png" alt="sepic" style="width: 75px; height: 45px;">
             </div>
         </div>
     </div>
-    <div class="slideshow">
-        <section class="wrapper">
-            <i class="fa-solid fa-arrow-left button" id="prev"></i>
-            <div class="image-container">
-                <div class="carousel">
-                    <img src="images/image1.jpg" alt="" />
-                    <img src="images/image2.jpg" alt="" />
-                    <img src="images/image3.jpg" alt="" />
-                    <img src="images/image4.jpg" alt="" />
-                </div>
-                <i class="fa-solid fa-arrow-right button" id="next"></i>
-            </div>
-        </section>
-    </div>
     <!-- The Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
                 <p></p><br>
-                <h2>Invalid Access</h2>
-                <br><p></p>
+                <h2>Login Required</h2>
+                <br>
+                <p></p>
             </div>
             <div class="modal-body">
                 <br><br>
-                <p>Your session has expired or the access token is not valid.</p>
-                <br>
-                <p>Please log in again.</p>
+                <p>You must be signed in to access this page. Click the "Login" button to log in.</p>
                 <br><br>
             </div>
             <div class="modal-footer">
-                <h3><br><br><p></p></h3>
+                <h3><br>
+                    <p>
+                        <a href="/login"><button>Login</button></a>
+                    </p>
+                    <br>
+                </h3>
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
+    <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
 </body>
 
 </html>
