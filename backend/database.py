@@ -44,10 +44,7 @@ def get_course(id):
 def get_course_names(user_id, rootdb):
     course_list = []
     for course in rootdb[user_id].courses:
-        c = []
-        c.append(course)
-        c.append(root.course[course].name)
-        course_list.append(c)
+        course_list.append([course, root.course[course].name])
     
     return course_list
 

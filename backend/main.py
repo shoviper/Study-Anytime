@@ -78,6 +78,25 @@ async def news(request: Request):
 async def program(request: Request):
     return templates.TemplateResponse("program.html", {"request": request, "invalid": False})
 
+@app.get("/se2022", response_class=HTMLResponse)
+async def se2022(request: Request):
+    return templates.TemplateResponse("se2022.html", {"request": request, "invalid": False})
+
+@app.get("/se2024", response_class=HTMLResponse)
+async def se2024(request: Request):
+    return templates.TemplateResponse("se2024.html", {"request": request, "invalid": False})
+
+@app.get("/glasgow", response_class=HTMLResponse)
+async def glasgow(request: Request):
+    return templates.TemplateResponse("glasgow.html", {"request": request, "invalid": False})
+
+@app.get("/queensland", response_class=HTMLResponse)
+async def queensland(request: Request):
+    return templates.TemplateResponse("queensland.html", {"request": request, "invalid": False})
+
+
+
+
 # == connect to studyanytime page ============================================================
 @app.get("/studyanytime", response_class=HTMLResponse)
 async def studyanytime(request: Request, access_token: str = Cookie(None)):
@@ -101,8 +120,14 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
                 raise HTTPException(404, detail="value_error: Invalid role")
             
         enrolled_courses = get_course_names(int(id), root_db)
-        available_courses = []
+        enrolled_id = [element[0] for element in enrolled_courses]
         
+        available_courses = []
+        for course in root.course.keys():
+            if course not in enrolled_id:
+                available_courses.append([course, root.course[course].name])
+        
+        print(role)
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled_courses" : enrolled_courses, "available_courses": available_courses})
     except Exception as e:
         print("error" + str(e))
@@ -316,9 +341,12 @@ async def get_course(course_id: str):
     else:
         return root.course[int(course_id)] if int(course_id) in root.course.keys() else {"error": "Course not found"}
 
-@app.post("/course/new/{course_id}/{name}/{instructor_id}/{public}", dependencies=[Depends(JWTBearer())])
-async def post_course(course_id: str, name: str, instructor_id: str, public: bool):
+@app.post("/course/new/", response_class=HTMLResponse)
+async def post_course(request: Request, course_id: str = Form(...), course_name: str = Form(...), course_public: bool = Form(...), access_token: str = Cookie(None)):
     try:
+        token = decodeJWT(access_token)
+        instructor_id = token["id"]
+        
         if int(course_id) in root.course.keys():
             raise HTTPException(404, detail="db_error: Course already exists")
 
@@ -328,7 +356,7 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
         course_directory = videos_directory / course_id
         course_directory.mkdir(parents=True)
         
-        root.course[int(course_id)] = Course(int(course_id), name, instructor_id, public)
+        root.course[int(course_id)] = Course(int(course_id), course_name, instructor_id, course_public)
         
         temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].email, root.instructor[int(instructor_id)].password)
         for c in root.instructor[int(instructor_id)].courses:
@@ -338,7 +366,7 @@ async def post_course(course_id: str, name: str, instructor_id: str, public: boo
         
         transaction.commit()
 
-        return {"message": "Course added successfully"}
+        return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         raise e
     

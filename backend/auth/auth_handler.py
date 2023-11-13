@@ -13,7 +13,7 @@ def signJWT(id: str, role: str):
     payload = {
         "id" : id,
         "role" : role,
-        "exp" : time.time() + 600
+        "exp" : time.time() + 2628000
     }
     
     token = jwt.encode(payload, SECRET_KEY, ALGORITHM)
