@@ -424,8 +424,6 @@ body {
 
 
 /* news */
-
-/* Add styles for the news section */
 .content {
   margin-top: 120px;
   padding: 20px;
@@ -473,19 +471,42 @@ body {
 .newsblock:hover {
   background-color: #f5f5f5;
 }
-
-/* Styles for individual news page */
-.news-details {
-  display: none;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
 /* news */
 
+/* admission */
+.admissionblock a {
+  text-decoration: none;
+}
 
-/* study */
+.admissionblock p {
+  font-size: 20px;
+  margin-top: 20px;
+  text-align: center;
+  margin-left: 80px;
+  max-width: 90%;
+}
+
+.alladmission {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admissionblock {
+  flex: 1 1 calc(100% - 20px);
+  border: 1px solid #ccc;
+  padding: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admissionblock:hover {
+  background-color: #f5f5f5;
+}
+/* admission */
+
+
+/* studyanytime */
 input {
   width: 400px;
   height: 40px;
@@ -494,3 +515,4 @@ input {
   margin: 10px;
   border-radius: 10px;
 }
+/* studyanytime */
