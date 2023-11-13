@@ -62,24 +62,7 @@ body {
     align-items: center;
   }
   
-  /* Style the sepic content (h2 and Home link) */
-  .sepic-content {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Style the h2 element */
-  .sepic-content h2 {
-    font-size: small;
-    color: #ddd;
-    margin: 0;
-  }
-  
-  /* Move the Home link to the right */
-  .sepic-content a.active {
-    margin-left: auto;
-  }
-  
+
 
  .sidebar{
     height: 100%;
@@ -109,14 +92,13 @@ body {
     transition: 0.2s ease-out;
  }
 
-
  input{
     display: none;
     visibility: hidden;
     -webkit-appearance: none;
  }
  .toggle{
-    position: absolute;
+    position: fixed;
     height: 40px;
     width: 40px;
     top: 25px;
@@ -190,9 +172,9 @@ body {
   .wrapper {
     display: flex;
     margin-top: 80px;
-    max-width: 1200px;
+    max-width: 750px;
     width: 100%;
-    height: 600px;
+    height: 500px;
     background: #fff;
     align-items: center;
     justify-content: center;
@@ -222,11 +204,12 @@ body {
     left: 25px;
   }
   i#next {
+
     right: 25px;
   }
   .image-container {
-    height: 500px;
-    max-width: 1000px;
+    height: 450px;
+    max-width: 700px;
     width: 100%;
     overflow: hidden;
   }

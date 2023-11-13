@@ -70,3 +70,11 @@ studyAnytimeLink.addEventListener("click", function (event) {
 // Add click event listener to close button
 const closeButton = document.querySelector(".modal-header .close");
 closeButton.addEventListener("click", closeModal);
+
+// Add click event listener to modal overlay
+window.addEventListener("click", function (event) {
+  var modal = document.getElementById("myModal");
+  if (event.target === modal) {
+    closeModal();
+  }
+});
