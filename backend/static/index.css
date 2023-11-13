@@ -26,10 +26,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
     position: fixed;
-=======
->>>>>>> 06c47172c96387a48bc75dc10eae263c3eeb7b1b
 }
 
 .topnav li{
