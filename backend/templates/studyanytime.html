@@ -42,6 +42,11 @@
             </div>
         </div>
     </div>
+    <div>
+        {% for course in courses %}
+            <h3><bold>{{course.key}}</bold> {{course.value}}</h3>
+        {% endfor %}
+    </div>
     <!-- The Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">

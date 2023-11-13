@@ -72,7 +72,22 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
         id = token["id"]
         role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
-        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+        
+        root_db = None
+        match role:
+            case "student":
+                root_db = root.student
+                id = int(id)
+            case "lecturer":
+                root_db = root.instructor
+                id = int(id)
+            case "others":
+                root_db = root.otherUser
+            case _:
+                raise HTTPException(404, detail="value_error: Invalid role")
+        courses = get_course_names(int(id), root_db)
+        
+        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "courses" : courses})
     except:
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
 
@@ -212,11 +227,19 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
         
         return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        # db_error = "db_error" in str(e.detail)
-        # response.status_code = e.status_code
-        # response.set_cookie(key="access_token", value="")
-        print(e)
         return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
+
+@app.get("/enroll/{role}/{user_id}/{course_id}")
+async def get_student(role: str, user_id: str, course_id: str):
+    try:
+        user = get_user(int(user_id))
+        course = get_course(int(course_id))
+        user.enrollCourse(course.id)
+        
+        transaction.commit()
+    except:
+        raise HTTPException(404, detail="Failed to enroll")  
+        
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
