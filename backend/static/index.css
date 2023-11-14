@@ -517,6 +517,7 @@ i#next {
   width: 600px;
   height: 300px;
   margin-left: 50px;
+  border-radius: 30px;
 }
 
 .newsblock p {
@@ -647,10 +648,12 @@ i#next {
 #add-form input[type="submit"] {
   background-color: #e17420;
   color: #fff;
-  padding: 10px;
+  width: 100px;
+  height: 50px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  font-size: 20px;
 }
 
 .enrolled_course,
@@ -684,7 +687,7 @@ i#next {
   color: #333;
   font-weight: bold;
   display: block;
-  padding: 10px;
+  padding: 20px;
   background-color: #f8f8f8;
   border-radius: 5px;
 }
@@ -695,28 +698,24 @@ i#next {
   color: #fff;
 }
 
-
-
-
-/* studyanytime */
-
-
-
-
-
-
-
-
-/* optional */
 input[type="text"] {
   width: 400px;
   height: 40px;
   font-size: 20px;
-  background-color: #dafffb;
+  background-color: #ffffff;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+/* studyanytime */
+
+
+/* program */
 .se2022{
   margin-top: 90px;
   margin-left: 10px;
@@ -736,3 +735,4 @@ input[type="text"] {
   margin-left: 10px;
   margin-right: 10px;
 }
+/* program */

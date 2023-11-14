@@ -154,8 +154,7 @@ async def studyanytime(request: Request, course_id : str, video_name : str, acce
         return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name})
     except Exception as e:
         print(e)
-        return templates.TemplateResponse("v
-                                          ideoplayer.html", {"request": request, "alreadylogin": False})
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": False})
 
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
