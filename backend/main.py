@@ -405,32 +405,25 @@ async def enroll(course_id: int, student_id: str = Form(...), access_token : str
         raise HTTPException(404, detail=str(e))
 
 @app.post("/withdraw/{course_id}/{student_id}")
-async def withdraw(course_id: int, student_id: str):
+async def withdraw(course_id: int, student_id: int, access_token : str = Cookie(None)):
     try:
-        print(f"w {course_id} - {student_id}")
-        # user = get_user(int(student_id))
-        # if course_id in user.courses:
-        #     raise HTTPException(404, detail="Already Enrolled")
+        user = get_user(student_id)
+        temp_user = Student(user.id, user.first_name, user.last_name, user.email, user.password)
+        for c in user.courses:
+            temp_user.enrollCourse(c)
+        temp_user.courses.remove(course_id)
+        root.student[student_id] = temp_user
+        print(temp_user.__dict__)
         
-        # course = await get_course(course_id)
-
-        # student_id = int(student_id)
-        # temp_user = Student(root.student[student_id].id, root.student[student_id].first_name, root.student[student_id].last_name, root.student[student_id].email, root.student[student_id].password)
-        # for c in root.student[student_id].courses:
-        #     temp_user.enrollCourse(c)
-        # temp_user.enrollCourse(course.id)
-        # root.student[student_id] = temp_user
-            
-        # temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
-        # for c in root.course[course_id].student_list:
-        #     temp_course.enrollStudent(c)
-        # temp_course.enrollStudent(student_id)
+        course = await get_course(course_id)
+        temp_course = Course(course.id, course.name, course.instructor, course.public)
+        for c in root.course[course_id].student_list:
+            temp_course.enrollStudent(c)
+        temp_course.student_list.remove(student_id)
+        root.course[course_id] = temp_course
+        print(temp_course.__dict__)
         
-        # for c in root.course[course_id].videos:
-        #     temp_course.addVideo(c)
-        # root.course[course_id] = temp_course
-        
-        # transaction.commit()
+        transaction.commit()
         return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         print(e)
