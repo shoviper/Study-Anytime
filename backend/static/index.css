@@ -603,9 +603,10 @@ i#next {
 }
 /* admission */
 
-/* studyanytime */
 
-/* Style the Add Course section */
+
+
+/* studyanytime */
 .add_course {
   margin-top: 20px;
   padding: 20px;
@@ -693,6 +694,7 @@ i#next {
   background-color: #bbbcb6;
   color: #fff;
 }
+/* studyanytime */
 
 
 
@@ -701,7 +703,7 @@ i#next {
 
 
 
-
+/* optional */
 input[type="text"] {
   width: 400px;
   height: 40px;
