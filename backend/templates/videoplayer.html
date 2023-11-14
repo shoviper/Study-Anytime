@@ -77,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="videoplayback">
         <br><br><br><br><br><br>
         <h1>Video Playback</h1>
         <h2>{{course_id}}: {{video_name}}</h2>
@@ -85,12 +85,12 @@
             <source src="http://127.0.0.1:8000/video/{{course_id}}/{{video_name}}" type="video/mp4">
         </video>
     </div>
-    <div>
+    <div class="forum">
         <h3>Forum</h3>
-
         <form action="/video/{{course_id}}/{{video_name}}" method="POST">
             <label for="post_content">Create Post:</label>
             <textarea id="post_content" name="post_content" required></textarea>
+            <br>
             <button type="submit">Post</button>
         </form>
 
@@ -99,9 +99,10 @@
             <p><b>{{f.user}}</b></p>
             <p>{{f.content}}</p>
             <form action="/video/{{course_id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
-                <label for="post_content">reply:</label>
+                <label for="post_content">Reply:</label>
                 <textarea id="post_content" name="post_content" required></textarea>
-                <button type="submit">reply</button>
+                <br>
+                <button type="submit">Reply</button>
             </form>
             <br>
             <div>
