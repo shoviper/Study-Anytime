@@ -1,4 +1,5 @@
 
+from typing import Optional
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -134,8 +135,11 @@ async def studyanytime(request: Request, course_id : str, access_token : str = C
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
         course = await get_course(int(course_id))
         videos = get_video_names(course)
-        
-        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "videos" : videos})
+        isInstructor = True if course.instructor == id else False
+        isPublic = course.public
+        enrolled = True if id in course.student_list or course.public else False
+        print(enrolled)
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "isInstructor": isInstructor, "isPublic": isPublic, "enrolled": enrolled, "videos" : videos})
     except Exception as e:
         print(e)
         return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
@@ -152,22 +156,6 @@ async def studyanytime(request: Request, course_id : str, video_name : str, acce
     except Exception as e:
         print(e)
         return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": False})
-
-@app.get("/studyanytime/course/{course_id}", response_class=HTMLResponse)
-async def studyanytime(request: Request, course_id : str, access_token : str = Cookie(None)):
-    try:
-        token = decodeJWT(access_token)
-        id = token["id"]
-        role = token["role"]
-        username = f"{get_user(id).first_name} {get_user(id).last_name}"
-        course = await get_course(int(course_id))
-        videos = get_video_names(course)
-        
-        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "videos" : videos})
-    except Exception as e:
-        print(e)
-        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
-
 
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
@@ -253,6 +241,9 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
         for c in root.course[course_id].videos:
             temp_course.addVideo(c)
         temp_course.addVideo(Video(file.filename))
+        
+        for c in root.course[course_id].student_list:
+            temp_course.enrollStudent(c)
         root.course[course_id] = temp_course
         
         transaction.commit()
@@ -319,36 +310,36 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
     except Exception as e:
         return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
 
-@app.get("/enroll/{role}/{user_id}/{course_id}")
-async def enroll(role: str, user_id: str, course_id: int):
+@app.post("/enroll/{course_id}")
+async def enroll(course_id: int, student_id: str = Form(...), access_token : str = Cookie(None)):
     try:
-        
-        user = get_user(int(user_id))
+        user = get_user(int(student_id))
         if course_id in user.courses:
             raise HTTPException(404, detail="Already Enrolled")
         
         course = await get_course(course_id)
+
+        student_id = int(student_id)
+        temp_user = Student(root.student[student_id].id, root.student[student_id].first_name, root.student[student_id].last_name, root.student[student_id].email, root.student[student_id].password)
+        for c in root.student[student_id].courses:
+            temp_user.enrollCourse(c)
+        temp_user.enrollCourse(course.id)
+        root.student[student_id] = temp_user
+            
+        temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+        for c in root.course[course_id].student_list:
+            temp_course.enrollStudent(c)
+        temp_course.enrollStudent(student_id)
         
-        match role:
-            case "student":
-                user_id = int(user_id)
-                temp_user = Student(root.student[user_id].id, root.student[user_id].first_name, root.student[user_id].last_name, root.student[user_id].email, root.student[user_id].password)
-                for c in root.student[user_id].courses:
-                    temp_user.enrollCourse(c)
-                temp_user.enrollCourse(course.id)
-                root.student[user_id] = temp_user
-            case "others":
-                temp_user = OtherUser(root.otherUser[user_id].id, root.otherUser[user_id].first_name, root.otherUser[user_id].last_name, root.otherUser[user_id].email, root.otherUser[user_id].password)
-                for c in root.otherUser[user_id].courses:
-                    temp_user.enrollCourse(c)
-                temp_user.enrollCourse(course.id)
-                root.otherUser[user_id] = temp_user
-            case _:
-                raise HTTPException(404, detail="value_error: Invalid role")
+        for c in root.course[course_id].videos:
+            temp_course.addVideo(c)
+        root.course[course_id] = temp_course
         
         transaction.commit()
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        raise e
+        print(e)
+        raise HTTPException(404, detail=str(e))
         
 
 # == USER STUDENT =======================================================================
@@ -386,11 +377,11 @@ async def get_course(course_id: str):
         return root.course[int(course_id)] if int(course_id) in root.course.keys() else {"error": "Course not found"}
 
 @app.post("/course/new/", response_class=HTMLResponse)
-async def post_course(request: Request, course_id: str = Form(...), course_name: str = Form(...), course_public: bool = Form(...), access_token: str = Cookie(None)):
+async def post_course(request: Request, course_id: str = Form(...), course_name: str = Form(...), course_public: Optional[str] = Form(default="off"), access_token: str = Cookie(None)):
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
-        
+        is_public = course_public.lower() == "on"
         if int(course_id) in root.course.keys():
             raise HTTPException(404, detail="db_error: Course already exists")
 
@@ -400,7 +391,7 @@ async def post_course(request: Request, course_id: str = Form(...), course_name:
         course_directory = videos_directory / course_id
         course_directory.mkdir(parents=True)
         
-        root.course[int(course_id)] = Course(int(course_id), course_name, instructor_id, course_public)
+        root.course[int(course_id)] = Course(int(course_id), course_name, instructor_id, is_public)
         
         temp_instructor = Instructor(int(instructor_id), root.instructor[int(instructor_id)].first_name, root.instructor[int(instructor_id)].last_name, root.instructor[int(instructor_id)].email, root.instructor[int(instructor_id)].password)
         for c in root.instructor[int(instructor_id)].courses:

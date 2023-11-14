@@ -66,8 +66,9 @@
             </div>
         </div>
     </div>
+    {% if enrolled or isInstructor%}
     <div>
-        {% if role == "lecturer" %}
+        {% if isInstructor %}
         <br><br><br><br><br><br>
         <h1>Upload Video:</h1>
         <form id="add-form" action="/video/upload/{{course_id}}" method="POST" enctype="multipart/form-data">
@@ -78,6 +79,18 @@
                 <input type="submit" value="Upload">
             </div>
         </form>
+
+        {% if not isPublic %}
+        <h1>Enroll Student:</h1>
+        <form id="enroll-form" action="/enroll/{{course_id}}" method="POST">
+            <p>
+                <input name="student_id" id="student_id" type="text" placeholder="Student ID">
+            </p>
+            <div>
+                <input type="submit" value="Enroll">
+            </div>
+        </form>
+        {% endif %}
         {% endif %}
     </div>
     <div>
@@ -88,6 +101,12 @@
         {% endfor %}
         <br>
     </div>
+    {% else %}
+    <div>
+        <br><br><br><br><br><br>
+        <h2>You have not enrolled to this course</h2>
+    </div>
+    {% endif %}
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
 </body>
 
