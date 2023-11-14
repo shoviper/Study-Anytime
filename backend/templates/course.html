@@ -80,7 +80,19 @@
             </div>
         </form>
         {% if not isPublic %}
-        <h1>Enroll Student:</h1>
+        <h1>Enrollment :</h1>
+        <h3>Enrolled student:</h3>
+        {% for student in student_list %}
+            <div>
+                <form id="withdraw-form" action="/withdraw/{{course_id}}/{{student.id}}" method="POST">
+                    <p>
+                        <b>{{student.id}}</b>&nbsp;{{student.first_name}}&nbsp;{{student.first_name}}
+                        <input type="submit" value="Withdraw">
+                    </p>
+                </form>
+            </div>
+        {% endfor %}
+        <h3>Enroll new student:</h3>
         <form id="enroll-form" action="/enroll/{{course_id}}" method="POST">
             <p>
                 <input name="student_id" id="student_id" type="text" placeholder="Student ID">

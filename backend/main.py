@@ -137,8 +137,9 @@ async def studyanytime(request: Request, course_id : str, access_token : str = C
         isInstructor = True if course.instructor == id else False
         isPublic = course.public
         enrolled = True if id in course.student_list or course.public else False
-        print(enrolled)
-        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "isInstructor": isInstructor, "isPublic": isPublic, "enrolled": enrolled, "videos" : videos})
+        student_list = [get_user(name) for name in course.student_list]
+        
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "isInstructor": isInstructor, "isPublic": isPublic, "enrolled": enrolled, "videos": videos, "student_list": student_list})
     except Exception as e:
         print(e)
         return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
@@ -150,13 +151,13 @@ async def studyanytime(request: Request, course_id : str, video_name : str, acce
         id = token["id"]
         role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        forum = []
             
         for video in root.course[int(course_id)].videos:
             if video_name == video.title:
                 forum = video.heading
                 break
             
-            forum = []
         
         return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
     except Exception as e:
@@ -223,10 +224,7 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
-        role = token["role"]
-        username = f"{get_user(instructor_id).first_name} {get_user(instructor_id).last_name}"
         course = await get_course(int(course_id))
-        videos = get_video_names(course)
         
         if not instructor_id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
@@ -405,7 +403,39 @@ async def enroll(course_id: int, student_id: str = Form(...), access_token : str
     except Exception as e:
         print(e)
         raise HTTPException(404, detail=str(e))
+
+@app.post("/withdraw/{course_id}/{student_id}")
+async def withdraw(course_id: int, student_id: str):
+    try:
+        print(f"w {course_id} - {student_id}")
+        # user = get_user(int(student_id))
+        # if course_id in user.courses:
+        #     raise HTTPException(404, detail="Already Enrolled")
         
+        # course = await get_course(course_id)
+
+        # student_id = int(student_id)
+        # temp_user = Student(root.student[student_id].id, root.student[student_id].first_name, root.student[student_id].last_name, root.student[student_id].email, root.student[student_id].password)
+        # for c in root.student[student_id].courses:
+        #     temp_user.enrollCourse(c)
+        # temp_user.enrollCourse(course.id)
+        # root.student[student_id] = temp_user
+            
+        # temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+        # for c in root.course[course_id].student_list:
+        #     temp_course.enrollStudent(c)
+        # temp_course.enrollStudent(student_id)
+        
+        # for c in root.course[course_id].videos:
+        #     temp_course.addVideo(c)
+        # root.course[course_id] = temp_course
+        
+        # transaction.commit()
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
+    except Exception as e:
+        print(e)
+        raise HTTPException(404, detail=str(e))
+     
 
 # == USER STUDENT =======================================================================
 @app.get("/user/student/{id}")
