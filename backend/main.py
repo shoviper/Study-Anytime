@@ -8,7 +8,6 @@ from pathlib import Path
 
 from database import *
 from auth.auth_handler import *
-from auth.auth_bearer import JWTBearer
 
 import transaction
 import logging
@@ -251,7 +250,35 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
     except Exception as e:
         print(e)
         return {"message" : "failed"}
-        
+    
+@app.post("/video/{course_id}/{video_name}", response_class=HTMLResponse)
+async def add_comment(request: Request, course_id: int, video_name: str, post_content: str = Form(...), access_token: str = Cookie(None)):
+    # Your existing logic to process the comment and save it
+    token = decodeJWT(access_token)
+    id = token["id"]
+    role = token["role"]
+    username = f"{get_user(id).first_name} {get_user(id).last_name}"
+    
+    temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+    for video in root.course[course_id].videos:
+        temp_video = Video(video.title)
+        for h in video.heading:
+            temp_video.addForum(Heading(h.user, h.content))
+            
+        if video_name == video.title:
+            temp_video.addForum(Heading(id, post_content))
+            forum = temp_video.heading
+            
+        temp_course.addVideo(temp_video)
+    
+    for c in root.course[course_id].student_list:
+        temp_course.enrollStudent(c)
+    root.course[course_id] = temp_course
+    
+    transaction.commit()
+    
+    return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
+
 # == USER HANDLER=======================================================================
 @app.post("/user/signIn/")
 async def signIn(response: Response, request: Request, id: str = Form(...), password: str = Form(...), role: str = Form(...)):

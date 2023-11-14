@@ -74,6 +74,22 @@
             <source src="http://127.0.0.1:8000/video/{{course_id}}/{{video_name}}" type="video/mp4">
         </video>
     </div>
+    <div>
+        <h3>Forum</h3>
+
+        <form action="/video/{{course_id}}/{{video_name}}" method="POST">
+            <label for="post_content">Your Comment:</label>
+            <textarea id="post_content" name="post_content" required></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        {% for f in forum %}
+        <div>
+            <p><b>{{f.user}}</b></p>
+            <p>{{f.content}}</p>
+        </div>
+        {% endfor %}
+    </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
 </body>
 
