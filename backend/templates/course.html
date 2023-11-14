@@ -35,7 +35,18 @@
             <a href="/about">About</a>
             <a href="/admission">Admissions</a>
             <a href="/news">News</a>
-            <a href="/contact">Contact</a>
+            <div class="programbttn">
+                <li><a href="">Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
             <a class="active" href="/studyanytime" id="studyAnytimeLink">Study Anytime</a>
             <div class="sepic">
                 <img src="se.png" alt="sepic" style="width: 75px; height: 45px;">
@@ -67,7 +78,7 @@
         </div>
     </div>
     {% if enrolled or isInstructor%}
-    <div>
+    <div class="uploadvideo">
         {% if isInstructor %}
         <br><br><br><br><br><br>
         <h1>Upload Video:</h1>
@@ -79,7 +90,6 @@
                 <input type="submit" value="Upload">
             </div>
         </form>
-
         {% if not isPublic %}
         <h1>Enroll Student:</h1>
         <form id="enroll-form" action="/enroll/{{course_id}}" method="POST">
@@ -93,7 +103,7 @@
         {% endif %}
         {% endif %}
     </div>
-    <div>
+    <div class="video">
         <br><br><br><br><br><br>
         <h1>Videos:</h1>
         {% for video in videos %}
