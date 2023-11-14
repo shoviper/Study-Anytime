@@ -18,12 +18,14 @@
         <div class="sidebar">
             <h1>Profile</h1>
             {% if alreadylogin %}
-                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
+            <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+            <li><a href="/logout">logout</a></li>
+            {% else %}
             <ul>
                 <li><a href="/login">login</a></li>
                 <li><a href="/signup">signup</a></li>
             </ul>
+            {% endif %}
         </div>
     </label>
         <div class="topnav">

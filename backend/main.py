@@ -150,13 +150,18 @@ async def studyanytime(request: Request, course_id : str, video_name : str, acce
         id = token["id"]
         role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
+            
+        for video in root.course[int(course_id)].videos:
+            if video_name == video.title:
+                forum = video.heading
+                break
+            
+            forum = []
         
-        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name})
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
     except Exception as e:
         print(e)
-        return templates.TemplateResponse("v
-                                          ideoplayer.html", {"request": request, "alreadylogin": False})
-
+             
 # == connect to login page ============================================================
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
@@ -237,7 +242,7 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
         with open(file_path, "wb") as f:
             f.write(file.file.read())
 
-        temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+        temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)    
         for c in root.course[course_id].videos:
             temp_course.addVideo(c)
         temp_course.addVideo(Video(file.filename))
@@ -254,7 +259,6 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
     
 @app.post("/video/{course_id}/{video_name}", response_class=HTMLResponse)
 async def add_comment(request: Request, course_id: int, video_name: str, post_content: str = Form(...), access_token: str = Cookie(None)):
-    # Your existing logic to process the comment and save it
     token = decodeJWT(access_token)
     id = token["id"]
     role = token["role"]
@@ -279,6 +283,39 @@ async def add_comment(request: Request, course_id: int, video_name: str, post_co
     transaction.commit()
     
     return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
+
+@app.post("/video/{course_id}/{video_name}/{heading_no}", response_class=HTMLResponse)
+async def add_reply(request: Request, course_id: int, video_name: str, heading_no: int, post_content: str = Form(...), access_token: str = Cookie(None)):
+    token = decodeJWT(access_token)
+    id = token["id"]
+    role = token["role"]
+    username = f"{get_user(id).first_name} {get_user(id).last_name}"
+    
+    temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)
+    for video in root.course[course_id].videos:
+        count = 0
+        temp_video = Video(video.title)
+        for h in video.heading:
+            temp_heading = Heading(h.user, h.content)
+            for f in h.reply:
+                temp_heading.reply.append(f)
+            
+            if video_name == video.title and count == heading_no:
+                temp_heading.reply.append(Forum(id, post_content))
+                
+            temp_video.addForum(temp_heading)
+                
+            count += 1
+            
+        temp_course.addVideo(temp_video)
+    
+    for c in root.course[course_id].student_list:
+        temp_course.enrollStudent(c)
+    root.course[course_id] = temp_course
+    
+    transaction.commit()
+    
+    return RedirectResponse(url=f"/studyanytime/course/video/{course_id}/{video_name}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
 
 # == USER HANDLER=======================================================================
 @app.post("/user/signIn/")

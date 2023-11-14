@@ -56,6 +56,13 @@ def get_video_names(course):
         
     return names
 
+def get_video(course_id, video_name):
+    for video in root.course[course_id].videos:
+        print(video.__dict__)
+        if video_name == video.title:
+            return video
+    return []
+
 def isCourseValid(user_id, course_id):
     if root.course[course_id].public:
         return True
