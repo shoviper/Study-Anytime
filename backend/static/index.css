@@ -568,24 +568,32 @@ i#next {
 
 .admissionblock p {
   font-size: 20px;
-  margin-top: 20px;
+  margin-top: 40px;
   text-align: center;
   margin-left: 80px;
-  max-width: 90%;
+  max-width: 100%;
+}
+
+.adtransition {
+  margin-left: 40px;
 }
 
 .alladmission {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  margin-left: 80px;
+  max-width: 100%;
 }
 
 .admissionblock {
   flex: 1 1 calc(100% - 20px);
   border: 1px solid #ccc;
-  padding: 50px;
+  /* padding: 20px; */
+  padding-left: 120px;
   cursor: pointer;
   transition: background-color 0.3s;
+  height: 120px;
 }
 
 .admissionblock:hover {
