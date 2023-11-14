@@ -809,13 +809,28 @@ input[type="checkbox"] {
 }
 
 .forum textarea {
-  width: 90%;
-  height: 100px;
+  width: 35%;
+  height: 50px;
   margin-left: 20px;
   margin-bottom: 20px;
   border: 1px solid #333;
   border-radius: 10px;
+  outline: none;
+  resize: none;
+  font-size: 20px;
+  max-height: 400px;
 }
+
+.forum textarea:is(:focus, :valid) {
+  border-width: 2px;
+  padding: 14px;
+  border-color: #333;
+}
+
+.forum textarea::-webkit-scrollbar{
+  width: 0px;
+}
+
 
 .forum button {
   background-color: #e17420;
