@@ -779,6 +779,7 @@ input[type="checkbox"] {
   border: 3px solid #333;
   border-radius: 10px;
 }
+
 /* videoplayback */
 
 
@@ -841,6 +842,7 @@ input[type="checkbox"] {
   cursor: pointer;
   font-size: 20px;
   margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .forum button:hover {
@@ -862,5 +864,7 @@ input[type="checkbox"] {
 .forum form:last-child {
   margin-bottom: 50px;
 }
+
+
 
 /* forum */

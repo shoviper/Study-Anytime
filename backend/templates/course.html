@@ -118,6 +118,11 @@
         <h2>You have not enrolled to this course</h2>
     </div>
     {% endif %}
+    <div class="backbtn">
+        <a href="/studyanytime/course/{{course_id}}">
+            <input type="submit" value="Back">
+        </a>
+    </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>
 </body>
 
