@@ -125,13 +125,26 @@ body {
   transform: translateX(-180px);
   z-index: 1;
 }
+
+.sidebar p{
+margin-left: 10px;
+
+}
 .sidebar h1 {
   padding: 150px 0;
   padding-right: 10px;
   text-align: center;
   pointer-events: none;
+  color: #ddd;
 }
 
+.sidebar li{
+  list-style: none;
+}
+.sidebar li a{
+  color: #ddd;
+  margin-left: 10px;
+}
 .sidebar ul li {
   list-style: none;
 }
@@ -235,7 +248,7 @@ input:checked ~ .sidebar {
 }
 .wrapper i.button {
   position: absolute;
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%);
   height: 36px;
   width: 36px;
