@@ -79,10 +79,14 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="add_course">
         {% if role == "lecturer" %}
         <br><br><br><br><br><br>
-        <h1>Add course:</h1>
+        <div class="coursetransition">
+            <div class="addheader">
+                <h1>Add course:</h1>
+            </div>
+        </div>
         <form id="add-form" action="/course/new/" method="POST">
             <p>
                 <label for="course_name" id="course_name">Course name</label>
@@ -109,14 +113,24 @@
         </form>
         {% endif %}
     </div>
-    <div>
+    <div class="enrolled_course">
         <br><br><br><br><br><br>
-        <h1>Enrolled Courses:</h1>
+        <div class="coursetransition">
+            <div class="enrollheader">
+                <h1>Enrolled Courses:</h1>
+            </div>
+        </div>
         {% for course in enrolled_courses %}
         <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
         {% endfor %}
-        <br>
-        <h1>Available Courses:</h1>
+    </div>
+    <div class="available_course">
+        <br><br><br><br><br><br>
+        <div class="coursetransition">
+            <div class="availableheader">
+                <h1>Available Courses:</h1>
+            </div>
+        </div>
         {% for course in available_courses %}
         <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
         {% endfor %}

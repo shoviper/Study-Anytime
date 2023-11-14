@@ -485,6 +485,8 @@ i#next {
   margin-top: 5px;
   margin-right: 10px;
 }
+/* contact */
+
 
 /* news */
 .content {
@@ -602,6 +604,104 @@ i#next {
 /* admission */
 
 /* studyanytime */
+
+/* Style the Add Course section */
+.add_course {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addheader {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+#add-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#add-form p {
+  margin-bottom: 15px;
+}
+
+#add-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#add-form input[type="text"],
+#add-form input[type="checkbox"] {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#add-form input[type="submit"] {
+  background-color: #e17420;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.enrolled_course,
+.available_course {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.coursetransition {
+  background-color: #e17420;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.enrollheader,
+.availableheader {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.enrolled_course div,
+.available_course div {
+  margin-bottom: 10px;
+}
+
+.enrolled_course a,
+.available_course a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.enrolled_course a:hover,
+.available_course a:hover {
+  background-color: #bbbcb6;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
 input[type="text"] {
   width: 400px;
   height: 40px;
