@@ -1102,6 +1102,23 @@ input[type="checkbox"] {
   background-color: #ff7f50;
 }
 
+.forum a button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.forum a button:hover {
+  background-color: #4d4d4d;
+}
+
+
 .forum > div {
   margin-top: 20px;
   border-top: 1px solid #333;
@@ -1240,7 +1257,6 @@ input[type="checkbox"] {
 
 
 /* upload and course */
-
 .uploadvideo {
   margin-top: 20px;
   padding: 20px;
@@ -1251,7 +1267,7 @@ input[type="checkbox"] {
 
 .uploadvideo h1 {
   color: #333;
-  font-size: 24px;
+  font-size: 30px;
   margin-bottom: 15px;
 }
 
@@ -1264,7 +1280,7 @@ input[type="checkbox"] {
 }
 
 .uploadvideo form input[type="file"] {
-  width: 100%;
+  width: 40%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -1277,9 +1293,14 @@ input[type="checkbox"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 20px;
 }
 
-/* Style for the video section */
+.uploadvideo form input[type="submit"]:hover {
+  background-color: #ff7f4d;
+}
+
+/* video  */
 .video {
   margin-top: 20px;
   padding: 20px;
@@ -1294,9 +1315,9 @@ input[type="checkbox"] {
   margin-bottom: 15px;
 }
 
-/* .video div {
-  margin-bottom: 15px;
-} */
+.video div {
+  margin-bottom: 20px;
+}
 
 .video a {
   color: #e17420;
@@ -1320,6 +1341,47 @@ input[type="checkbox"] {
   border-radius: 4px;
   margin-left: 10px;
   cursor: pointer;
+  font-size: 20px;
 }
 
+.video form button:hover {
+  background-color: #ff7f4d;
+}
 
+#delete-course button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #e17420;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease-in-out;
+  margin-left: 20px;
+}
+
+#delete-course button:hover {
+  background-color: #ff7f4d;
+}
+
+.backbtn {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.backbtn button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.backbtn button:hover {
+  background-color: #4d4d4d;
+}
