@@ -77,30 +77,31 @@
             </div>
         </div>
     </div>
-    <div class="videoplayback">
-        <br><br><br><br><br><br>
-        <h1>Video Playback</h1>
-        <h2>{{course.id}}&ensp;{{course.name}}:&emsp;{{video_name}}</h2>
-        <video width="640" height="360" controls preload="metadata">
-            <source src="http://127.0.0.1:8000/video/{{course.id}}/{{video_name}}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div>
-        <h4>Videos in this course: </h4>
-        {% for video in course.videos %}
-        <a href="/studyanytime/course/video/{{course.id}}/{{video}}">
-            {% if video.title == video_name %}
-            <div class="playing">
-                <b>{{video}}</b>
-            </div>
-            {% else %}
-            <div class="not-playing">
-                {{video}}
-            </div>
-            {% endif %}
-        </a>
-        {% endfor %}
+    <div class="videocontainer">
+        <div class="videoplayback">
+            <h1>Video Playback</h1>
+            <h2>{{course.id}}&ensp;{{course.name}}:&emsp;{{video_name}}</h2>
+            <video width="640" height="360" controls preload="metadata">
+                <source src="http://127.0.0.1:8000/video/{{course.id}}/{{video_name}}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="videosidebar">
+            <h1>Videos in this course: </h1>
+            {% for video in course.videos %}
+            <a href="/studyanytime/course/video/{{course.id}}/{{video}}">
+                {% if video.title == video_name %}
+                <div class="playing">
+                    <b>{{video}}</b>
+                </div>
+                {% else %}
+                <div class="not-playing">
+                    {{video}}
+                </div>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
     </div>
     <div class="forum">
         <h3>Forum</h3>

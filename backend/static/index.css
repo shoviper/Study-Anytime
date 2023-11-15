@@ -838,6 +838,56 @@ input[type="checkbox"] {
   border-radius: 10px;
 }
 
+.not-playing {
+  margin-left: 100px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-left: 100px;
+  margin-top: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  width: 500px;
+  height: 40px;
+}
+
+.playing {
+  background-color: #e17420;
+  color: #fff;
+  padding: 10px;
+  margin-left: 100px;
+  margin-top: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  width: 500px;
+  height: 40px;
+}
+
+.videosidebar h1 {
+  margin-left: 100px;
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.videosidebar a {
+  text-decoration: none;
+  color: #333;
+}
+
+.videocontainer {
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.videocontainer {
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 /* videoplayback */
 
 /* forum */
