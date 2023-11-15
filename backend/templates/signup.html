@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up Page</title>
     <link href="{{ url_for('static', path='signup.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ url_for('static', path='function.js') }}" type="text/Javascript"></script>
 </head>
 <body>
     <div class = "main">
         <div class = "content">
+            <div class="topnav">
+                <li><a class="active" href="/"><b>SE@KMITL</b></a></li>
+            </div>
             <div class="containertransition">
                 <div class="container">
                     <img src="static/picture/se.png" alt="SE PICTURE"  style="height: 70px; width:180;">
@@ -55,7 +57,7 @@
                         <p>
                             <span class="contentbuttonsubone">Already have an account?</span>
                             <span>
-                                <a href="/login">Sign in</a>
+                                <a href="/login">Log in</a>
                             </span>
                         </p>
                     </div>

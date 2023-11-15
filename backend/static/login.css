@@ -20,14 +20,30 @@ body {
     font-size: 250%;
     color: #3e403f;
 }
-/*  A welcome message or an explanation of the login form */
-/* .header p {letter-spacing: 0.05em;} */
 
+.topnav{
+    background-color: #2b2929;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    display: flex;
+    position: fixed;
+    z-index: 98;
+}
 
-/* .header b {
-    color: #DAFFFB;
-    font-size: 50px;
-} */
+.topnav li{
+    list-style: none;
+}
+
+.topnav a{
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
 
 .sepic{
     margin-top: 20px;
@@ -82,7 +98,7 @@ body {
 } */
 
 .contentheadsub span {
-    color: #9b9b9b;
+    color: #333;
     font-size: 20px;
 }
 
