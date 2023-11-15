@@ -554,8 +554,7 @@ i#next {
 }
 
 .subheader {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 100px;
 }
 
 .subheader h5 {
@@ -570,7 +569,7 @@ i#next {
 
 .news1content h3 {
   color: #333;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .news1content hr {
@@ -602,16 +601,133 @@ i#next {
   line-height: 1.5;
 }
 
-/* Style the timing and topic sections */
-.news1content h3:after,
-.news1content h3:before {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 50px;
-  background-color: #e17420;
-  margin: 10px 0;
+.containernews {
+  margin: 30px;
+  padding: 20px;
+  background-color: #e1dddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
 }
+/* style news 2 */
+.news2content {
+  margin-top: 10px;
+}
+
+.news2content h3 {
+  color: #333;
+  font-size: 28px;
+}
+
+.news2content hr {
+  border: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+.news2content img {
+  width: 900px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.news2content p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.news2content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.news2content li {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* style news 3 */
+.news3content {
+  margin-top: 10px;
+}
+
+.news3content h3 {
+  color: #333;
+  font-size: 28px;
+}
+
+.news3content hr {
+  border: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+.news3content img {
+  width: 900px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.news3content p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.news3content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.news3content li {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* style news 4 */
+.news4content {
+  margin-top: 10px;
+}
+
+.news4content h3 {
+  color: #333;
+  font-size: 28px;
+}
+
+.news4content hr {
+  border: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+.news4content img {
+  width: 1000px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.news4content p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.news4content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.news4content li {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+
 /* news */
 
 /* admission page*/
