@@ -1,4 +1,5 @@
 
+import os
 from typing import Optional
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
@@ -219,8 +220,8 @@ async def get_video(course_id: int, video_name: str):
         raise e
 
 @app.post("/video/upload/{course_id}")
-async def upload_file(request: Request, course_id: int, file: UploadFile, access_token : str = Cookie(None)):
-    course_directory = videos_directory / str(course_id)
+async def delete_file(request: Request, course_id: int, file: UploadFile, access_token : str = Cookie(None)):
+    COURSE_DIR = videos_directory / str(course_id)
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
@@ -229,7 +230,7 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
         if not instructor_id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
 
-        file_path = course_directory / file.filename
+        file_path = COURSE_DIR / file.filename
 
         if root.course[course_id].isIn(Video(file.filename)):
             raise HTTPException(404, detail="db_error: Video with the same filename already exists")
@@ -244,6 +245,42 @@ async def upload_file(request: Request, course_id: int, file: UploadFile, access
         for c in root.course[course_id].videos:
             temp_course.addVideo(c)
         temp_course.addVideo(Video(file.filename))
+        
+        for c in root.course[course_id].student_list:
+            temp_course.enrollStudent(c)
+        root.course[course_id] = temp_course
+        
+        transaction.commit()
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
+    except Exception as e:
+        print(e)
+        return {"message" : "failed"}
+    
+@app.post("/video/delete/{course_id}/{video_name}")
+async def delete_file(request: Request, course_id: int, video_name: str, access_token : str = Cookie(None)):
+    COURSE_DIR = videos_directory / str(course_id)
+    try:
+        token = decodeJWT(access_token)
+        instructor_id = token["id"]
+        course = await get_course(int(course_id))
+        
+        if instructor_id != course.instructor:
+            raise HTTPException(404, detail="permission_error: Invalid access")
+
+        file_path = COURSE_DIR / video_name
+
+        if not (root.course[course_id].isIn(Video(video_name))):
+            raise HTTPException(404, detail="db_error: Video does not exist")
+
+        if not file_path.is_file():
+            raise HTTPException(404, detail="fs_error: Video does not exist")
+
+        os.remove(file_path)
+
+        temp_course = Course(root.course[course_id].id, root.course[course_id].name, root.course[course_id].instructor, root.course[course_id].public)    
+        for c in root.course[course_id].videos:
+            if c.title != video_name:
+                temp_course.addVideo(c)
         
         for c in root.course[course_id].student_list:
             temp_course.enrollStudent(c)
