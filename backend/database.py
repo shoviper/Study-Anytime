@@ -36,13 +36,8 @@ def get_user(id):
 
 
 # == COURSE ========================================================================
-def get_course_names(user_id, rootdb):
-    course_list = []
-    for course in rootdb[user_id].courses:
-        print(rootdb[user_id].courses)
-        course_list.append([course, root.course[course].name])
-    
-    return course_list
+def get_all_courses(user_id, rootdb):
+    return [course for course in rootdb[user_id].courses]
 
 def get_course(id):
     if id in root.course.keys():

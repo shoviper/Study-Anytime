@@ -116,19 +116,58 @@
                 <h1>Enrolled Courses:</h1>
             </div>
         </div>
-        {% for course in enrolled_courses %}
-        <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
+        {% for course in enrolled %}
+        <div>
+            <a href="/studyanytime/course/{{course.id}}">
+                <div>
+                    <b>{{course.id}}</b> 
+                    {{course.name}}
+                </div>
+                by {{instructor_db[course.instructor].first_name}} {{instructor_db[course.instructor].last_name}}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="public_course">
+        <br><br><br><br><br><br>
+        <div class="coursetransition">
+            <div class="publicheader">
+                <h1>Public Courses:</h1>
+            </div>
+        </div>
+        {% for course in other %}
+        {% if course.public %}
+        <div>
+            <a href="/studyanytime/course/{{course.id}}">
+                <div>
+                    <b>{{course.id}}</b> 
+                    {{course.name}}
+                </div>
+                by {{instructor_db[course.instructor].first_name}} {{instructor_db[course.instructor].last_name}}
+            </a>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
     <div class="available_course">
         <br><br><br><br><br><br>
         <div class="coursetransition">
             <div class="availableheader">
-                <h1>Available Courses:</h1>
+                <h1>Other Courses:</h1>
             </div>
         </div>
-        {% for course in available_courses %}
-        <div><a href="/studyanytime/course/{{course[0]}}"><b>{{course[0]}}</b> {{course[1]}}</a></div>
+        {% for course in other %}
+        {% if not course.public %}
+        <div>
+            <a href="/studyanytime/course/{{course.id}}">
+                <div>
+                    <b>{{course.id}}</b> 
+                    {{course.name}}
+                </div>
+                by {{instructor_db[course.instructor].first_name}} {{instructor_db[course.instructor].last_name}}
+            </a>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
     <script src="{{ url_for('static', path='studyanytime.js') }}" type="text/Javascript"></script>

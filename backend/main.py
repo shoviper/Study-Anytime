@@ -100,7 +100,8 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
         token = decodeJWT(access_token)
         id = token["id"]
         role = token["role"]
-        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        user = get_user(id)
+        username = f"{user.first_name} {user.last_name}"
         
         root_db = None
         match role:
@@ -115,15 +116,13 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
         
-        enrolled_courses = get_course_names(int(id), root_db)
-        enrolled_id = [element[0] for element in enrolled_courses]
+        enrolled_courses = [root.course[c] for c in get_all_courses(int(id), root_db)]
+        enrolled = [enroll for enroll in enrolled_courses if enroll.id in user.courses]
+        other_courses = [root.course[c] for c in root.course]
+        other = [o for o in other_courses if o.id not in user.courses]
+        instructor_db = root.instructor
         
-        available_courses = []
-        for course in root.course.keys():
-            if course not in enrolled_id:
-                available_courses.append([course, root.course[course].name])
-        
-        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled_courses" : enrolled_courses, "available_courses": available_courses})
+        return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled" : enrolled, "other": other, "instructor_db": instructor_db})
     except Exception as e:
         print(e)
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
