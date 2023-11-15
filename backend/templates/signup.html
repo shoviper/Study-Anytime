@@ -9,35 +9,32 @@
 </head>
 <body>
     <div class = "main">
-        <div class = "header">
-            <div class="headertransition">
-                <b>SE@KMITL</b>
-            </div>
-        </div>
         <div class = "content">
             <div class="containertransition">
                 <div class="container">
-                    <img src="" alt="SE PICTURE">
-                    <h2>Sign up</h2>
+                    <img src="static/picture/se.png" alt="SE PICTURE"  style="height: 70px; width:180;">
+                    <div class="header">
+                        <h2>Sign up</h2>
+                    </div>
                     {% if invalid %}
                         <p style="color: red;">Already exist</p>
                     {% endif %}
                     <div class="contentboxfield">
                         <form id="signup-form" action="/user/signUp/" method="POST">
                             <p>
-                                <input name="id" id="id" type="text" placeholder="ID (If you are student or lecturer of KMITL)">
+                                <input name="id" id="id" type="text" class="input-item" placeholder="ID (If you are student or lecturer of KMITL)">
                             </p>
                             <p>
-                                <input name="first_name" id="first_name" type="text" placeholder="Firstname *" required>
+                                <input name="first_name" id="first_name" type="text" class="input-item" placeholder="Firstname *" required>
                             </p>
                             <p>
-                                <input name="last_name" id="last_name" type="text" placeholder="Lastname *" required>
+                                <input name="last_name" id="last_name" type="text" class="input-item" placeholder="Lastname *" required>
                             </p>
                             <p>
-                                <input name="email" id="email" type="text" placeholder="E-mail *" required>
+                                <input name="email" id="email" type="text" class="input-item" placeholder="E-mail *" required>
                             </p>
                             <p>
-                                <input name="password" id="password" type="password" placeholder="Password *" required>
+                                <input name="password" id="password" type="password" class="input-item" placeholder="Password *" required>
                             </p>
                             <p>
                                 <input type="radio" name="role" id="student" value="student" required>

@@ -10,18 +10,15 @@
 
 <body>
     <div class="main">
-        <div class="header">
-            <div class="headertransition">
-                <b>SE@KMITL</b>
-            </div>
-        </div>
         <div class="content">
             <div class="containertransition">
                 <div class="container">
                     <div class="sepic">
-                        <img src="static/picture/se.png" alt="sepic">
+                        <img src="static/picture/se.png" alt="sepic" style="height: 70px; width:180;">
                     </div>
-                    <h2>Sign in</h2>
+                    <div class="header">
+                        <h2>Log in</h2>
+                    </div>
                     <div class="contentheadsub">
                         <p>
                             <span class="contentheadsubone">Don't have an account?</span>
@@ -36,10 +33,10 @@
                     <form id="login-form" action="/user/signIn/" method="POST">
                         <div class="contentboxfield">
                             <p>
-                                <input name="id" id="id" type="text" placeholder="ID/Username *" required>
+                                <input name="id" id="id" type="text" class="input-item" placeholder="ID/Username *" required>
                             </p>
                             <p>
-                                <input name="password" id="password" type="password" placeholder="Password *" required>
+                                <input name="password" id="password" type="password" class="input-item" placeholder="Password *" required>
                             </p>
                             <p>
                                 <input type="radio" name="role" id="student" value="student" required>
@@ -69,5 +66,4 @@
         </div>
     </div>
 </body>
-
 </html>

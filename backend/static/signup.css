@@ -12,38 +12,31 @@ body {
 }
 
 .header {
-    background-color: #04364A;
     height: 10vh;
     width: 100%;
 }
 
-.header b {
-    color: #DAFFFB;
-    font-size: 50px;
+.header h2 {
+    font-size: 250%;
+    color: #ffffff;
 }
-
 .headertransition {
     margin-left: 300px;
     margin-top: 15px;
 }
 
 .content {
-    height: 90vh;
+    height: 150vh;
     width: 100%;
     text-align: center;
-    background-color: #176B87;
+    background-color: #333;
 }
 
-.container img {
-    margin-top: 30px;
-    width: 100px;
-    height: 100px;
-    background-color: #DAFFFB
-}
+
 
 .content h2 {
     font-size: 55px;
-    color: whitesmoke;
+    color: rgb(255, 255, 255);
 }
 
 .containertransition {
@@ -51,16 +44,26 @@ body {
 }
 
 .container {
-    background-color: #1c1c1c;
-    width: 500px;
-    height: 770px;
-    margin: 0 auto;
-    border-radius: 20px;
+    width: 450px;
+    min-height: 450px;
+    height: auto;
+    border-radius: 5px;
+    margin: 2% auto;
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    padding: 2%;
+    background-image: linear-gradient(-225deg, #ddd 50%, #e17420 50%);
+}
+
+.input-item {
+    background: #fff;
+    color: #333;
+    padding: 14.5px 0px 15px 9px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 input {
     width: 400px;
-    height: 40px;
+    height: auto;
     font-size: 20px;
     background-color: #DAFFFB;
     margin: 10px;
@@ -73,8 +76,8 @@ input[type="radio"] {
 
 .radio-label {
     display: inline-block;
-    background-color: #DAFFFB;
-    color: #272829;
+    background-color: #ffffff;
+    color: #333;
     font-size: 18px;
     width: 100px;
     padding: 10px;
@@ -84,8 +87,8 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked + .radio-label {
-    background-color: #e5de00;
-    color: #272829;
+    background-color: #333;
+    color: #fff;
 }
 
 .contentboxfield p {
@@ -93,22 +96,30 @@ input[type="radio"]:checked + .radio-label {
 }
 
 button {
-    background-color: #e5de00;
-    color: #272829;
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 20px;
-    width: 400px;
+    display: inline-block;
+    color: #252537;
+  
+    width: 280px;
+    height: 50px;
+  
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 5px;
+    
+    outline: none;
+    border: none;
+  
     cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    text-align: center;
+    transition: all 0.2s linear;
+    
+    margin: 7% auto;
+    letter-spacing: 0.05em;
 }
 
 button:hover {
-    background-color: #DAFFFB;;
+    background-color: #f3d1b8;;
 }
-
 .contentbuttonsubone {
     font-size: 20px;
     opacity: 60%;
@@ -125,5 +136,5 @@ button:hover {
 }
 
 .contentbuttonsub a:hover {
-    color: #DAFFFB;
+    color: #333;
 }
