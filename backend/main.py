@@ -1,8 +1,8 @@
 import os
 import shutil
 from typing import Optional
-from fastapi import FastAPI, Query, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi import FastAPI, Request, Response, UploadFile, HTTPException, Cookie, Query, Form
+from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -160,21 +160,22 @@ async def studyanytime(request: Request, course_id : str, access_token : str = C
         return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": False})
 
 @app.get("/studyanytime/course/video/{course_id}/{video_name}", response_class=HTMLResponse)
-async def studyanytime(request: Request, course_id : str, video_name : str, access_token : str = Cookie(None)):
+async def studyanytime(request: Request, course_id : int, video_name : str, access_token : str = Cookie(None)):
     try:
         token = decodeJWT(access_token)
         id = token["id"]
         role = token["role"]
         username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        
+        course = await get_course(course_id)
         forum = []
-            
-        for video in root.course[int(course_id)].videos:
+        
+        for video in course.videos:
             if video_name == video.title:
                 forum = video.heading
                 break
-            
         
-        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course": course, "video_name": video_name, "forum" : forum})
     except Exception as e:
         print(e)
 
@@ -216,7 +217,15 @@ async def get_video(course_id: int, video_name: str):
         if not video_path.is_file():
             raise HTTPException(404, detail="fs_error: Video not found")
 
-        return FileResponse(video_path, headers={"Accept-Ranges": "bytes"})
+        video_size = video_path.stat().st_size
+
+        def iter_file():
+            with open(video_path, "rb") as video_file:
+                while chunk := video_file.read(65536):  # Adjust the chunk size as needed
+                    yield chunk
+
+        return StreamingResponse(iter_file(), media_type="video/mp4", headers={"Accept-Ranges": "bytes", "Content-Length": str(video_size)})
+
     except Exception as e:
         print(e)
         raise e

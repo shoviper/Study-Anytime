@@ -80,14 +80,31 @@
     <div class="videoplayback">
         <br><br><br><br><br><br>
         <h1>Video Playback</h1>
-        <h2>{{course_id}}: {{video_name}}</h2>
-        <video width="640" height="360" controls>
-            <source src="http://127.0.0.1:8000/video/{{course_id}}/{{video_name}}" type="video/mp4">
+        <h2>{{course.id}}&ensp;{{course.name}}:&emsp;{{video_name}}</h2>
+        <video width="640" height="360" controls preload="metadata">
+            <source src="http://127.0.0.1:8000/video/{{course.id}}/{{video_name}}" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
+    </div>
+    <div>
+        <h4>Videos in this course: </h4>
+        {% for video in course.videos %}
+        <a href="/studyanytime/course/video/{{course.id}}/{{video}}">
+                {% if video.title == video_name %}
+                <div class="playing">
+                    <b>{{video}}</b>
+                </div>
+                {% else %}
+                <div class="not-playing">
+                    {{video}}
+                </div>
+                {% endif %}
+        </a>
+        {% endfor %}
     </div>
     <div class="forum">
         <h3>Forum</h3>
-        <form action="/video/{{course_id}}/{{video_name}}" method="POST">
+        <form action="/video/{{course.id}}/{{video_name}}" method="POST">
             <label for="post_content">Create Post:</label>
             <textarea id="post_content" name="post_content" required></textarea>
             <br>
@@ -98,7 +115,7 @@
         <div>
             <p><b>{{f.user}}</b></p>
             <p>{{f.content}}</p>
-            <form action="/video/{{course_id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
+            <form action="/video/{{course.id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
                 <label for="post_content">Reply:</label>
                 <textarea id="post_content" name="post_content" required></textarea>
                 <br>
@@ -114,7 +131,7 @@
             </div>
         </div>
         {% endfor %}
-        <a href="/studyanytime/course/{{course_id}}">
+        <a href="/studyanytime/course/{{course.id}}">
             <button type="submit">Back</button>
         </a>
     </div>
