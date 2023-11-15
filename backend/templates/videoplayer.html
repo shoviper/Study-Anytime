@@ -90,15 +90,15 @@
         <h4>Videos in this course: </h4>
         {% for video in course.videos %}
         <a href="/studyanytime/course/video/{{course.id}}/{{video}}">
-                {% if video.title == video_name %}
-                <div class="playing">
-                    <b>{{video}}</b>
-                </div>
-                {% else %}
-                <div class="not-playing">
-                    {{video}}
-                </div>
-                {% endif %}
+            {% if video.title == video_name %}
+            <div class="playing">
+                <b>{{video}}</b>
+            </div>
+            {% else %}
+            <div class="not-playing">
+                {{video}}
+            </div>
+            {% endif %}
         </a>
         {% endfor %}
     </div>
@@ -110,27 +110,43 @@
             <br>
             <button type="submit">Post</button>
         </form>
-
         {% for f in forum %}
         <div>
             <p><b>{{f.user}}</b></p>
             <p>{{f.content}}</p>
-            <form action="/video/{{course.id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
-                <label for="post_content">Reply:</label>
-                <textarea id="post_content" name="post_content" required></textarea>
+            <button class="expand-replies">Expand forum</button>
+            <div class="replies" style="display: none;">
+                <form action="/video/{{course.id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
+                    <label for="post_content">Reply:</label>
+                    <textarea id="post_content" name="post_content" required></textarea>
+                    <br>
+                    <button type="submit">Reply</button>
+                </form>
                 <br>
-                <button type="submit">Reply</button>
-            </form>
-            <br>
-            <div>
-                {% for r in f.reply %}
-                <p><b><i>&emsp;{{r.user}}</i></b></p>
-                <p><i>&emsp;{{r.content}}</i></p>
-                <br>
-                {% endfor %}
+                <div>
+                    {% for r in f.reply %}
+                    <p><b><i>&emsp;{{r.user}}</i></b></p>
+                    <p><i>&emsp;{{r.content}}</i></p>
+                    <br>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         {% endfor %}
+
+        <script>
+            // Add a click event listener to all buttons with the class "expand-replies"
+            document.querySelectorAll('.expand-replies').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    // Find the closest "replies" div to the clicked button and toggle its display style
+                    var repliesDiv = button.parentElement.querySelector('.replies');
+                    if (repliesDiv) {
+                        repliesDiv.style.display = (repliesDiv.style.display === 'none') ? 'block' : 'none';
+                    }
+                });
+            });
+        </script>
+
         <a href="/studyanytime/course/{{course.id}}">
             <button type="submit">Back</button>
         </a>

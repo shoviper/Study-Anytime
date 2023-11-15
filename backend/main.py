@@ -236,7 +236,6 @@ async def delete_file(request: Request, course_id: int, file: UploadFile, access
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
-        course = await get_course(int(course_id))
         
         if not instructor_id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
@@ -325,10 +324,10 @@ async def add_comment(request: Request, course_id: int, video_name: str, post_co
     for c in root.course[course_id].student_list:
         temp_course.enrollStudent(c)
     root.course[course_id] = temp_course
-    
+    course = await get_course(course_id)
     transaction.commit()
     
-    return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
+    return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course": course, "video_name": video_name, "forum" : forum})
 
 @app.post("/video/{course_id}/{video_name}/{heading_no}", response_class=HTMLResponse)
 async def add_reply(request: Request, course_id: int, video_name: str, heading_no: int, post_content: str = Form(...), access_token: str = Cookie(None)):
