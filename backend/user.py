@@ -25,7 +25,7 @@ class Student(User):
         self.id = id
         
     def __str__(self):
-        return f"ID: {self.id}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.enrolls)}"
+        return f"ID: {self.id}, {self.first_name} {self.last_name}, Number of enrolls: {len(self.courses)}"
 
 class OtherUser(User):
     def __init__(self, username, first_name, last_name, email, password) -> None:

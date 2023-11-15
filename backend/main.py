@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import Optional
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
@@ -126,7 +127,7 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
                 root_db = root.otherUser
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
-            
+        
         enrolled_courses = get_course_names(int(id), root_db)
         enrolled_id = [element[0] for element in enrolled_courses]
         
@@ -137,6 +138,7 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
         
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "enrolled_courses" : enrolled_courses, "available_courses": available_courses})
     except Exception as e:
+        print(e)
         return templates.TemplateResponse("studyanytime.html", {"request": request, "alreadylogin": False})
 
 @app.get("/studyanytime/course/{course_id}", response_class=HTMLResponse)
@@ -187,6 +189,9 @@ async def clear_user_db():
 @app.delete("/clear_course_db")
 async def clear_course_db():
     root.course = BTrees.OOBTree.BTree()
+    
+    shutil.rmtree(VIDEO_DIR, ignore_errors=True)
+    os.makedirs(VIDEO_DIR, exist_ok=True)
 
 # == VERIFY JWT ====================================================
 @app.get("/verify_token")
@@ -197,11 +202,11 @@ async def verify_token(request: Request, access_token: str = Cookie(None)):
         return True
 
 # == VIDEO PLAYER =====================================================================
-videos_directory = Path("db/course_videos")
+VIDEO_DIR = Path("db/course_videos")
 
 @app.get("/video/{course_id}/{video_name}")
 async def get_video(course_id: int, video_name: str):
-    video_path = videos_directory / str(course_id) / video_name
+    video_path = VIDEO_DIR / str(course_id) / video_name
     try:
         if not course_id in root.course.keys():
             raise HTTPException(404, detail="db_error: Course not found")
@@ -219,7 +224,7 @@ async def get_video(course_id: int, video_name: str):
 
 @app.post("/video/upload/{course_id}")
 async def delete_file(request: Request, course_id: int, file: UploadFile, access_token : str = Cookie(None)):
-    COURSE_DIR = videos_directory / str(course_id)
+    COURSE_DIR = VIDEO_DIR / str(course_id)
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
@@ -256,7 +261,7 @@ async def delete_file(request: Request, course_id: int, file: UploadFile, access
     
 @app.post("/video/delete/{course_id}/{video_name}")
 async def delete_file(request: Request, course_id: int, video_name: str, access_token : str = Cookie(None)):
-    COURSE_DIR = videos_directory / str(course_id)
+    COURSE_DIR = VIDEO_DIR / str(course_id)
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
@@ -511,7 +516,7 @@ async def post_course(request: Request, course_id: str = Form(...), course_name:
         if not int(instructor_id) in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
         
-        course_directory = videos_directory / course_id
+        course_directory = VIDEO_DIR / course_id
         course_directory.mkdir(parents=True)
         
         root.course[int(course_id)] = Course(int(course_id), course_name, instructor_id, is_public)
@@ -521,6 +526,50 @@ async def post_course(request: Request, course_id: str = Form(...), course_name:
             temp_instructor.enrollCourse(c)
         temp_instructor.enrollCourse(int(course_id))
         root.instructor[int(instructor_id)] = temp_instructor
+        
+        transaction.commit()
+
+        return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
+    except Exception as e:
+        raise e
+    
+@app.post("/course/remove/{course_id}", response_class=HTMLResponse)
+async def remove_course(request: Request, course_id: int, access_token: str = Cookie(None)):
+    COURSE_DIR = VIDEO_DIR / str(course_id)
+    try:
+        token = decodeJWT(access_token)
+        instructor_id = token["id"]
+        course = await get_course(course_id)
+        if course_id not in root.course.keys():
+            raise HTTPException(404, detail="db_error: Course does not already exists")
+
+        if instructor_id != course.instructor:
+            raise HTTPException(404, detail="permission_error: Invalid access")
+        
+        for s in root.student:
+            student = root.student[s]
+            temp_user = Student(student.id, student.first_name, student.last_name, student.email, student.password)
+            for c in student.courses:
+                temp_user.enrollCourse(c)
+                
+            if course_id in temp_user.courses: 
+                temp_user.courses.remove(course_id)
+                
+            root.student[s] = temp_user
+                
+        for i in root.instructor:
+            instructor = root.instructor[i]
+            temp_user = Instructor(instructor.id, instructor.first_name, instructor.last_name, instructor.email, instructor.password)
+            for c in instructor.courses:
+                temp_user.enrollCourse(c)
+            
+            if course_id in temp_user.courses:
+                temp_user.courses.remove(course_id)
+                
+            root.instructor[i] = temp_user
+        
+        root.course.pop(course_id)
+        shutil.rmtree(COURSE_DIR, ignore_errors=True)
         
         transaction.commit()
 

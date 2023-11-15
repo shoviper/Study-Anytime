@@ -291,11 +291,6 @@ i#next {
   object-fit: cover;
 }
 
-.program {
-  height: 150px;
-  width: 100%;
-  display: flex;
-}
 
 /* The Modal (background) */
 .modal {
@@ -486,13 +481,20 @@ i#next {
 
 /* contact */
 .contact {
+  display: block;
   width: 100%;
   height: 200px;
-  display: flex;
   flex-direction: column;
   padding-top: 35px;
   padding-left: 25px;
 }
+.contact td{
+  width: 50%;
+}
+.contact td{
+  width: 50%;
+}
+
 
 .link img {
   margin-top: 5px;
@@ -779,6 +781,14 @@ input[type="checkbox"] {
   margin-left: 10px;
   margin-right: 10px;
   
+}
+
+.block2forpg {
+  display: block;
+  background-color: #e6e6e6;
+  padding: 70px;
+  width: 100%;
+  height: 100px;
 }
 
 .se2024{
