@@ -129,7 +129,7 @@ async def studyanytime(request: Request, access_token: str = Cookie(None)):
             case _:
                 raise HTTPException(404, detail="value_error: Invalid role")
         
-        enrolled_courses = [root.course[c] for c in get_all_courses(int(id), root_db)]
+        enrolled_courses = [root.course[c] for c in get_all_courses(id, root_db)]
         enrolled = [enroll for enroll in enrolled_courses if enroll.id in user.courses]
         other_courses = [root.course[c] for c in root.course]
         other = [o for o in other_courses if o.id not in user.courses]
@@ -384,9 +384,13 @@ async def signIn(response: Response, request: Request, id: str = Form(...), pass
 @app.post("/user/signUp/")
 async def signUp(response: Response, request: Request, id: str = Form(...), first_name: str = Form(...), last_name: str = Form(...), email: str = Form(...), password: str = Form(...), role: str = Form(...)):
     try:
-        if ((int(id) in root.student.keys()) or (int(id) in root.instructor.keys()) or (id in root.otherUser.keys())):
-            raise HTTPException(404, detail="db_error: User already exists")
-        
+        if id.isnumeric():
+            if (int(id) in root.student.keys()) or (int(id) in root.instructor.keys()):
+                raise HTTPException(404, detail="db_error: User already exists")
+        else:
+            if id in root.otherUser.keys():
+                raise HTTPException(404, detail="db_error: User already exists")
+            
         match role:
             case "student":
                 root_db = root.student
@@ -410,6 +414,7 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
         
         return RedirectResponse(url="/", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
+        print(e)
         return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
 
 @app.post("/enroll/{course_id}")

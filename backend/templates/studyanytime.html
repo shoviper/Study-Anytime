@@ -109,6 +109,7 @@
         </form>
         {% endif %}
     </div>
+    {% if role == "lecturer" or role == "student" %}
     <div class="enrolled_course">
         <br><br><br><br><br><br>
         <div class="coursetransition">
@@ -128,6 +129,7 @@
         </div>
         {% endfor %}
     </div>
+    {% endif %}
     <div class="public_course">
         <br><br><br><br><br><br>
         <div class="coursetransition">
@@ -153,7 +155,11 @@
         <br><br><br><br><br><br>
         <div class="coursetransition">
             <div class="availableheader">
+                {% if role == "lecturer" or role == "student" %}
                 <h1>Other Courses:</h1>
+                {% else %}
+                <h1>Enrollment Courses:</h1>
+                {% endif %}
             </div>
         </div>
         {% for course in other %}
