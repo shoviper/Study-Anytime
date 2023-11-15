@@ -1094,3 +1094,90 @@ input[type="checkbox"] {
   border-radius: 8px;
   margin-bottom: 15px;
 }
+
+
+
+/* upload and course */
+
+.uploadvideo {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.uploadvideo h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.uploadvideo form {
+  margin-top: 15px;
+}
+
+.uploadvideo form div {
+  margin-bottom: 15px;
+}
+
+.uploadvideo form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.uploadvideo form input[type="submit"] {
+  background-color: #e17420;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Style for the video section */
+.video {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.video h1 {
+  color: #333;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+/* .video div {
+  margin-bottom: 15px;
+} */
+
+.video a {
+  color: #e17420;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.video a:hover {
+  text-decoration: underline;
+}
+
+.video form {
+  display: inline-block;
+}
+
+.video form button {
+  background-color: #e17420;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+

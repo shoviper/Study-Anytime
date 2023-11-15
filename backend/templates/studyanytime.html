@@ -77,13 +77,12 @@
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br>
+    <br><br><br><br>
     <div class="videoplayback">
         <h1>Study Anytime</h1>
     </div>
     <div class="add_course">
         {% if role == "lecturer" %}
-        <br><br><br>
         <div class="coursetransition">
             <div class="addheader">
                 <h1>Add course:</h1>
@@ -117,7 +116,6 @@
     </div>
     {% if role == "lecturer" or role == "student" %}
     <div class="enrolled_course">
-        <br><br>
         <div class="coursetransition">
             <div class="enrollheader">
                 <h1>Enrolled Courses:</h1>
@@ -138,7 +136,6 @@
     {% endif %}
     <div class="course_split">
         <div class="available_course">
-            <br><br>
             <div class="coursetransition">
                 <div class="availableheader">
                     <h1>Public Courses:</h1>
@@ -159,7 +156,6 @@
             {% endfor %}
         </div>
         <div class="available_course">
-            <br><br>
             <div class="coursetransition">
                 <div class="availableheader">
                     {% if role == "lecturer" or role == "student" %}
