@@ -1,7 +1,7 @@
 import os
 import shutil
 from typing import Optional
-from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
+from fastapi import FastAPI, Query, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -54,7 +54,7 @@ async def signup(request: Request):
 # == connect to resetpassword page ====================================================
 @app.get("/resetpassword", response_class=HTMLResponse)
 async def resetpassword(request: Request):
-    return templates.TemplateResponse("resetpassword.html", {"request": request})
+    return templates.TemplateResponse("resetpassword.html", {"request": request, "sent": False})
 
 # == connect to logout page ============================================================
 @app.get("/logout", response_class=HTMLResponse)
@@ -416,6 +416,83 @@ async def signUp(response: Response, request: Request, id: str = Form(...), firs
     except Exception as e:
         print(e)
         return templates.TemplateResponse("signup.html", {"request": request, "invalid": True})
+
+from reset_pwd import*
+
+@app.get("/user/resetPwd/")
+async def resetPwd(request: Request, email: str = Query(...)):
+    try:
+        found = False
+        
+        for u in root.student:
+            user = get_user(u)
+            if email == user.email:
+                found = user
+                break
+        
+        if not found:
+            for u in root.instructor:
+                user = get_user(u)
+                if email == user.email:
+                    found = user
+                    break
+        
+        if not found:
+            for u in root.otherUser:
+                user = get_user(u)
+                if email == user.email:
+                    found = user
+                    break
+        
+        if not found:
+            raise Exception("User not found") 
+        
+        payload = {
+            "id" : user.id,
+            "exp" : time.time() + 600
+        }
+        token = jwt.encode(payload, SECRET_KEY, ALGORITHM)
+        
+        reciever_email = email
+        body = f"click this link to reset your password: \nhttp://127.0.0.1:8000/user/resetPwd/{token}\n\nThis link will be valid only for 10 mins."
+        email_body = MIMEText(body, "plain")
+        
+        message = MIMEMultipart()
+        message["From"] = SENDER_EMAIL
+        message["To"] = reciever_email
+        message["Subject"] = SUBJECT
+        message.attach(email_body)
+
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.sendmail(SENDER_EMAIL, reciever_email, message.as_string())
+
+        print("Email sent successfully!")
+        
+        print(found)
+        return templates.TemplateResponse("resetpassword.html", {"request": request, "sent": True})
+    except Exception as e:
+        print(e)
+        return templates.TemplateResponse("resetpassword.html", {"request": request, "sent": True})
+
+@app.get("/user/resetPwd/{token}")
+async def redirectToResetPwd(request: Request, token: str):
+    return templates.TemplateResponse("newpass.html", {"request": request, "token": token})
+         
+@app.post("/user/resetPwd/{token}")
+async def resetPwd(request: Request, token: str, new_password: str = Form(...)):
+    try:
+        id = decodeJWT(token)["id"]
+        user = get_user(id)
+        
+        user.password = new_password
+        
+        transaction.commit()
+        return RedirectResponse(url="/login", status_code=302)
+    except Exception as e:
+        print(e)
+        return RedirectResponse(url="/", status_code=302)
 
 @app.post("/enroll/{course_id}")
 async def enroll(course_id: int, student_id: str = Form(...), access_token : str = Cookie(None)):
