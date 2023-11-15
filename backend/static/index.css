@@ -554,12 +554,21 @@ i#next {
 }
 
 .subheader {
-  margin-top: 100px;
+  margin-top: 110px;
 }
 
 .subheader h5 {
   color: #e17420;
   font-size: 20px;
+}
+
+.subheader a {
+  text-decoration: none;
+  color: #333;
+}
+
+.subheader a:hover {
+  text-decoration: underline;
 }
 
 /* Style the news1content */
@@ -569,7 +578,7 @@ i#next {
 
 .news1content h3 {
   color: #333;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .news1content hr {
@@ -586,8 +595,9 @@ i#next {
 
 .news1content p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
+  margin-top: 10px;
 }
 
 .news1content ul {
@@ -597,7 +607,7 @@ i#next {
 
 .news1content li {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -616,7 +626,7 @@ i#next {
 
 .news2content h3 {
   color: #333;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .news2content hr {
@@ -633,7 +643,7 @@ i#next {
 
 .news2content p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -644,7 +654,7 @@ i#next {
 
 .news2content li {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -655,7 +665,7 @@ i#next {
 
 .news3content h3 {
   color: #333;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .news3content hr {
@@ -672,7 +682,7 @@ i#next {
 
 .news3content p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -683,7 +693,7 @@ i#next {
 
 .news3content li {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -694,7 +704,7 @@ i#next {
 
 .news4content h3 {
   color: #333;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .news4content hr {
@@ -711,7 +721,7 @@ i#next {
 
 .news4content p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -722,7 +732,7 @@ i#next {
 
 .news4content li {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 /* news */
