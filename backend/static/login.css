@@ -12,14 +12,26 @@ body {
 }
 
 .header {
-    background-color: #04364A;
     height: 10vh;
     width: 100%;
 }
 
-.header b {
+.header h2 {
+    font-size: 250%;
+    font-family: 'Playfair Display', serif;
+    color: #3e403f;
+}
+/*  A welcome message or an explanation of the login form */
+/* .header p {letter-spacing: 0.05em;} */
+
+
+/* .header b {
     color: #DAFFFB;
     font-size: 50px;
+} */
+
+.sepic{
+    margin-top: 20px;
 }
 
 .headertransition {
@@ -27,20 +39,27 @@ body {
     margin-top: 15px;
 }
 
-
+.input-item {
+    height: 50px;
+    width: 300px;
+    background: #fff;
+    color: #333;
+    padding: 14.5px 0px 15px 9px;
+    border-radius: 5px 0px 0px 5px;
+}
 
 .content {
-    height: 90vh;
+    height: 150vh;
     width: 100%;
     text-align: center;
-    background-color: #176B87;
+    background-color: #333;
 }
 
 
 
 .content h2 {
     font-size: 55px;
-    color: whitesmoke;
+    color: rgb(255, 255, 255);
 }
 
 .containertransition {
@@ -48,34 +67,37 @@ body {
 }
 
 .container {
-    background-color: #1c1c1c;
-    width: 500px;
-    height: 600px;
-    margin: 0 auto;
-    border-radius: 20px;
+    width: 400px;
+    min-height: 450px;
+    height: auto;
+    border-radius: 5px;
+    margin: 2% auto;
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    padding: 2%;
+    background-image: linear-gradient(-225deg, #ddd 50%, #e17420 50%);
 }
 
-.contentheadsubone {
-    opacity: 60%;
+/* .contentheadsubone {
+
     color: #e8e9eb;
-}
+} */
 
 .contentheadsub span {
+    color: #9b9b9b;
     font-size: 20px;
 }
 
 .contentheadsub a {
-    color: #e8e9eb;
+    color: #fff;
     text-decoration: none;
 }
 
 .contentheadsub a:hover {
-    color: #DAFFFB;
+    color: #333;
 }
 
 input {
-    width: 400px;
-    height: 40px;
+
     font-size: 20px;
     background-color: #DAFFFB;
     margin: 10px;
@@ -88,8 +110,8 @@ input[type="radio"] {
 
 .radio-label {
     display: inline-block;
-    background-color: #DAFFFB;
-    color: #272829;
+    background-color: #ffffff;
+    color: #333;
     font-size: 18px;
     width: 100px;
     padding: 10px;
@@ -98,9 +120,16 @@ input[type="radio"] {
     cursor: pointer;
 }
 
+
+
 input[type="radio"]:checked + .radio-label {
-    background-color: #e5de00;
-    color: #272829;
+    background-color: #333;
+    color: #ffffff;
+}
+
+.contentboxfield input{
+    width: 300;
+    height: auto;
 }
 
 .contentboxfield p {
@@ -108,20 +137,29 @@ input[type="radio"]:checked + .radio-label {
 }
 
 button {
-    background-color: #e5de00;
-    color: #272829;
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 20px;
-    width: 400px;
+    display: inline-block;
+    color: #252537;
+  
+    width: 280px;
+    height: 50px;
+  
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 5px;
+    
+    outline: none;
+    border: none;
+  
     cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    text-align: center;
+    transition: all 0.2s linear;
+    
+    margin: 7% auto;
+    letter-spacing: 0.05em;
 }
 
 button:hover {
-    background-color: #DAFFFB;;
+    background-color: #f3d1b8;;
 }
 
 .contentbuttonsubone {
@@ -140,5 +178,6 @@ button:hover {
 }
 
 .contentbuttonsub a:hover {
-    color: #DAFFFB;
+    color: #333;
 }
+
