@@ -531,6 +531,7 @@ i#next {
   height: 300px;
   margin-left: 50px;
   border-radius: 30px;
+  border: 1px solid #333;
 }
 
 .newsblock p {
@@ -542,36 +543,76 @@ i#next {
 .newsblock {
   flex: 1 1 calc(50% - 20px);
   border: 1px solid #ccc;
-  padding: 50px;
+  padding: 60px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
+  border: 1px solid #333;
 }
 
 .newsblock:hover {
   background-color: #f5f5f5;
+  transform: scale(1.05);
 }
 
 .subheader {
-  background-color: #d8d2d2;
-  width: 100%;
-  height: 50px;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .subheader h5 {
+  color: #e17420;
   font-size: 20px;
-  margin-top: 13px;
-  margin-left: 450px;
-  color: #333;
 }
 
-.subheader a {
-  text-decoration: none;
-  color: #333;
+/* Style the news1content */
+.news1content {
+  margin-top: 20px;
 }
 
-.subheader a:hover {
-  text-decoration: underline;
+.news1content h3 {
+  color: #333;
+  font-size: 24px;
+}
+
+.news1content hr {
+  border: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+.news1content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.news1content p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.news1content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.news1content li {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Style the timing and topic sections */
+.news1content h3:after,
+.news1content h3:before {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 50px;
+  background-color: #e17420;
+  margin: 10px 0;
 }
 /* news */
 
@@ -589,7 +630,7 @@ i#next {
 .admissionblock {
   background-color: #fff;
   border: 1px solid #333;
-  border-radius: 8px;
+  border-radius: 10px;
   margin: 10px;
   transition: transform 0.3s ease-in-out;
   width: 1200px;
@@ -866,7 +907,95 @@ input[type="checkbox"] {
 .forum form:last-child {
   margin-bottom: 50px;
 }
-
-
-
 /* forum */
+
+
+/* se2022 */
+.se2022 {
+  margin: 30px;
+  padding: 20px; 
+  background-color: #e1dddd; 
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.se2022 h1 {
+  color: #e17420; 
+  font-size: 50px; 
+  margin-top: 10px;
+}
+
+.se2022 p {
+  line-height: 1.5; 
+}
+
+.se2022 img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+
+/* se2024 */
+.se2024 {
+  margin: 30px;
+  padding: 20px; 
+  background-color: #e1dddd; 
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.se2024 h1 {
+  color: #e17420; 
+  font-size: 50px; 
+  margin-top: 10px;
+}
+
+.se2024 p {
+  line-height: 1.5; 
+}
+
+.se2024 img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+
+
+/* glasgow */
+.section.jss171 {
+  margin: 30px;
+  padding: 20px; 
+  background-color: #e1dddd; 
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.section.jss171 h1 {
+  color: #e17420; 
+  font-size: 50px; 
+  margin-top: 10px;
+}
+
+.section.jss171 p {
+  line-height: 1.6;
+}
+
+.section.jss171 hr {
+  border: 1px solid #000000;
+  margin: 20px 0;
+}
+
+.section.jss171 img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #333;
+}

@@ -1,4 +1,3 @@
-
 import os
 from typing import Optional
 from fastapi import FastAPI, Request, Response, Depends, UploadFile, HTTPException, Cookie, Form
@@ -23,6 +22,8 @@ if __name__ == "__main__":
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
+# == connect to main(default) page ============================================================
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request, access_token: str = Cookie(None)):
     try:
@@ -40,6 +41,21 @@ async def shutdown():
     db.close()
 
 # == connect to login page ============================================================
+@app.get("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request, "invalid": False})
+
+# == connect to sign up page ==========================================================
+@app.get("/signup", response_class=HTMLResponse)
+async def signup(request: Request):
+    return templates.TemplateResponse("signup.html", {"request": request, "invalid": False})
+
+# == connect to resetpassword page ====================================================
+@app.get("/resetpassword", response_class=HTMLResponse)
+async def resetpassword(request: Request):
+    return templates.TemplateResponse("resetpassword.html", {"request": request})
+
+# == connect to logout page ============================================================
 @app.get("/logout", response_class=HTMLResponse)
 async def logout(response: Response, request: Request):
     response.delete_cookie("access_token")
@@ -76,15 +92,12 @@ async def news(request: Request):
 @app.get("/se2022", response_class=HTMLResponse)
 async def se2022(request: Request):
     return templates.TemplateResponse("se2022.html", {"request": request, "invalid": False})
-
 @app.get("/se2024", response_class=HTMLResponse)
 async def se2024(request: Request):
     return templates.TemplateResponse("se2024.html", {"request": request, "invalid": False})
-
 @app.get("/glasgow", response_class=HTMLResponse)
 async def glasgow(request: Request):
     return templates.TemplateResponse("glasgow.html", {"request": request, "invalid": False})
-
 @app.get("/queensland", response_class=HTMLResponse)
 async def queensland(request: Request):
     return templates.TemplateResponse("queensland.html", {"request": request, "invalid": False})
@@ -163,21 +176,6 @@ async def studyanytime(request: Request, course_id : str, video_name : str, acce
         return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "video_name": video_name, "forum" : forum})
     except Exception as e:
         print(e)
-             
-# == connect to login page ============================================================
-@app.get("/login", response_class=HTMLResponse)
-async def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request, "invalid": False})
-
-# == connect to sign up page ==========================================================
-@app.get("/signup", response_class=HTMLResponse)
-async def signup(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request, "invalid": False})
-
-# == connect to resetpassword page ====================================================
-@app.get("/resetpassword", response_class=HTMLResponse)
-async def resetpassword(request: Request):
-    return templates.TemplateResponse("resetpassword.html", {"request": request})
 
 # == CLEAR DB ====================================================
 @app.delete("/clear_user_db")
