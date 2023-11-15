@@ -754,8 +754,6 @@ i#next {
   margin-top: 20px;
 }
 
-
-
 .admissionblock {
   background-color: #fff;
   border: 1px solid #333;
@@ -788,6 +786,9 @@ i#next {
   padding: 20px;
 }
 /* admission page */
+
+
+
 
 /* studyanytime */
 .add_course {
@@ -947,6 +948,8 @@ input[type="checkbox"] {
 }
 /* program */
 
+
+
 /* videoplayback */
 .videoplayback {
   text-align: center;
@@ -1032,8 +1035,9 @@ input[type="checkbox"] {
 .videocontainer hr {
   margin-left: 70px;
 }
-
 /* videoplayback */
+
+
 
 /* forum */
 .forum {
@@ -1127,7 +1131,7 @@ input[type="checkbox"] {
 
 .se2022 h1 {
   color: #e17420;
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 10px;
 }
 
@@ -1154,7 +1158,7 @@ input[type="checkbox"] {
 
 .se2024 h1 {
   color: #e17420;
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 10px;
 }
 
@@ -1181,7 +1185,7 @@ input[type="checkbox"] {
 
 .section.jss171 h1 {
   color: #e17420;
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 10px;
 }
 
@@ -1214,12 +1218,12 @@ input[type="checkbox"] {
 
 .queensland h1 {
   color: #e17420;
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 10px;
 }
 
 .queensland p {
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .queensland img {
@@ -1227,6 +1231,10 @@ input[type="checkbox"] {
   height: auto;
   border-radius: 8px;
   margin-bottom: 15px;
+}
+
+.queensland ul li {
+  line-height: 1.6;
 }
 
 
