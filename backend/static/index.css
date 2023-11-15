@@ -1009,3 +1009,32 @@ input[type="checkbox"] {
   margin-bottom: 15px;
   border: 1px solid #333;
 }
+
+
+
+/* queensland */
+.queensland {
+  margin: 30px;
+  padding: 20px; 
+  background-color: #e1dddd; 
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.queensland h1 {
+  color: #e17420; 
+  font-size: 50px; 
+  margin-top: 10px;
+}
+
+.queensland p {
+  line-height: 1.5; 
+}
+
+.queensland img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
