@@ -758,5 +758,17 @@ async def remove_course(request: Request, course_id: int, access_token: str = Co
 
         return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        print(e)
-        return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
+        raise e
+    
+# == CHECK TOKEN =========================================================================
+@app.get("/is_token_valid")
+async def is_token_valid(request: Request):
+    try:
+        access_token = request.cookies.get("access_token")
+        if decodeJWT(access_token) != None:
+            return token_response(access_token)
+        raise HTTPException(status_code=401, detail="Token is invalid or expired")
+    except KeyError:
+        raise HTTPException(status_code=401, detail="Token not found in cookies")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
