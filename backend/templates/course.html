@@ -128,12 +128,12 @@
         <h1>Videos:</h1>
         {% for video in videos %}
         <div>
-            <a href="/studyanytime/course/video/{{course_id}}/{{video}}"><b>{{video}}</b></a>
             {% if isInstructor %}
             <form id="delete-form" action="/video/delete/{{course_id}}/{{video}}" method="POST"
                 onsubmit="return confirm('Are you sure you want to delete this video?')">
                 <button type="submit">remove</button>
             </form>
+            <a href="/studyanytime/course/video/{{course_id}}/{{video}}"><b>{{video}}</b></a>
             {% endif %}
         </div>
         {% endfor %}
