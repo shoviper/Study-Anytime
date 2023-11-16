@@ -58,7 +58,7 @@
             <a>Program</a>
             <a class="active" href="/studyanytime" id="studyAnytimeLink">Study Anytime</a>
             <div class="sepic">
-                <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+                <img src="{{ url_for('static', path='/picture/se.png') }}" alt="sepic" style="width: 75px; height: 45px;">
             </div>
         </div>
     </div>
@@ -159,7 +159,7 @@
     <div class="contact">
         <table>
             <tr>
-                <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt=""
+                <td rowspan="7" style="width:15% ;"><img src="{{ url_for('static', path='/picture/kmitl-logo.png') }}" alt=""
                         style="width: 150px" />
                 <td>
             </tr>

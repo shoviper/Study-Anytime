@@ -261,6 +261,8 @@ async def studyanytime(request: Request, course_id : int, video_name : str, acce
         return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course": course, "video_name": video_name, "forum" : forum})
     except Exception as e:
         print(e)
+        return templates.TemplateResponse("videoplayer.html", {"request": request, "alreadylogin": False})
+    
 
 # == CLEAR DB ====================================================
 @app.delete("/clear_user_db")
@@ -319,6 +321,14 @@ async def delete_file(request: Request, course_id: int, file: UploadFile, access
     try:
         token = decodeJWT(access_token)
         instructor_id = token["id"]
+        role = token["role"]
+        username = f"{get_user(instructor_id).first_name} {get_user(instructor_id).last_name}"
+        course = await get_course(int(course_id))
+        videos = get_video_names(course)
+        isInstructor = True if course.instructor == instructor_id else False
+        isPublic = course.public
+        enrolled = True if instructor_id in course.student_list or course.public else False
+        student_list = [get_user(name) for name in course.student_list]
         
         if not instructor_id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
@@ -347,7 +357,7 @@ async def delete_file(request: Request, course_id: int, file: UploadFile, access
         return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         print(e)
-        return {"message" : "failed"}
+        return templates.TemplateResponse("course.html", {"request": request, "alreadylogin": True, "username": username, "role": role, "course_id": course_id, "isInstructor": isInstructor, "isPublic": isPublic, "enrolled": enrolled, "videos": videos, "student_list": student_list})
     
 @app.post("/video/delete/{course_id}/{video_name}")
 async def delete_file(request: Request, course_id: int, video_name: str, access_token : str = Cookie(None)):
