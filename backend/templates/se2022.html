@@ -1,119 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <div class="container">
-    <label>
-        <input type="checkbox" >
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
-        <div class="sidebar">
-            <h1>Profile</h1>
-            {% if alreadylogin %}
+        <label>
+            <input type="checkbox">
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
                 <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
-            <ul>
-                <li><a href="/login">login</a></li>
-                <li><a href="/signup">signup</a></li>
-            </ul>
-        </div>
-    </label>
+                <li><a href="/logout">logout</a></li>
+                {% else %}
+                <ul>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/signup">signup</a></li>
+                </ul>
+                {% endif %}
+                <div class="sidebarnav">
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/admission">Admissions</a></li>
+                    <li><a href="/news">News</a></li>
+                    <div class="programbttn">
+                        <li><a>Program</a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li><a href="/se2022">Software-Engineering 2022</a></li>
+                                    <li><a href="/se2024">Software-Engineering 2024</a></li>
+                                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                                    <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
+                    <li><a href="/studyanytime">Study Anytime</a></li>
+                </div>
+            </div>
+        </label>
         <div class="topnav">
-            <li><a class="active" href="/">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/admission">Admissions</a></li>
-            <li><a href="/news">News</a></li>    
-            <div class="programbttn" >
-            <li><a>Program</a>
-                <div class="dropdown">   
-                    <ul>
-                    <li><a href="/se2022">Software-Engineering 2022</a></li>
-                    <li><a href="/se2024">Software-Engineering 2024</a></li>
-                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
-                    <li><a href="/queensland">KMITL-Queensland</a></li>
-                   
-                    </ul>
-                </div>
-            </li>
+            <li><a href="/news">News</a></li>
+            <div class="programbttn">
+                <li><a class="active">Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                        </ul>
+                    </div>
+                </li>
             </div>
-           
+
             <li><a href="/studyanytime">Study Anytime</a></li>
             <div class="sepic">
                 <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
             </div>
         </div>
-    
-    <div class="se2022" style="white-space: normal; overflow-wrap: break-word;">
-        <h1><span>B.Eng. in Software Engineering Program</span></h1>
-        <p>&nbsp;</p>
-        <p><span style="font-size:20px">The<strong> B.Eng. in Software Engineering Program </strong>is a 4-year undergraduate program aiming at producing graduates who are capable of working confidently in the international software industry as well as pursuing postgraduate study and research in leading universities worldwide. The curriculum of the program is designed in accordance with the recent ACM/IEEE guideline for undergraduate curriculum in software engineering.</span></p>
-        <p>&nbsp;</p>
-        <h2><span style="font-size:27px">Program Structure</span></h2>
-        <p>&nbsp;</p>
-        <div><img alt="New SE Curriculum Overview" src="https://se.kmitl.ac.th/assets/NewSECurriculumOverview.png" style="height:100%; width:100%"></div>
-        <div>
-        <div>
-        <h2><span style="font-size:27px">Year 1 and Year 2</span></h2>
+
+        <div class="se2022" style="white-space: normal; overflow-wrap: break-word;">
+            <h1><span>B.Eng. in Software Engineering Program</span></h1>
+            <p>&nbsp;</p>
+            <p><span style="font-size:20px">The<strong> B.Eng. in Software Engineering Program </strong>is a 4-year
+                    undergraduate program aiming at producing graduates who are capable of working confidently in the
+                    international software industry as well as pursuing postgraduate study and research in leading
+                    universities worldwide. The curriculum of the program is designed in accordance with the recent
+                    ACM/IEEE guideline for undergraduate curriculum in software engineering.</span></p>
+            <p>&nbsp;</p>
+            <h2><span style="font-size:27px">Program Structure</span></h2>
+            <p>&nbsp;</p>
+            <div><img alt="New SE Curriculum Overview" src="https://se.kmitl.ac.th/assets/NewSECurriculumOverview.png"
+                    style="height:100%; width:100%"></div>
+            <div>
+                <div>
+                    <h2><span style="font-size:27px">Year 1 and Year 2</span></h2>
+                </div>
+                &nbsp;
+                <div>
+                    <p><span style="font-size:20px">In the first two years, the students will study basic courses in
+                            mathematics, computer science, and software engineering and develop their programming skills
+                            using various programming languages (including Python, C, C++, Java, etc.). Also, the
+                            students will be trained to communicate correctly and effectively. At the end of Year 2,
+                            every student is required to undertake an internship in a software company for 8 - 10 weeks.
+                            All the courses in the first two years will be held at the International College in the
+                            Bangkok Campus of KMITL.</span></p>
+                </div>
+                &nbsp;
+                <div>
+                    <h2><span style="font-size:27px">Year 3 and Year 4(KMITL)</span></h2>
+                </div>
+                &nbsp;
+                <div>
+                    <p><span style="font-size:20px">In Year 3 and Year 4, the students will learn advanced topics in
+                            software engineering and important software development methodologies that are used in
+                            practice. The students will have opportunities to the apply the knowledge and skills they
+                            have acquired to conduct a team software project in Year 3 and a one-year research project
+                            in Year 4. Students entering Year 3 are required to take one of the following
+                            specializations:</span></p>
+                    <ol>
+                        <li>
+                            <p><span style="font-size:20px"><strong>Enterprise Software Engineering</strong> -
+                                    Specializing inlarge and complex software for enterprises and distributed
+                                    systems</span></p>
+                        </li>
+                        <li>
+                            <p><span style="font-size:20px"><strong>Internet of Things</strong> - Specializing in the
+                                    Internet of Things, including embedded and mobile systems</span></p>
+                        </li>
+                        <li>
+                            <p><span style="font-size:20px"><strong>Intelligent Systems</strong> - Specializing in
+                                    applications of artificial intelligence and data science, including machine learning
+                                    and Big Data</span></p>
+                        </li>
+                    </ol>
+
+                    <p><span style="font-size:20px">The study plans for these three specializations differ in some
+                            required courses. Also the students are recommended to toe work on their senior projects
+                            that utilize the knowledge of their respective specializations.</span></p>
+
+                    <p>&nbsp;</p>
+
+                    <div>
+                        <div>
+                            <h2><span style="font-size:27px">Year 3 and Year 4 (KMITL-Glasgow Double-Degree
+                                    Program)</span></h2>
+                        </div>
+                        &nbsp;
+                        <div>
+                            <p><span style="font-size:20px">The students joining the KMITL-Glasgow Double-DegreeProgram
+                                    will take courses in Years 3 and 4 in the Software Engineering program at the
+                                    Schoolof Computing Science, University of Glasgow.</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        &nbsp;
-        <div>
-        <p><span style="font-size:20px">In the first two years, the students will study basic courses in mathematics, computer science, and software engineering and develop their programming skills using various programming languages (including Python, C, C++, Java, etc.). Also, the students will be trained to communicate correctly and effectively. At the end of Year 2, every student is required to undertake an internship in a software company for 8 - 10 weeks. All the courses in the first two years will be held at the International College in the Bangkok Campus of KMITL.</span></p>
-        </div>
-        &nbsp;
-        <div>
-        <h2><span style="font-size:27px">Year 3 and Year 4(KMITL)</span></h2>
-        </div>
-        &nbsp;
-        <div>
-        <p><span style="font-size:20px">In Year 3 and Year 4, the students will learn advanced topics in software engineering and important software development methodologies that are used in practice. The students will have opportunities to the apply the knowledge and skills they have acquired to conduct a team software project in Year 3 and a one-year research project in Year 4. Students entering Year 3 are required to take one of the following specializations:</span></p>
-        <ol>
-            <li>
-            <p><span style="font-size:20px"><strong>Enterprise Software Engineering</strong> - Specializing inlarge and complex software for enterprises and distributed systems</span></p>
-            </li>
-            <li>
-            <p><span style="font-size:20px"><strong>Internet of Things</strong> - Specializing in the Internet of Things, including embedded and mobile systems</span></p>
-            </li>
-            <li>
-            <p><span style="font-size:20px"><strong>Intelligent Systems</strong> - Specializing in applications of artificial intelligence and data science, including machine learning and Big Data</span></p>
-            </li>
-        </ol>
-        
-        <p><span style="font-size:20px">The study plans for these three specializations differ in some required courses. Also the students are recommended to toe work on their senior projects that utilize the knowledge of their respective specializations.</span></p>
-        
-        <p>&nbsp;</p>
-        
-        <div>
-        <div>
-        <h2><span style="font-size:27px">Year 3 and Year 4 (KMITL-Glasgow Double-Degree Program)</span></h2>
-        </div>
-        &nbsp; 
-        <div>
-        <p><span style="font-size:20px">The students joining the KMITL-Glasgow Double-DegreeProgram will take courses in Years 3 and 4 in the Software Engineering program at the Schoolof Computing Science, University of Glasgow.</span></p>
-        </div>
-        </div>
-        </div>
-        </div></div>
         <div class="contact">
-            <table >
+            <table>
                 <tr>
-                    <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt="" style="width: 150px"/><td>
+                    <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt=""
+                            style="width: 150px" />
+                    <td>
                 </tr>
                 <tr>
                     <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
                 </tr>
                 <tr>
-                    <td><p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p></td>
+                    <td>
+                        <p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p>
+                    </td>
                 </tr>
                 <tr>
-                    <td><p>Email: saraban@kmitl.ac.th</p></td>
+                    <td>
+                        <p>Email: saraban@kmitl.ac.th</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>tel : +662-329-8301 ext. 200</td>
@@ -125,16 +182,16 @@
                     <td>
                         <div class="link">
                             <a href="https://www.facebook.com/kmitlofficial">
-                                <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;"/>
+                                <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;" />
                             </a>
-                            <a href="https://www.instagram.com/kmitlofficial"> 
-                                <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;"/>
+                            <a href="https://www.instagram.com/kmitlofficial">
+                                <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;" />
                             </a>
                             <a href="https://www.youtube.com/user/prKMITL">
-                                <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;"/>
+                                <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;" />
                             </a>
                             <a href="">
-                                <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;"/>
+                                <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;" />
                             </a>
                         </div>
                     </td>

@@ -15,6 +15,23 @@ body {
   flex-wrap: wrap;
 }
 
+.sidebarnav {
+  display: none; /* Hide by default */
+}
+
+/* Media query to display sidebarnav when width is less than 800px */
+@media screen and (max-width: 800px) {
+  .sidebarnav {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .topnav li {
+    display: none;
+  }
+}
+
 .topnav {
   background-color: #333;
   width: 100%;
@@ -22,7 +39,6 @@ body {
   display: flex;
   align-items: center;
   position: fixed;
-  display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -42,7 +58,6 @@ body {
   text-decoration: none;
   font-size: 17px;
   justify-content: space-between;
-  
 }
 
 /* Change the color of links on hover */
@@ -99,7 +114,6 @@ body {
 .topnav a:hover {
   background-color: #ddd;
   color: black;
-
 }
 
 /* Add a color to the active/current link */
@@ -121,7 +135,7 @@ body {
 .sidebar {
   height: 100%;
   width: 180px;
-  position: absolute;
+  position: fixed;
   background-color: #333;
   transition: 0.5s ease;
   transform: translateX(-180px);
@@ -272,6 +286,16 @@ i#prev {
 i#next {
   right: 185px;
 }
+
+@media (max-width: 1400px) {
+  i#prev {
+    display: none;
+  }
+  i#next {
+    display: none;
+  }
+}
+
 .image-container {
   height: 450px;
   max-width: 900px;
@@ -507,6 +531,8 @@ i#next {
   margin-top: 120px;
   padding: 20px;
   background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contentheader h2 {
@@ -515,12 +541,25 @@ i#next {
   margin-left: 80px;
 }
 
+@media screen and (max-width: 800px) {
+  .allnews {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .newsblock {
+    flex: 0 0 calc(100% - 20px);
+    margin-bottom: 20px;
+  }
+}
+
+
 .allnews {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   margin-left: 80px;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .newsblock a {
@@ -528,9 +567,10 @@ i#next {
 }
 
 .newsblock img {
-  width: 100%; 
-  max-width: 600px; 
-  height: auto; 
+  width: 100%;
+  max-width: 600px;
+  min-width: 288px;
+  height: auto;
   border-radius: 30px;
   border: 1px solid #333;
 }
@@ -542,9 +582,9 @@ i#next {
 }
 
 .newsblock {
-  flex: 0 0 calc(50% - 20px); 
+  flex: 0 0 calc(50% - 20px);
   border: 1px solid #ccc;
-  padding: 20px; 
+  padding: 20px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
   border-radius: 10px;
@@ -740,14 +780,12 @@ i#next {
 }
 /* news */
 
-
-
-
 /* admission */
 .contentheader h3 {
   font-size: 30px;
   margin-bottom: 35px;
-  margin-left: 80px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .alladmission {
@@ -763,9 +801,10 @@ i#next {
   border-radius: 10px;
   margin: 10px;
   transition: transform 0.3s ease-in-out;
-  width: 1000px;
-  height: 70px;
-  margin-left: 200px;
+  width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -789,9 +828,6 @@ i#next {
   padding: 20px;
 }
 /* admission page */
-
-
-
 
 /* studyanytime */
 .add_course {
@@ -951,8 +987,6 @@ input[type="checkbox"] {
 }
 /* program */
 
-
-
 /* videoplayback */
 .videoplayback {
   text-align: center;
@@ -1040,8 +1074,6 @@ input[type="checkbox"] {
 }
 /* videoplayback */
 
-
-
 /* forum */
 .forum {
   margin-top: 20px;
@@ -1120,7 +1152,6 @@ input[type="checkbox"] {
 .forum a button:hover {
   background-color: #4d4d4d;
 }
-
 
 .forum > div {
   margin-top: 20px;
@@ -1256,8 +1287,6 @@ input[type="checkbox"] {
 .queensland ul li {
   line-height: 1.6;
 }
-
-
 
 /* upload and course */
 .uploadvideo {

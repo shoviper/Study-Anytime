@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <div class="container">
-    <label>
-        <input type="checkbox" >
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
-        <div class="sidebar">
-            <h1>Profile</h1>
-            {% if alreadylogin %}
+        <label>
+            <input type="checkbox">
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
                 <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
-            <ul>
-                <li><a href="/login">login</a></li>
-                <li><a href="/signup">signup</a></li>
-            </ul>
-        </div>
-    </label>
+                <li><a href="/logout">logout</a></li>
+                {% else %}
+                <ul>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/signup">signup</a></li>
+                </ul>
+                {% endif %}
+                <div class="sidebarnav">
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/admission">Admissions</a></li>
+                    <li><a href="/news">News</a></li>
+                    <div class="programbttn">
+                        <li><a>Program</a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li><a href="/se2022">Software-Engineering 2022</a></li>
+                                    <li><a href="/se2024">Software-Engineering 2024</a></li>
+                                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                                    <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
+                    <li><a href="/studyanytime">Study Anytime</a></li>
+                </div>
+            </div>
+        </label>
         <div class="topnav">
             <li><a class="active" href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/admission">Admissions</a></li>
-            <li><a href="/news">News</a></li>    
-            <div class="programbttn" >
-            <li><a>Program</a>
-                <div class="dropdown">   
-                    <ul>
-                    <li><a href="/se2022">Software-Engineering 2022</a></li>
-                    <li><a href="/se2024">Software-Engineering 2024</a></li>
-                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
-                    <li><a href="/queensland">KMITL-Queensland</a></li>
-                    </ul>
-                </div>
-            </li>
+            <li><a href="/news">News</a></li>
+            <div class="programbttn">
+                <li><a>Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+                        </ul>
+                    </div>
+                </li>
             </div>
             <li><a href="/studyanytime">Study Anytime</a></li>
             <div class="sepic">
@@ -56,23 +80,23 @@
                 <h3>Visit from U. of Queensland</h3>
                 <hr>
                 <img src="static/picture/news3.png" alt="pic3">
-                <p>On 11 Oct 2022, our SE program was pleased to welcome representatives of Faculty of Engineering, 
+                <p>On 11 Oct 2022, our SE program was pleased to welcome representatives of Faculty of Engineering,
                     Architecture and Information Technology, University of Queensland, Australia, including
-                    <ul>
-                        <li>Professor Aleksandar D. Rakić (Associate Dean, External Engagement)</li>
-                        <li>Ms Angela Li (International Engagement Manager)</li>
-                    </ul>
-                    <p>and Ms Pattarin Wirojchoochut, Education Manager at Austrade Bangkok. Founded in 1909, the 
-                    University of Queensland (UQ) is a prestigious research university located in Brisbane, 
-                    Queensland, Australia. UQ has consistently been ranked among the top 50 universities worldwide 
-                    in the QS World University Ranking. UQ’s Faculty of Engineering, Architecture and Information 
-                    Technology has been at the forefront of scientific and technological research at the 
-                    international level. Like KMITL, the Faculty focuses on finding solutions and developing 
-                    innovations with real-world impact for the industry, the society, and the environment. The UQ 
-                    representatives and the management team of the SE program, led by Assistant Professor 
-                    Dr. Visit Hirankitti, discussed the possible collaborations between the Bachelor of 
-                    Computer Science program at the University of Queensland and the SE program at KMITL. 
-                    Both teams were pleased and excited with the prospect for our cooperation and will continue 
+                <ul>
+                    <li>Professor Aleksandar D. Rakić (Associate Dean, External Engagement)</li>
+                    <li>Ms Angela Li (International Engagement Manager)</li>
+                </ul>
+                <p>and Ms Pattarin Wirojchoochut, Education Manager at Austrade Bangkok. Founded in 1909, the
+                    University of Queensland (UQ) is a prestigious research university located in Brisbane,
+                    Queensland, Australia. UQ has consistently been ranked among the top 50 universities worldwide
+                    in the QS World University Ranking. UQ’s Faculty of Engineering, Architecture and Information
+                    Technology has been at the forefront of scientific and technological research at the
+                    international level. Like KMITL, the Faculty focuses on finding solutions and developing
+                    innovations with real-world impact for the industry, the society, and the environment. The UQ
+                    representatives and the management team of the SE program, led by Assistant Professor
+                    Dr. Visit Hirankitti, discussed the possible collaborations between the Bachelor of
+                    Computer Science program at the University of Queensland and the SE program at KMITL.
+                    Both teams were pleased and excited with the prospect for our cooperation and will continue
                     to work out the details of the collaborations. Stay tuned for further updates!</p>
                 </p>
                 <hr>
@@ -82,16 +106,22 @@
     <div class="contact">
         <table>
             <tr>
-                <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt="" style="width: 150px"/><td>
+                <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt=""
+                        style="width: 150px" />
+                <td>
             </tr>
             <tr>
                 <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
             </tr>
             <tr>
-                <td><p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p></td>
+                <td>
+                    <p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p>
+                </td>
             </tr>
             <tr>
-                <td><p>Email: saraban@kmitl.ac.th</p></td>
+                <td>
+                    <p>Email: saraban@kmitl.ac.th</p>
+                </td>
             </tr>
             <tr>
                 <td>tel : +662-329-8301 ext. 200</td>
@@ -103,16 +133,16 @@
                 <td>
                     <div class="link">
                         <a href="https://www.facebook.com/kmitlofficial">
-                            <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;"/>
+                            <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;" />
                         </a>
-                        <a href="https://www.instagram.com/kmitlofficial"> 
-                            <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;"/>
+                        <a href="https://www.instagram.com/kmitlofficial">
+                            <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;" />
                         </a>
                         <a href="https://www.youtube.com/user/prKMITL">
-                            <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;"/>
+                            <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;" />
                         </a>
                         <a href="">
-                            <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;"/>
+                            <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;" />
                         </a>
                     </div>
                 </td>
@@ -121,4 +151,5 @@
     </div>
     <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
 </body>
+
 </html>

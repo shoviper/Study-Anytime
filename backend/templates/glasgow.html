@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <div class="container">
+  <div class="container">
     <label>
-        <input type="checkbox" >
-        <div class="toggle">
-            <span class="top_line common"></span>
-            <span class="middle_line common"></span>
-            <span class="bottom_line common"></span>
-        </div>
-        <div class="sidebar">
-            <h1>Profile</h1>
-            {% if alreadylogin %}
-                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-            {% endif %}
-            <ul>
-                <li><a href="/login">login</a></li>
-                <li><a href="/signup">signup</a></li>
-            </ul>
-        </div>
-    </label>
-        <div class="topnav">
-            <li><a class="active" href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/admission">Admissions</a></li>
-            <li><a href="/news">News</a></li>    
-            <div class="programbttn" >
+      <input type="checkbox">
+      <div class="toggle">
+        <span class="top_line common"></span>
+        <span class="middle_line common"></span>
+        <span class="bottom_line common"></span>
+      </div>
+      <div class="sidebar">
+        <h1>Profile</h1>
+        {% if alreadylogin %}
+        <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+        <li><a href="/logout">logout</a></li>
+        {% else %}
+        <ul>
+          <li><a href="/login">login</a></li>
+          <li><a href="/signup">signup</a></li>
+        </ul>
+        {% endif %}
+        <div class="sidebarnav">
+          <li><a class="active" href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/admission">Admissions</a></li>
+          <li><a href="/news">News</a></li>
+          <div class="programbttn">
             <li><a>Program</a>
-                <div class="dropdown">   
-                    <ul>
-                    <li><a href="/se2022">Software-Engineering 2022</a></li>
-                    <li><a href="/se2024">Software-Engineering 2024</a></li>
-                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
-                    <li><a href="/queensland">KMITL-Queensland</a></li>
-                    </ul>
-                </div>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="/se2022">Software-Engineering 2022</a></li>
+                  <li><a href="/se2024">Software-Engineering 2024</a></li>
+                  <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                  <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                </ul>
+              </div>
             </li>
-            </div>
-           
-            <li><a href="/studyanytime">Study Anytime</a></li>
-            <div class="sepic">
-                <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
-            </div>
+          </div>
+          <li><a href="/studyanytime">Study Anytime</a></li>
         </div>
+      </div>
+    </label>
+    <div class="topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/admission">Admissions</a></li>
+      <li><a href="/news">News</a></li>
+      <div class="programbttn">
+        <li><a class="active">Program</a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="/se2022">Software-Engineering 2022</a></li>
+              <li><a href="/se2024">Software-Engineering 2024</a></li>
+              <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+              <li><a href="/queensland">KMITL-Queensland</a></li>
+            </ul>
+          </div>
+        </li>
+      </div>
+
+      <li><a href="/studyanytime">Study Anytime</a></li>
+      <div class="sepic">
+        <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+      </div>
+    </div>
 
     <section class="section jss171" style="padding: 36px 64px">
       <div style="white-space: normal; overflow-wrap: break-word">
@@ -58,9 +82,7 @@
 
         <p>
           The
-          <strong
-            >KMITL-Glasgow Double-Degree Program in Software Engineering</strong
-          >
+          <strong>KMITL-Glasgow Double-Degree Program in Software Engineering</strong>
           is a collaboration between KMITL and the University of Glasgow, UK.
           The program enables qualified students who have completed Year 2 in
           the SE program at the International College to enter Years 3 and 4 of
@@ -78,49 +100,27 @@
           <h2 style="font-size: 27px; margin-bottom: 20px;">About University of Glasgow</h2>
 
           <div>
-            <img
-              alt="logo glasgow university"
-              src="http://se.kmitl.ac.th/assets/logoglasgowuniversitysmall.png"
-              style="height: 100%; width: 295px"
-            />
+            <img alt="logo glasgow university" src="http://se.kmitl.ac.th/assets/logoglasgowuniversitysmall.png"
+              style="height: 100%; width: 295px" />
           </div>
           &nbsp;
 
           <div>
             <p style="font-size: 20px;">
-              Founded in 1451, the<a
-                href="http://www.gla.ac.uk/"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                > University of Glasgow </a
-              >  (Glasgow, United Kingdom) is one of the oldest universities in
-              the world, and has been ranked as<a
-                href="https://www.topuniversities.com/universities/university-glasgow"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                > one of the world's top 100 universities </a
-              >. With its long history in advanced research, the University of
-              Glasgow has been home to <a
-                href="http://www.gla.ac.uk/about/history/fame/"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                > six Nobel-prize winners </a
-              >. The University's <a
-                href="http://www.gla.ac.uk/schools/computing/"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                >School of Computing Science </a
-              >has consistently been ranked in the<a
+              Founded in 1451, the<a href="http://www.gla.ac.uk/" rel="alternate noopener noreferrer" target="_blank">
+                University of Glasgow </a> (Glasgow, United Kingdom) is one of the oldest universities in
+              the world, and has been ranked as<a href="https://www.topuniversities.com/universities/university-glasgow"
+                rel="alternate noopener noreferrer" target="_blank"> one of the world's top 100 universities </a>. With
+              its long history in advanced research, the University of
+              Glasgow has been home to <a href="http://www.gla.ac.uk/about/history/fame/"
+                rel="alternate noopener noreferrer" target="_blank"> six Nobel-prize winners </a>. The University's <a
+                href="http://www.gla.ac.uk/schools/computing/" rel="alternate noopener noreferrer"
+                target="_blank">School of Computing Science </a>has consistently been ranked in the<a
                 href="https://www.topuniversities.com/university-rankings/university-subject-rankings/2016/computer-science-information-systems"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                > UK's top 10 in computing </a
-              >. Glasgow's <a
+                rel="alternate noopener noreferrer" target="_blank"> UK's top 10 in computing </a>. Glasgow's <a
                 href="http://www.gla.ac.uk/undergraduate/degrees/softwareengineering/"
-                rel="alternate noopener noreferrer"
-                target="_blank"
-                >Software Engineering program </a
-              >is one of the first programs in the world that specialize in
+                rel="alternate noopener noreferrer" target="_blank">Software Engineering program </a>is one of the first
+              programs in the world that specialize in
               software engineering and is highly respected by software industry.
             </p>
 
@@ -161,13 +161,9 @@
             </p>
 
             <p style="font-size: 20px;">
-              <strong
-                >BSc Honours degree in Software Engineering from the University
-                of Glasgow</strong
-              >
-              and a<strong
-                >B.Eng. degree in Software Engineering from KMITL</strong
-              >.
+              <strong>BSc Honours degree in Software Engineering from the University
+                of Glasgow</strong>
+              and a<strong>B.Eng. degree in Software Engineering from KMITL</strong>.
             </p>
 
             <p style="font-size: 20px;">
@@ -191,7 +187,7 @@
 
             <ul style="font-size: 20px;">
               <li>
-                <ul> 
+                <ul>
                   <li>
                     <p>2 years at KMITL, Tuition fee : THB 180,000 per year</p>
                   </li>
@@ -207,9 +203,7 @@
 
             <p style="font-size: 20px;">
               * Rates as of Academic Year 2020. Every student joining the
-              double-degree program&nbsp;is entitled to the<strong
-                >KMITL - Glasgow Undergraduate Scholarship</strong
-              >
+              double-degree program&nbsp;is entitled to the<strong>KMITL - Glasgow Undergraduate Scholarship</strong>
               which provides 20% reduction from the full tuition-fee rate for
               international students&nbsp;at Glasgow University.
             </p>
@@ -231,12 +225,8 @@
               to inform the&nbsp;SE program director&nbsp;before the end of Year
               2 Semester 2 and submit their applications on the UCAS
               system<strong>no later than 30 June</strong> (of the year they are
-              planning to enter UoG) at&nbsp;<a
-                href="https://www.ucas.com/students"
-                rel="noopener noreferrer"
-                target="_blank"
-                >https://www.ucas.com/students</a
-              >.
+              planning to enter UoG) at&nbsp;<a href="https://www.ucas.com/students" rel="noopener noreferrer"
+                target="_blank">https://www.ucas.com/students</a>.
             </p>
 
             <p>&nbsp;</p>
@@ -331,20 +321,15 @@
                 services regarding the registration, student accommodation,
                 internet account, etc via email. You can just response to their
                 request. When you are asked to register for courses in the
-                upcoming semester, you can ignore that. You are to do the<strong
-                  >course registration</strong
-                >
+                upcoming semester, you can ignore that. You are to do the<strong>course registration</strong>
                 when you are in the UK. Your advisor at UoG will help you with
                 the course registration when you arrive at UoG.
               </li>
               <li>
                 Regarding the <strong>accommodation</strong>, UoG will send you
-                an application form for applying for a <a
-                  href="https://www.gla.ac.uk/undergraduate/accommodation/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  >university accommodation</a
-                >. There is a wide range of options. You can also apply for a
+                an application form for applying for a <a href="https://www.gla.ac.uk/undergraduate/accommodation/"
+                  rel="noopener noreferrer" target="_blank">university accommodation</a>. There is a wide range of
+                options. You can also apply for a
                 private student accommodation. For the latter, you can do so by
                 yourself on the web any time (even before you receive an offer).
                 You can consult the SE students currently studying at Glasgow
@@ -398,19 +383,15 @@
                 unacceptable. Only a bank account where the money can be readily
                 withdrawn at any time can be used to support your application.
                 The minimum amount of money required in the bank account
-                is<strong
-                  >"Annual tuition fee listed on CAS statement in GBP" +
-                  ("Monthly living cost of 1,015 GBP/month" x 9 months)</strong
-                >.
+                is<strong>"Annual tuition fee listed on CAS statement in GBP" +
+                  ("Monthly living cost of 1,015 GBP/month" x 9 months)</strong>.
               </li>
               <li>
                 Have a <strong>Tuberculosis test</strong> at an approved testing
                 center to obtain a medical certificate. See&nbsp;<a
                   href="https://www.gov.uk/government/publications/tuberculosis-test-for-a-uk-visa-clinics-in-thailand/tuberculosis-testing-in-thailand"
                   rel="noopener noreferrer"
-                  target="_blank"
-                  >https://www.gov.uk/government/publications/tuberculosis-test-for-a-uk-visa-clinics-in-thailand/tuberculosis-testing-in-thailand</a
-                >&nbsp;
+                  target="_blank">https://www.gov.uk/government/publications/tuberculosis-test-for-a-uk-visa-clinics-in-thailand/tuberculosis-testing-in-thailand</a>&nbsp;
               </li>
               <li>
                 Obtain the address of <strong>your accommodation</strong> in the
@@ -426,12 +407,9 @@
 
             <p style="font-size: 20px;">
               Guidance on how to apply for this type of visa can be found
-              at&nbsp;<a
-                href="https://www.gov.uk/tier-4-general-visa"
-                rel="noopener noreferrer"
-                target="_blank"
-                >https://www.gov.uk/tier-4-general-visa</a
-              >. Below is an overview of the UK visa application
+              at&nbsp;<a href="https://www.gov.uk/tier-4-general-visa" rel="noopener noreferrer"
+                target="_blank">https://www.gov.uk/tier-4-general-visa</a>. Below is an overview of the UK visa
+              application
               procedure.&nbsp;
             </p>
 
@@ -475,43 +453,49 @@
     </section>
     <div class="contact">
       <table>
-          <tr>
-              <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt="" style="width: 150px"/><td>
-          </tr>
-          <tr>
-              <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
-          </tr>
-          <tr>
-              <td><p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p></td>
-          </tr>
-          <tr>
-              <td><p>Email: saraban@kmitl.ac.th</p></td>
-          </tr>
-          <tr>
-              <td>tel : +662-329-8301 ext. 200</td>
-          </tr>
-          <tr>
-              <td><strong>Contact us</strong></td>
-          </tr>
-          <tr>
-              <td>
-                  <div class="link">
-                      <a href="https://www.facebook.com/kmitlofficial">
-                          <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;"/>
-                      </a>
-                      <a href="https://www.instagram.com/kmitlofficial"> 
-                          <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;"/>
-                      </a>
-                      <a href="https://www.youtube.com/user/prKMITL">
-                          <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;"/>
-                      </a>
-                      <a href="">
-                          <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;"/>
-                      </a>
-                  </div>
-              </td>
-          </tr>
+        <tr>
+          <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt="" style="width: 150px" />
+          <td>
+        </tr>
+        <tr>
+          <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Email: saraban@kmitl.ac.th</p>
+          </td>
+        </tr>
+        <tr>
+          <td>tel : +662-329-8301 ext. 200</td>
+        </tr>
+        <tr>
+          <td><strong>Contact us</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="link">
+              <a href="https://www.facebook.com/kmitlofficial">
+                <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;" />
+              </a>
+              <a href="https://www.instagram.com/kmitlofficial">
+                <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;" />
+              </a>
+              <a href="https://www.youtube.com/user/prKMITL">
+                <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;" />
+              </a>
+              <a href="">
+                <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;" />
+              </a>
+            </div>
+          </td>
+        </tr>
       </table>
-  </div>
-  </body>
+    </div>
+</body>
+
 </html>
