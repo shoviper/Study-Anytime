@@ -135,17 +135,18 @@
         </form>
         {% for f in forum %}
         <div>
-            <p><b>&emsp;&emsp;{{f.user}}</b></p>
+            <b>&emsp;&emsp;{{f.user}}</b>
             <div class="forum-content">
-                <p>&emsp;&emsp;{{f.content}}</p>
+                &emsp;&emsp;{{f.content}}
             </div>
+            <br>
             <button class="expand-replies">Expand forum</button>
             <div class="replies" style="display: none;">
                 <div>
                     {% for r in f.reply %}
-                    <p><b><i>&emsp;&emsp;{{r.user}}</i></b></p>
+                    <b><i>&emsp;&emsp;{{r.user}}</i></b>
                     <div class="forum-content">
-                        <p><i>&emsp;&emsp;{{r.content}}</i></p> 
+                        <i>&emsp;&emsp;{{r.content}}</i>
                     </div>
                     <br>
                     {% endfor %}
