@@ -1,7 +1,2 @@
 __pycache__/
 .vscode/
-db/data.fs
-db/data.fs.index
-db/data.fs.lock
-db/data.fs.tmp
-db/couse_videos

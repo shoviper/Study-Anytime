@@ -393,7 +393,7 @@ async def delete_file(request: Request, course_id: int, video_name: str, access_
         return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         print(e)
-        return {"message" : "failed"}
+        raise e
     
 @app.post("/video/{course_id}/{video_name}", response_class=HTMLResponse)
 async def add_comment(request: Request, course_id: int, video_name: str, post_content: str = Form(...), access_token: str = Cookie(None)):
@@ -406,7 +406,10 @@ async def add_comment(request: Request, course_id: int, video_name: str, post_co
     for video in root.course[course_id].videos:
         temp_video = Video(video.title)
         for h in video.heading:
-            temp_video.addForum(Heading(h.user, h.content))
+            temp_heading = Heading(h.user, h.content)
+            for f in h.reply:
+                temp_heading.reply.append(f)
+            temp_video.addForum(temp_heading)
             
         if video_name == video.title:
             temp_video.addForum(Heading(id, post_content))
@@ -416,6 +419,7 @@ async def add_comment(request: Request, course_id: int, video_name: str, post_co
     
     for c in root.course[course_id].student_list:
         temp_course.enrollStudent(c)
+        
     root.course[course_id] = temp_course
     course = await get_course(course_id)
     transaction.commit()
@@ -624,7 +628,7 @@ async def enroll(course_id: int, student_id: str = Form(...), access_token : str
         return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         print(e)
-        raise HTTPException(404, detail=str(e))
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
 
 @app.post("/withdraw/{course_id}/{student_id}")
 async def withdraw(course_id: int, student_id: int, access_token : str = Cookie(None)):
@@ -649,7 +653,7 @@ async def withdraw(course_id: int, student_id: int, access_token : str = Cookie(
         return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
         print(e)
-        raise HTTPException(404, detail=str(e))
+        return RedirectResponse(url=f"/studyanytime/course/{course_id}", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
      
 
 # == USER STUDENT =======================================================================
@@ -713,7 +717,7 @@ async def post_course(request: Request, course_id: str = Form(...), course_name:
 
         return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        raise e
+        print(e)
         return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     
 @app.post("/course/remove/{course_id}", response_class=HTMLResponse)
@@ -758,7 +762,8 @@ async def remove_course(request: Request, course_id: int, access_token: str = Co
 
         return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     except Exception as e:
-        raise e
+        print(e)
+        return RedirectResponse(url="/studyanytime", status_code=302, headers={"Set-Cookie": f"access_token={access_token}; Path=/"})
     
 # == CHECK TOKEN =========================================================================
 @app.get("/is_token_valid")

@@ -120,12 +120,13 @@
         <div>
             <form id="withdraw-form" action="/withdraw/{{course_id}}/{{student.id}}" method="POST">
                 <p>
-                    <b>{{student.id}}</b>&nbsp;{{student.first_name}}&nbsp;{{student.last_name}}
                     <input type="submit" value="Withdraw">
+                    <b>{{student.id}}</b>&nbsp;{{student.first_name}}&nbsp;{{student.last_name}}
                 </p>
             </form>
         </div>
         {% endfor %}
+        <br>
         <h3>Enroll new student:</h3>
         <form id="enroll-form" action="/enroll/{{course_id}}" method="POST">
             <p>
@@ -142,17 +143,17 @@
         <h1>Videos:</h1>
         {% for video in videos %}
         <div>
+            <a href="/studyanytime/course/video/{{course_id}}/{{video}}">
+                <div class="video-select">
+                    <b>{{video}}</b>
+                </div>
+            </a>
             {% if isInstructor %}
             <form id="delete-form" action="/video/delete/{{course_id}}/{{video}}" method="POST"
                 onsubmit="return confirm('Are you sure you want to delete this video?')">
                 <button type="submit">remove</button>
             </form>
             {% endif %}
-            <a href="/studyanytime/course/video/{{course_id}}/{{video}}">
-                <div class="video-select">
-                    <b>{{video}}</b>
-                </div>
-            </a>
         </div>
         {% endfor %}
         <br>
