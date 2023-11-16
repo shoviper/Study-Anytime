@@ -489,26 +489,27 @@ i#next {
 /* about page */
 .block1 {
   background-color: #f2f2f2;
-  padding: 110px;
+  margin-top: 70px;
+  padding: 50px;
   width: 100%;
-  height: 320px;
+  height: auto;
 }
 
 .block1 h2,
 .block1 p {
-  margin-left: 10px;
+  margin-left: 5%;
 }
 
 .block2 {
   background-color: #e6e6e6;
   padding: 50px;
   width: 100%;
-  height: 420px;
+  height: auto;
 }
 
 .block2 p,
 .block2 h2 {
-  margin-left: 70px;
+  margin-left: 5%;
   font-size: 20px;
   line-height: 2;
   color: #333;
@@ -518,13 +519,13 @@ i#next {
   background-color: #f2f2f2;
   padding: 50px;
   width: 100%;
-  height: 430px;
+  height: auto;
 }
 
 .block3 p,
 .block3 h2,
 .block3 ul li {
-  margin-left: 70px;
+  margin-left: 5%;
   font-size: 20px;
   line-height: 1.7;
   color: #333;
@@ -534,13 +535,13 @@ i#next {
   background-color: #e6e6e6;
   padding: 50px;
   width: 100%;
-  height: 710px;
+  height: auto;
 }
 
 .block4 p,
 .block4 h2,
 .block4 ul li {
-  margin-left: 70px;
+  margin-left: 5%;
   font-size: 20px;
   line-height: 1.7;
   color: #333;
@@ -550,13 +551,13 @@ i#next {
   background-color: #f2f2f2;
   padding: 50px;
   width: 100%;
-  height: 880px;
+  height: auto;
 }
 
 .block5 p,
 .block5 h2,
 .block5 ul li {
-  margin-left: 70px;
+  margin-left: 5%;
   font-size: 20px;
   line-height: 2;
   color: #333;
@@ -621,7 +622,7 @@ i#next {
 .contentheader h2 {
   font-size: 30px;
   margin-bottom: 35px;
-  margin-left: 80px;
+  margin-left: 5%;
 }
 
 @media screen and (max-width: 800px) {
@@ -640,7 +641,7 @@ i#next {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin-left: 80px;
+  margin-left: 5%;
   justify-content: space-between;
 }
 
