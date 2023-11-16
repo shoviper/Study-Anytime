@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <label>
+            <input type="checkbox">
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
+                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+                <li><a href="/logout">logout</a></li>
+                {% else %}
+                <ul>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/signup">signup</a></li>
+                </ul>
+                {% endif %}
+                <div class="sidebarnav">
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/admission">Admissions</a></li>
+                    <li><a href="/news">News</a></li>
+                    <div class="programbttn">
+                        <li><a>Program</a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li><a href="/se2022">Software-Engineering 2022</a></li>
+                                    <li><a href="/se2024">Software-Engineering 2024</a></li>
+                                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                                    <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
+                    <li><a href="/studyanytime">Study Anytime</a></li>
+                </div>
+            </div>
+        </label>
+        <div class="topnav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/admission">Admissions</a></li>
+            <li><a href="/news">News</a></li>
+            <div class="programbttn">
+                <li><a class="active">Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+            </div>
+
+            <li><a href="/studyanytime">Study Anytime</a></li>
+            <div class="sepic">
+                &emsp;&emsp;
+                <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+            </div>
+        </div>
+
+    </div>
+    <div class="queensland" style="white-space: normal; overflow-wrap: break-word;">
+        <h1><span style="font-size: 30px">KMITL-Queensland Double-Degree Program in Software Engineering</span></h1>
+
+        <p>&nbsp;</p>
+
+
+        <p><span style="font-size:20px">This double-degree program is under development and is expected to commence in
+                Academic Year 2024. Information provided on this page is subject to further
+                revision.</span></span></span></em></span></span></span></p>
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:20px">KMITL-Queensland Double-Degree Program in Software Engineering</strong>&nbsp;is
+                a collaboration between KMITL and the University of Queensland (UQ), Australia. The program enables
+                qualified students who have completed Year 2 in the Software Engineering program at KMITL to enter Years
+                3 and 4 of the Software Engineering program at the University of Queensland in Australia, and, upon
+                completion, be awarded with software engineering degrees from both KMITL and UQ. The collaborative
+                program aims to equip its students with advanced knowledge and skills of software engineering to prepare
+                them for careers in the international software industry, as well as for research and postgraduate study
+                in all computing-related fields.</span></p>
+
+        <p>&nbsp;</p>
+
+        <div style="text-align:center">
+            <hr>
+        </div>
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:27px">About the University of Queensland</span></p>
+
+        <p>&nbsp;</p>
+
+        <p><img alt="The University of Queensland | IncludeAbility"
+                src="https://includeability.gov.au/sites/default/files/2021-08/UQlogo-Purple-rgb_800.jpg"
+                style="height:376px; width:602px"></p>
+
+        <p><span style="font-size:20px">The <a href="https://www.uq.edu.au/"
+                    style="color:#0563c1; text-decoration:underline"><span style="font-size:20px">University of
+                        Queensland (UQ)</span></a></span><span style="font-size:20px"> is a premier public research
+                university located in Brisbane, Australia. Established in 1909, UQ has a rich heritage of fostering
+                change through innovation and its contributions extend internationally</span></span></span><span
+                style="font-size:20px">​</span></span></span><span style="font-size:20px">. The university has
+                consistently been ranked in the </span></span></span><span style="color:black"><a
+                    href="https://www.topuniversities.com/universities/university-queensland"
+                    style="color:#0563c1; text-decoration:underline"><span style="font-size:20px"> top 50 universities
+                        worldwide</span></span></a></span><span style="font-size:20px">. The </span></span></span><span
+                style="color:black"><a href="https://campuses.uq.edu.au/st-lucia"
+                    style="color:#0563c1; text-decoration:underline"><span style="font-size:20px"> main
+                        campus</span></span></a></span><span style="font-size:20px"> in the riverside suburb of St Lucia
+                is lauded for its picturesque and tranquil environment, while being easily accessible from the vibrant
+                downtown center of </span></span></span><span style="color:black"><a
+                    href="https://visit.brisbane.qld.au/" style="color:#0563c1; text-decoration:underline"><span
+                        style="font-size:20px"> Brisbane</span></span></a></span><span style="font-size:20px">. The
+                campus provides comprehensive infrastructure, world-class research facilities, state-of-the-art learning
+                spaces, and </span></span></span><span style="color:black"><a href="https://uqres.com/about-st-lucia/"
+                    style="color:#0563c1; text-decoration:underline"><span style="font-size:20px"> on-campus student
+                        accommodations</span></span></a></span><span
+                style="font-size:20px">.</span></span></span></span></span></span></p>
+
+        <p><span style="font-size:20px">Building on this foundation of academic excellence, UQ's </span><a
+                href="https://my.uq.edu.au/programs-courses/plan.html?acad_plan=SOFTWE2455"
+                style="color:#0563c1; text-decoration:underline"><span style="font-size:20px"> Bachelor of Engineering
+                    program in Software Engineering</span></a></span><span style="font-size:20px"> is well recognized
+                internationally and is accredited by </span></span></span><a
+                href="https://www.engineersaustralia.org.au/" style="color:#0563c1; text-decoration:underline"><span
+                    style="font-size:20px"> Engineers Australia</span></span></a></span><span style="font-size:20px">.
+                The program boasts an up-to-date and flexible curriculum that emphasizes hands-on learning through
+                problems and projects from the real world. Students can expect to engage in both team and individual
+                projects, mirroring the collaborative nature of the industry and catering to future employment prospects
+                in diverse settings, from small firms to large multinational corporations</span></span></span><span
+                style="font-size:20px">​</span></span></span><span
+                style="font-size:20px">.</span></span></span></span></span></span></p>
+
+        <p>&nbsp;</p>
+
+
+        <div style="text-align:center">
+            <hr>
+        </div>
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:27px">Admissions</span></p>
+
+        <p><span style="font-size:14pt">&nbsp;</span></span></span><span style="font-size:20px"><span
+                    style="font-size:20px"> Requirements for the students who wish to join this
+                    double-degree&nbsp;program:</span></span></span></span></span></span></p>
+
+        <ul>
+            <li><span style="font-size:20px">Completed Year 2 of the B.Eng. in Software Engineering program with GPA of
+                    3.2 or more</span></li>
+            <li><span style="font-size:20px">IELTS score of 6.5 or more, with no subtest below 6.0</span></li>
+        </ul>
+
+        <p>&nbsp;</p>
+
+        <div style="text-align:center">
+            <hr>
+        </div>
+
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:27px">Degrees</span></p>
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:20px">Students who have completed Year 4 of this double-degree&nbsp;program will be
+                awarded a&nbsp;</span></p>
+
+        <p><span style="font-size:20px">BEng (Hons) degree in Software Engineering from the University of Queensland
+            </span><span style="font-size:20px">and a B.Eng. degree in Software Engineering from KMITL</span></p>
+
+        <p>&nbsp;</p>
+
+
+        <div style="text-align:center">
+            <hr>
+        </div>
+
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:27px">Tuition Fees</span></p>
+
+        <p><span style="font-size:20px">In Years 1-2, students in this double-degree program are to pay the KMITL
+                tuition fee at the standard rate of 90,000 Baht/Semester.</span></p>
+
+        <p><span style="font-size:20px">In Years 3-4, students are to pay the tuition fee and other fees as set out by
+                UQ. All students in the program will be eligible to receive special scholarships from UQ which partially
+                cover the fees at UQ. Details on the fees and scholarships will be announced soon.</span></p>
+
+        <p>&nbsp;</p>
+
+
+        <div style="text-align:center">
+            <hr>
+        </div>
+
+        <p>&nbsp;</p>
+
+        <p><span style="font-size:27px">Application Process</span></p>
+
+        <p><span style="font-size:20px">Students apply to join this double-degree program when they are in the
+                2<sup>nd</sup> year of the B.Eng. in Software Engineering program at KMITL. Details on the application
+                process will be posted here soon.</span></p>
+
+        <p>&nbsp;</p>
+    </div>
+    <div class="contact">
+        <table>
+            <tr>
+                <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt=""
+                        style="width: 150px" />
+                <td>
+            </tr>
+            <tr>
+                <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
+            </tr>
+            <tr>
+                <td>
+                    <p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Email: saraban@kmitl.ac.th</p>
+                </td>
+            </tr>
+            <tr>
+                <td>tel : +662-329-8301 ext. 200</td>
+            </tr>
+            <tr>
+                <td><strong>Contact us</strong></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="link">
+                        <a href="https://www.facebook.com/kmitlofficial">
+                            <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="https://www.instagram.com/kmitlofficial">
+                            <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="https://www.youtube.com/user/prKMITL">
+                            <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="">
+                            <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
+</body>
+
+</html>

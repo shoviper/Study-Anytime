@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="{{ url_for('static', path='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <label>
+            <input type="checkbox">
+            <div class="toggle">
+                <span class="top_line common"></span>
+                <span class="middle_line common"></span>
+                <span class="bottom_line common"></span>
+            </div>
+            <div class="sidebar">
+                <h1>Profile</h1>
+                {% if alreadylogin %}
+                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
+                <li><a href="/logout">logout</a></li>
+                {% else %}
+                <ul>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/signup">signup</a></li>
+                </ul>
+                {% endif %}
+                <div class="sidebarnav">
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/admission">Admissions</a></li>
+                    <li><a href="/news">News</a></li>
+                    <div class="programbttn">
+                        <li><a>Program</a>
+                            <div class="dropdown">
+                                <ul>
+                                    <li><a href="/se2022">Software-Engineering 2022</a></li>
+                                    <li><a href="/se2024">Software-Engineering 2024</a></li>
+                                    <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                                    <li><a href="/queensland">KMITL-Queensland</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
+                    <li><a href="/studyanytime">Study Anytime</a></li>
+                </div>
+            </div>
+        </label>
+        <div class="topnav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a class="active" href="/admission">Admissions</a></li>
+            <li><a href="/news">News</a></li>
+            <div class="programbttn">
+                <li><a>Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+            <li><a href="/studyanytime">Study Anytime</a></li>
+            <div class="sepic">
+                &emsp;&emsp;
+                <img src="static/picture/se.png" alt="sepic" style="width: 75px; height: 45px;">
+            </div>
+        </div>
+        <div class="content">
+            <div class="contentheader">
+                <h3>All announcements</h3>
+            </div>
+            <div class="alladmission">
+                <div class="admissionblock">
+                    <a href="https://reg.kmitl.ac.th/TCAS_old/news/files/2567_1_news1_2972_2023_10_27-09-34-30_848ce.pdf?fbclid=IwAR11KejfoO7AdM3DvNmlyvTmHv9W6rPSsN34-1p47JQw1wN4gt0dbLIShu0"
+                        target="_blank">
+                        <div class="adtransition">
+                            <p>Direct Admissions 1-1 (Early Round) for Thai students 2024</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="admissionblock">
+                    <a href="https://reg.kmitl.ac.th/TCAS_old/news/files/2567_1_news1_2973_2023_10_27-09-34-55_a56b7.pdf?fbclid=IwAR0N3HosBoTqI3M0A3SdUP8h5-eioauEh3PAyDnyBphZ-Ig3y-RVaVqJo5M"
+                        target="_blank">
+                        <div class="adtransition">
+                            <p>Direct Admissions 1-1 (Early Round) for International students 2024</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="admissionblock">
+                    <a href="https://reg.kmitl.ac.th/TCAS_old/news/files/2566_1_news1_2397_2022_10_30-20-17-48_c7831.pdf"
+                        target="_blank">
+                        <div class="adtransition">
+                            <p>Direct Admissions 1-1 (Early Round) for Thai students 2023</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="admissionblock">
+                    <a href="https://reg.kmitl.ac.th/TCAS_old/news/files/2566_1_news1_2398_2022_10_30-20-17-02_9bb7a.pdf"
+                        target="_blank">
+                        <div class="adtransition">
+                            <p>Direct Admissions 1-1 (Early Round) for International students 2023</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="admissionblock">
+                    <a href="https://reg.kmitl.ac.th/TCAS_old/news/files/2565_1_news1_1786_2021_10_09-17-01-16_0666b.pdf"
+                        target="_blank">
+                        <div class="adtransition">
+                            <p>Direct Admissions 1-1 (Early Round) 2022</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact">
+        <table>
+            <tr>
+                <td rowspan="7" style="width:15% ;"><img src="static/picture/kmitl-logo.png" alt=""
+                        style="width: 150px" />
+                <td>
+            </tr>
+            <tr>
+                <td><strong style="color:#FF8000;">King Mongkut's Institute of Technology LadKrabang</strong></td>
+            </tr>
+            <tr>
+                <td>
+                    <p>1 Chalong Krung, 1 Alley, Lat Krabang, Bangkok 10520</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Email: saraban@kmitl.ac.th</p>
+                </td>
+            </tr>
+            <tr>
+                <td>tel : +662-329-8301 ext. 200</td>
+            </tr>
+            <tr>
+                <td><strong>Contact us</strong></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="link">
+                        <a href="https://www.facebook.com/kmitlofficial">
+                            <img src="/static/picture/facebook-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="https://www.instagram.com/kmitlofficial">
+                            <img src="/static/picture/ig-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="https://www.youtube.com/user/prKMITL">
+                            <img src="/static/picture/youtube-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                        <a href="">
+                            <img src="/static/picture/linkedin-icon.png" alt="" style="width:20px; height:20px;" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="{{ url_for('static', path='index.js') }}" type="text/Javascript"></script>
+</body>
+
+</html>
