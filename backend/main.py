@@ -64,45 +64,128 @@ async def logout(response: Response, request: Request):
 
 # == connect to about page ============================================================
 @app.get("/about", response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse("about.html", {"request": request, "invalid": False})
+async def about(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("about.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("about.html", {"request": request, "alreadylogin": False})
 
 # == connect to admission page ============================================================
 @app.get("/admission", response_class=HTMLResponse)
-async def admission(request: Request):
-    return templates.TemplateResponse("admission.html", {"request": request, "invalid": False})
+async def admission(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("admission.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("admission.html", {"request": request, "alreadylogin": False})
 
 # == connect to news page ============================================================
 @app.get("/news", response_class=HTMLResponse)
-async def news(request: Request):
-    return templates.TemplateResponse("news.html", {"request": request, "invalid": False})
+async def news(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("news.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("news.html", {"request": request, "alreadylogin": False})
+
 @app.get("/news1", response_class=HTMLResponse)
-async def news(request: Request):
-    return templates.TemplateResponse("news1.html", {"request": request, "invalid": False})
+async def news(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("news1.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("news1.html", {"request": request, "alreadylogin": False})
+
 @app.get("/news2", response_class=HTMLResponse)
-async def news(request: Request):
-    return templates.TemplateResponse("news2.html", {"request": request, "invalid": False})
+async def news(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("news2.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("news2.html", {"request": request, "alreadylogin": False})
+
 @app.get("/news3", response_class=HTMLResponse)
-async def news(request: Request):
-    return templates.TemplateResponse("news3.html", {"request": request, "invalid": False})
+async def news(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("news3.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("news3.html", {"request": request, "alreadylogin": False})
+
 @app.get("/news4", response_class=HTMLResponse)
-async def news(request: Request):
-    return templates.TemplateResponse("news4.html", {"request": request, "invalid": False})
+async def news(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("news4.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("news4.html", {"request": request, "alreadylogin": False})
 
 # == connect to program page ============================================================
 @app.get("/se2022", response_class=HTMLResponse)
-async def se2022(request: Request):
-    return templates.TemplateResponse("se2022.html", {"request": request, "invalid": False})
-@app.get("/se2024", response_class=HTMLResponse)
-async def se2024(request: Request):
-    return templates.TemplateResponse("se2024.html", {"request": request, "invalid": False})
-@app.get("/glasgow", response_class=HTMLResponse)
-async def glasgow(request: Request):
-    return templates.TemplateResponse("glasgow.html", {"request": request, "invalid": False})
-@app.get("/queensland", response_class=HTMLResponse)
-async def queensland(request: Request):
-    return templates.TemplateResponse("queensland.html", {"request": request, "invalid": False})
+async def se2022(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("se2022.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("se2022.html", {"request": request, "alreadylogin": False})
 
+@app.get("/se2024", response_class=HTMLResponse)
+async def se2024(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("se2024.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("se2024.html", {"request": request, "alreadylogin": False})
+
+@app.get("/glasgow", response_class=HTMLResponse)
+async def glasgow(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("glasgow.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("glasgow.html", {"request": request, "alreadylogin": False})
+    
+@app.get("/queensland", response_class=HTMLResponse)
+async def queensland(request: Request, access_token: str = Cookie(None)):
+    try:
+        token = decodeJWT(access_token)
+        id = token["id"]
+        role = token["role"]
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
+        return templates.TemplateResponse("queensland.html", {"request": request, "alreadylogin": True, "username": username, "role": role})
+    except:
+        return templates.TemplateResponse("queensland.html", {"request": request, "alreadylogin": False})
 
 
 
