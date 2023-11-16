@@ -27,6 +27,7 @@ body {
   justify-content: center;
   position: fixed;
   z-index: 98;
+  box-shadow: 0 9px 50px hsla(0, 1%, 31%, 0.31);
 }
 
 .topnav li {
@@ -41,6 +42,7 @@ body {
   text-decoration: none;
   font-size: 17px;
   justify-content: space-between;
+  
 }
 
 /* Change the color of links on hover */
@@ -97,6 +99,7 @@ body {
 .topnav a:hover {
   background-color: #ddd;
   color: black;
+
 }
 
 /* Add a color to the active/current link */
