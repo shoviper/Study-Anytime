@@ -771,4 +771,3 @@ async def is_token_valid(request: Request):
         raise HTTPException(status_code=401, detail="Token not found in cookies")
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
-    

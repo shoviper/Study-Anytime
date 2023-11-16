@@ -120,7 +120,8 @@ body {
   background-color: #616161;
   color: white;
 }
-/* Style the sepic container */
+
+
 .sepic {
   display: flex;
   align-items: center;
@@ -167,11 +168,6 @@ body {
   transition: 0.2s ease-out;
 }
 
-/* input {
-  display: none;
-  visibility: hidden;
-  -webkit-appearance: none;
-} */
 .toggle {
   position: fixed;
   height: 40px;
@@ -496,14 +492,12 @@ i#next {
   color: #333;
 }
 
-/* Additional styling for text within each block */
 .container p {
   font-size: 20px;
   line-height: 2;
   color: #333;
 }
 
-/* Style for the header in each block */
 .container h2 {
   font-size: 20px;
   line-height: 2;
@@ -514,15 +508,12 @@ i#next {
   margin-bottom: 10px;
 }
 
-/* Style for the lecturer names */
 .lecturers {
   font-size: 20px;
   margin-bottom: 10px;
 }
-
-/* Add more specific styling if needed based on your design preferences */
-
 /* about */
+
 
 /* contact */
 .contact {
@@ -545,6 +536,8 @@ i#next {
   margin-right: 10px;
 }
 /* contact */
+
+
 
 /* news */
 .content {
@@ -572,7 +565,6 @@ i#next {
     margin-bottom: 20px;
   }
 }
-
 
 .allnews {
   display: flex;
@@ -800,6 +792,8 @@ i#next {
 }
 /* news */
 
+
+
 /* admission */
 .contentheader h3 {
   font-size: 30px;
@@ -848,6 +842,8 @@ i#next {
   padding: 20px;
 }
 /* admission page */
+
+
 
 /* studyanytime */
 .add_course {
@@ -979,6 +975,8 @@ input[type="checkbox"] {
 }
 /* studyanytime */
 
+
+
 /* program */
 .se2022 {
   margin-top: 90px;
@@ -1006,6 +1004,9 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 /* program */
+
+
+
 
 /* videoplayback */
 .videoplayback {
@@ -1093,6 +1094,9 @@ input[type="checkbox"] {
   margin-left: 70px;
 }
 /* videoplayback */
+
+
+
 
 /* forum */
 .forum {
@@ -1190,6 +1194,9 @@ input[type="checkbox"] {
 }
 /* forum */
 
+
+
+
 /* se2022 */
 .se2022 {
   margin: 30px;
@@ -1217,6 +1224,9 @@ input[type="checkbox"] {
   margin-bottom: 15px;
 }
 
+
+
+
 /* se2024 */
 .se2024 {
   margin: 30px;
@@ -1243,6 +1253,9 @@ input[type="checkbox"] {
   border-radius: 8px;
   margin-bottom: 15px;
 }
+
+
+
 
 /* glasgow */
 .section.jss171 {
@@ -1277,6 +1290,9 @@ input[type="checkbox"] {
   border: 1px solid #333;
 }
 
+
+
+
 /* queensland */
 .queensland {
   margin: 30px;
@@ -1307,6 +1323,8 @@ input[type="checkbox"] {
 .queensland ul li {
   line-height: 1.6;
 }
+
+
 
 /* upload and course */
 .uploadvideo {
@@ -1351,6 +1369,8 @@ input[type="checkbox"] {
 .uploadvideo form input[type="submit"]:hover {
   background-color: #ff7f4d;
 }
+
+
 
 /* video  */
 .video {
