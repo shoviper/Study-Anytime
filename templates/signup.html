@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up Page</title>
+    <link href="{{ url_for('static', path='signup.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class = "main">
+        <div class = "content">
+            <div class="topnav">
+                <li><a class="active" href="/"><b>SE@KMITL</b></a></li>
+            </div>
+            <div class="containertransition">
+                <div class="container">
+                    <img src="{{ url_for('static', path='/picture/se.png') }}" alt="SE PICTURE"  style="height: 70px; width:180;">
+                    <div class="header">
+                        <h2>Sign up</h2>
+                    </div>
+                    {% if invalid %}
+                        <p style="color: red;">Already exist</p>
+                    {% endif %}
+                    <div class="contentboxfield">
+                        <form id="signup-form" action="/user/signUp/" method="POST">
+                            <p>
+                                <input name="id" id="id" type="text" class="input-item" placeholder="ID (If you are student or lecturer of KMITL)">
+                            </p>
+                            <p>
+                                <input name="first_name" id="first_name" type="text" class="input-item" placeholder="Firstname *" required>
+                            </p>
+                            <p>
+                                <input name="last_name" id="last_name" type="text" class="input-item" placeholder="Lastname *" required>
+                            </p>
+                            <p>
+                                <input name="email" id="email" type="text" class="input-item" placeholder="E-mail *" required>
+                            </p>
+                            <p>
+                                <input name="password" id="password" type="password" class="input-item" placeholder="Password *" required>
+                            </p>
+                            <p>
+                                <input type="radio" name="role" id="student" value="student" required>
+                                <label for="student" class="radio-label">Student</label>
+                            
+                                <input type="radio" name="role" id="lecturer" value="lecturer" required>
+                                <label for="lecturer" class="radio-label">Lecturer</label>
+                            
+                                <input type="radio" name="role" id="others" value="others" required>
+                                <label for="others" class="radio-label">Others</label>
+                            </p>
+                            <div class="contentbutton">
+                                <button type="submit">Sign up</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="contentbuttonsub">
+                        <p>
+                            <span class="contentbuttonsubone">Already have an account?</span>
+                            <span>
+                                <a href="/login">Log in</a>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
