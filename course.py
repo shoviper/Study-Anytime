@@ -10,6 +10,7 @@ class Heading(Forum):
         super().__init__(user, content)
         self.reply = []
 
+
 class Video(persistent.Persistent):
     def __init__(self, title) -> None:
         self.title = title

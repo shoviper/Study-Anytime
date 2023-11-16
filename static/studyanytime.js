@@ -41,8 +41,6 @@ window.onload = function () {
     checkSignInStatus();
 };
 
-
-
 //textarea
 const textarea = document.querySelector("textarea");
 textarea.addEventListener("keyup", e => {

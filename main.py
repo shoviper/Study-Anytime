@@ -575,6 +575,7 @@ async def resetPwd(request: Request, email: str = Query(...)):
 
         print("Email sent successfully!")
         
+        
         print(found)
         return templates.TemplateResponse("resetpassword.html", {"request": request, "sent": True})
     except Exception as e:

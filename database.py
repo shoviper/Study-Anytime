@@ -9,6 +9,7 @@ db = ZODB.DB(storage)
 connection = db.open()
 root = connection.root
 
+
 if not hasattr(root, "course"):
     root.course = BTrees.OOBTree.BTree()
 if not hasattr(root, "instructor"):

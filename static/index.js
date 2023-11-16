@@ -13,6 +13,7 @@ const slideImage = () => {
   carousel.style.transform = `translate(-${imageIndex * 100}%)`;
 };
 
+
 const updateClick = (e) => {
   clearInterval(intervalId);
   imageIndex += e.target.id === "next" ? 1 : -1;

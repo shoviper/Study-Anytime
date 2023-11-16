@@ -1,6 +1,7 @@
 import time
 import jwt
 
+
 SECRET_KEY = "4cb39b4e3b4034b4ad19c8d5dec5293a"
 ALGORITHM = "HS256"
 
