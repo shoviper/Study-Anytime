@@ -20,28 +20,29 @@
             <div class="sidebar">
                 <h1>Profile</h1>
                 {% if alreadylogin %}
-                <p style="color: rgb(255, 255, 255);">Hello, {{username}}</p>
-                <li><a href="/logout">logout</a></li>
+                <p style="color: rgb(255, 255, 255);">{{username}}</p>
+                <br>
+                <li><a class="sidebar-menu" href="/logout">Logout</a></li>
                 {% else %}
                 <ul>
-                    <li><a href="/login">login</a></li>
-                    <li><a href="/signup">signup</a></li>
+                    <li><a class="sidebar-menu" href="/login">login</a></li>
+                    <li><a class="sidebar-menu" href="/signup">signup</a></li>
                 </ul>
                 {% endif %}
+                <br>
                 <div class="sidebarnav">
-                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/admission">Admissions</a></li>
                     <li><a href="/news">News</a></li>
-                    <div class="programbttn">
-                        <li><a>Program</a>
-                            <div class="dropdown">
+                    <div class="dropdown-side">
+                        <li><a class="dropbtn">Program</a>
+                            <div class="dropdown-content">
                                 <ul>
                                     <li><a href="/se2022">Software-Engineering 2022</a></li>
                                     <li><a href="/se2024">Software-Engineering 2024</a></li>
                                     <li><a href="/glasgow">KMITL-GLASGOW</a></li>
                                     <li><a href="/queensland">KMITL-Queensland</a></li>
-
                                 </ul>
                             </div>
                         </li>

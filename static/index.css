@@ -19,7 +19,78 @@ body {
   display: none;
 }
 
-/* Media query to display sidebarnav when width is less than 800px */
+.sidebarnav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebarnav a:hover {
+  color: #f2f2f2;
+  background-color: #e17420;
+}
+
+.sidebar-menu {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar-menu:hover {
+  color: #f2f2f2;
+  background-color: #e17420;
+}
+
+.sub-menu {
+  background: #262627;
+  display: none;
+  padding: 80px;
+}
+
+
+.dropdown-side {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #868686;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: auto;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: #2e2e2e;
+  display: block;
+  padding: 8px 8px 8px 32px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+  color: #f2f2f2;
+  background-color: #e17420;
+}
+
+.dropdown-side:hover .dropdown-content {
+  display: block;
+}
+
+
 @media screen and (max-width: 800px) {
   .sidebarnav {
     display: block;
@@ -140,7 +211,7 @@ body {
   margin-left: 10px;
 }
 .sidebar h1 {
-  padding: 150px 0;
+  padding: 125px 0;
   padding-right: 10px;
   text-align: center;
   pointer-events: none;
@@ -339,7 +410,6 @@ i#next {
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
-
 
 .modal-body {
   font-size: 20px;
@@ -572,7 +642,6 @@ i#next {
     margin-bottom: 20px;
   }
 }
-
 
 .allnews {
   display: flex;
@@ -1149,7 +1218,6 @@ input[type="checkbox"] {
     width: 100%;
     height: auto;
   }
-
 }
 
 /* videoplayback */
