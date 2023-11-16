@@ -51,12 +51,23 @@
             </div>
         </label>
         <div class="topnav">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/admission">Admissions</a>
-            <a href="/news">News</a>
-            <a>Program</a>
-            <a class="active" href="/studyanytime" id="studyAnytimeLink">Study Anytime</a>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/admission">Admissions</a></li>
+            <li><a href="/news">News</a></li>
+            <div class="programbttn">
+                <li><a>Program</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="/se2022">Software-Engineering 2022</a></li>
+                            <li><a href="/se2024">Software-Engineering 2024</a></li>
+                            <li><a href="/glasgow">KMITL-GLASGOW</a></li>
+                            <li><a href="/queensland">KMITL-Queensland</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+            <li><a class="active" href="/studyanytime">Study Anytime</a></li>
             <div class="sepic">
                 <img src="{{ url_for('static', path='/picture/se.png') }}" alt="sepic" style="width: 75px; height: 45px;">
             </div>
