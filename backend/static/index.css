@@ -346,6 +346,19 @@ i#next {
   animation-duration: 0.4s;
 }
 
+.modal-footer button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #e17420;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease-in-out;
+  margin-left: 20px;
+}
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
   from {
