@@ -320,17 +320,17 @@ async def delete_file(request: Request, course_id: int, file: UploadFile, access
     COURSE_DIR = VIDEO_DIR / str(course_id)
     try:
         token = decodeJWT(access_token)
-        instructor_id = token["id"]
+        id = token["id"]
         role = token["role"]
-        username = f"{get_user(instructor_id).first_name} {get_user(instructor_id).last_name}"
+        username = f"{get_user(id).first_name} {get_user(id).last_name}"
         course = await get_course(int(course_id))
         videos = get_video_names(course)
-        isInstructor = True if course.instructor == instructor_id else False
+        isInstructor = True if course.instructor == id else False
         isPublic = course.public
-        enrolled = True if instructor_id in course.student_list or course.public else False
+        enrolled = True if id in course.student_list or course.public else False
         student_list = [get_user(name) for name in course.student_list]
         
-        if not instructor_id in root.instructor.keys():
+        if not id in root.instructor.keys():
             raise HTTPException(404, detail="db_error: Instructor not found")
 
         file_path = COURSE_DIR / file.filename

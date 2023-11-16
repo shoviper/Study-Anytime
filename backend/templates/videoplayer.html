@@ -69,6 +69,7 @@
             </div>
             <li><a class="active" href="/studyanytime">Study Anytime</a></li>
             <div class="sepic">
+                &emsp;&emsp;
                 <img src="{{ url_for('static', path='/picture/se.png') }}" alt="sepic" style="width: 75px; height: 45px;">
             </div>
         </div>
@@ -134,24 +135,27 @@
         </form>
         {% for f in forum %}
         <div>
-            <p><b>{{f.user}}</b></p>
-            <p>{{f.content}}</p>
+            <p><b>&emsp;&emsp;{{f.user}}</b></p>
+            <div class="forum-content">
+                <p>&emsp;&emsp;{{f.content}}</p>
+            </div>
             <button class="expand-replies">Expand forum</button>
             <div class="replies" style="display: none;">
+                <div>
+                    {% for r in f.reply %}
+                    <p><b><i>&emsp;&emsp;{{r.user}}</i></b></p>
+                    <div class="forum-content">
+                        <p><i>&emsp;&emsp;{{r.content}}</i></p> 
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
                 <form action="/video/{{course.id}}/{{video_name}}/{{loop.index - 1}}" method="POST">
                     <label for="post_content">Reply:</label>
                     <textarea id="post_content" name="post_content" required></textarea>
                     <br>
                     <button type="submit">Reply</button>
                 </form>
-                <br>
-                <div>
-                    {% for r in f.reply %}
-                    <p><b><i>&emsp;{{r.user}}</i></b></p>
-                    <p><i>&emsp;{{r.content}}</i></p>
-                    <br>
-                    {% endfor %}
-                </div>
             </div>
         </div>
         {% endfor %}

@@ -977,6 +977,34 @@ input[type="checkbox"] {
   height: 20px;
   margin-left: 10px;
 }
+
+.video-select {
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 10px;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  font-size: 14px;
+}
+
+.video-select:hover {
+  background-color: #e17420;
+  color: #ffffff;
+  padding: 10px;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  font-size: 14px;
+}
 /* studyanytime */
 
 /* program */
@@ -1035,34 +1063,35 @@ input[type="checkbox"] {
 }
 
 .not-playing {
-  margin-left: 100px;
   background-color: #f2f2f2;
   padding: 10px;
-  margin-left: 45px;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 10px;
   border: 1px solid #333;
   border-radius: 5px;
-  width: 300px;
-  height: 40px;
+  width: 100%;
+  height: auto;
   font-size: 14px;
 }
 
 .playing {
   background-color: #e17420;
-  color: #fff;
+  color: #ffffff;
   padding: 10px;
-  margin-left: 45px;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 10px;
   border: 1px solid #333;
   border-radius: 5px;
-  width: 300px;
-  height: 40px;
+  width: 100%;
+  height: auto;
   font-size: 14px;
 }
 
 .videosidebar h1 {
   margin-top: 10px;
-  margin-left: 40px;
+  margin-left: 10%;
   font-size: 30px;
   margin-bottom: 20px;
 }
@@ -1079,7 +1108,7 @@ input[type="checkbox"] {
   margin-right: 5%;
   margin-top: 100px;
   margin-bottom: 30px;
-  height: 600px;
+  height: auto;
 }
 
 .videocontainer {
@@ -1092,11 +1121,42 @@ input[type="checkbox"] {
 .videocontainer hr {
   margin-left: 70px;
 }
+
+@media screen and (max-width: 1400px) {
+  .videocontainer {
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 100px;
+    margin-bottom: 30px;
+  }
+
+  .videosidebar h1 {
+    margin-top: 30px;
+    margin-left: 0%;
+  }
+
+  .playing {
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 100%;
+    height: auto;
+  }
+
+  .not-playing {
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 100%;
+    height: auto;
+  }
+
+}
+
 /* videoplayback */
 
 /* forum */
 .forum {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .forum h3 {
@@ -1127,7 +1187,8 @@ input[type="checkbox"] {
   border-radius: 10px;
   outline: none;
   resize: none;
-  font-size: 20px;
+  font-size: 16px;
+  font-family: sans-serif;
   max-height: 400px;
 }
 
@@ -1188,6 +1249,7 @@ input[type="checkbox"] {
 .forum form:last-child {
   margin-bottom: 50px;
 }
+
 /* forum */
 
 /* se2022 */
